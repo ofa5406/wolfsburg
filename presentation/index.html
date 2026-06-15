@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Wolfsburg Workspace — how our system works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<style>
+  :root{
+    --bg0:#0b1220; --bg1:#111c33; --ink:#e6edf6; --muted:#9fb0c7;
+    --accent:#f6b53c; --accent2:#37d4be; --line:#27364f; --card:#16233b;
+  }
+  html,body{background:var(--bg0);}
+  .reveal{font-family:'Inter',system-ui,sans-serif;font-size:30px;color:var(--ink);}
+  .reveal .slides{text-align:left;}
+  .reveal .slides section{
+    background:radial-gradient(1200px 700px at 80% -10%, rgba(55,212,190,.10), transparent 60%),
+               radial-gradient(900px 600px at -10% 110%, rgba(246,181,60,.10), transparent 55%),
+               linear-gradient(160deg,var(--bg1),var(--bg0));
+    border-radius:18px;padding:48px 56px;box-shadow:inset 0 0 0 1px var(--line);height:100%;box-sizing:border-box;
+  }
+  .reveal h1,.reveal h2,.reveal h3{color:#fff;font-weight:800;letter-spacing:-.02em;line-height:1.05;text-transform:none;margin:0 0 .35em;}
+  .reveal h1{font-size:1.9em;} .reveal h2{font-size:1.45em;} .reveal h3{font-size:1.12em;}
+  .reveal p,.reveal li{color:var(--ink);line-height:1.4;}
+  .reveal em{color:var(--accent);font-style:normal;font-weight:600;}
+  .reveal strong{color:#fff;}
+  .kicker{color:var(--accent2);font-weight:700;font-size:.62em;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.6em;}
+  .sub{color:var(--muted);font-size:.8em;}
+  .center{text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;height:100%;}
+  .center .lead{font-size:.92em;color:var(--muted);max-width:18em;margin-top:.4em;}
+  .pill{display:inline-block;background:rgba(246,181,60,.14);color:var(--accent);border:1px solid rgba(246,181,60,.35);
+        padding:.28em .7em;border-radius:999px;font-size:.62em;font-weight:600;letter-spacing:.04em;}
+  .mono{font-family:'JetBrains Mono',monospace;color:var(--accent2);}
+  .cols{display:flex;gap:28px;}
+  .cols>div{flex:1;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;}
+  .card h3{margin:.1em 0 .25em;font-size:1em;}
+  .card p{font-size:.72em;color:var(--muted);margin:0;}
+  ul.clean{list-style:none;margin:0;padding:0;}
+  ul.clean li{position:relative;padding:.28em 0 .28em 1.4em;font-size:.84em;}
+  ul.clean li::before{content:"→";position:absolute;left:0;color:var(--accent2);font-weight:700;}
+  /* step flow for use cases */
+  .flow{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px;margin-top:18px;}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;width:210px;min-height:96px;}
+  .step .n{display:inline-flex;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#1a1206;
+           font-weight:800;font-size:.72em;align-items:center;justify-content:center;margin-bottom:8px;}
+  .step b{display:block;color:#fff;font-size:.78em;margin-bottom:3px;}
+  .step span{font-size:.66em;color:var(--muted);line-height:1.3;display:block;}
+  .arrow{color:var(--accent);font-size:1.5em;line-height:1;}
+  .mermaid{display:flex;justify-content:center;}
+  .reveal .mermaid svg{max-height:480px;height:auto;}
+  .footer{position:absolute;bottom:14px;left:56px;right:56px;display:flex;justify-content:space-between;
+          font-size:.5em;color:#5f739a;}
+  .footer .mono{font-size:1em;}
+  .reveal .progress{color:var(--accent);}
+  .tag{color:var(--accent2);font-weight:600;font-size:.62em;letter-spacing:.04em;text-transform:uppercase;}
+  .big{font-size:1.15em;line-height:1.25;}
+  .quote{font-size:1.15em;color:#fff;font-weight:600;line-height:1.3;border-left:3px solid var(--accent);padding-left:.7em;}
+</style>
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+<!-- 1 TITLE -->
+<section data-auto-animate>
+  <div class="center">
+    <span class="pill">Team workspace · how it works</span>
+    <h1 data-id="t" style="margin-top:.5em;">The Workspace</h1>
+    <p class="big" style="color:var(--accent2);font-weight:600;margin:.1em 0 0;">A project that remembers itself.</p>
+    <p class="lead">One folder + an AI agent = our single source of truth, our research, and our memory for the Post-Car Future of Wolfsburg.</p>
+  </div>
+</section>
+
+<!-- 2 PROBLEM -->
+<section>
+  <div class="kicker">The problem we kept hitting</div>
+  <h2>Knowledge kept evaporating</h2>
+  <div class="cols" style="margin-top:.6em;">
+    <div class="card"><h3>💬 Chats end</h3><p>A great session with the AI… then the chat closes and the reasoning is gone.</p></div>
+    <div class="card"><h3>🗂️ Files scatter</h3><p>Numbers in one doc, a decision in another, feedback in a third. Nobody's sure what's current.</p></div>
+    <div class="card"><h3>🔁 We restart cold</h3><p>Every session (and every teammate) re-explains the project from zero.</p></div>
+  </div>
+  <p class="sub" style="margin-top:1em;">We didn't need more files. We needed a system that <em>holds state</em>.</p>
+</section>
+
+<!-- 3 IDEA -->
+<section>
+  <div class="kicker">The idea</div>
+  <h2>The folder <em>is</em> the system</h2>
+  <div class="cols" style="margin-top:.5em;align-items:stretch;">
+    <div class="card"><h3 style="color:var(--accent2)">You work in one folder</h3><p style="font-size:.78em">Everything about the project — concept, evidence, decisions, history — lives in a single repository.</p></div>
+    <div class="card"><h3 style="color:var(--accent2)">Claude maintains it</h3><p style="font-size:.78em">The agent reads the rules in the folder, does the work, and writes the result back. It keeps the system tidy for you.</p></div>
+  </div>
+  <p class="quote" style="margin-top:1em;">You don't manage the system. You just work — the agent does the bookkeeping.</p>
+</section>
+
+<!-- 4 HOW IT WORKS - LOOP DIAGRAM -->
+<section>
+  <div class="kicker">How it works</div>
+  <h2>One simple loop</h2>
+  <div class="mermaid">
+flowchart LR
+    A([You ask Claude<br/>inside the folder]):::you --> B[Claude reads the rules<br/>CLAUDE.md + HANDOFF.md]:::read
+    B --> C[Does the work<br/>research · drawings · code · text]:::do
+    C --> D[Writes it back &amp;<br/>logs the session]:::write
+    D --> E([Memory persists<br/>next time = instant resume]):::mem
+    E -.-> A
+    classDef you fill:#1f2d4a,stroke:#37d4be,color:#eaf2ff,stroke-width:2px;
+    classDef read fill:#16233b,stroke:#3a4d70,color:#dbe6f5;
+    classDef do fill:#16233b,stroke:#3a4d70,color:#dbe6f5;
+    classDef write fill:#16233b,stroke:#3a4d70,color:#dbe6f5;
+    classDef mem fill:#3a2c0c,stroke:#f6b53c,color:#ffe9bf,stroke-width:2px;
+  </div>
+  <p class="sub" style="text-align:center;margin-top:.4em;">Every interaction leaves the project a little more complete — and never forgotten.</p>
+</section>
+
+<!-- 5 NOT HARD -->
+<section>
+  <div class="kicker">The best part</div>
+  <h2>It's not hard to use</h2>
+  <div class="flow">
+    <div class="step"><span class="n">1</span><b>Open the folder</b><span>Work where the project lives.</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">2</span><b>Tell Claude what you want</b><span>"Map the hubs", "prep the consultation", "draft the timeline".</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">3</span><b>It does the rest</b><span>Reads context, works, files results, updates the memory.</span></div>
+  </div>
+  <p class="quote" style="margin-top:1.1em;">No setup. No file management. If you keep working, it keeps remembering.</p>
+</section>
+
+<!-- 6 FOLDER AS INTERFACE -->
+<section>
+  <div class="kicker">What's in the folder</div>
+  <h2>A few files do the work</h2>
+  <div class="mermaid">
+flowchart TB
+    root["📁 wolfsburg/"]:::root
+    root --> a["CLAUDE.md — the rules<br/><i>read first</i>"]:::rule
+    root --> b["HANDOFF.md — where we are now<br/><i>read second</i>"]:::state
+    root --> c["research/ — cited evidence<br/><i>10 docs · 199 sources</i>"]:::ev
+    root --> d["decisions.md — what's locked"]:::dec
+    root --> e["sessions/ — the memory log"]:::mem
+    root --> f["project/ · rhino/ — the work itself"]:::work
+    classDef root fill:#1f2d4a,stroke:#37d4be,color:#eaf2ff,stroke-width:2px;
+    classDef rule fill:#16233b,stroke:#f6b53c,color:#ffe9bf;
+    classDef state fill:#16233b,stroke:#f6b53c,color:#ffe9bf;
+    classDef ev fill:#16233b,stroke:#3a4d70,color:#dbe6f5;
+    classDef dec fill:#16233b,stroke:#3a4d70,color:#dbe6f5;
+    classDef mem fill:#16233b,stroke:#3a4d70,color:#dbe6f5;
+    classDef work fill:#16233b,stroke:#3a4d70,color:#dbe6f5;
+  </div>
+  <p class="sub" style="text-align:center;">Two files carry the memory: <span class="mono">CLAUDE.md</span> (rules) + <span class="mono">HANDOFF.md</span> (live state).</p>
+</section>
+
+<!-- 7 BRANCHES -->
+<section>
+  <div class="kicker">Working together safely</div>
+  <h2>Branches = parallel work, no collisions</h2>
+  <div class="mermaid">
+%%{init: {'theme':'base','themeVariables':{'git0':'#37d4be','git1':'#f6b53c','git2':'#7aa2ff','commitLabelColor':'#0b1220','commitLabelBackground':'#e6edf6','gitBranchLabel0':'#0b1220','gitBranchLabel1':'#0b1220','gitBranchLabel2':'#0b1220'}}}%%
+gitGraph
+   commit id:"workspace"
+   branch hub-map
+   commit id:"draft map"
+   commit id:"add radii"
+   checkout main
+   branch persona
+   commit id:"Anna route"
+   checkout main
+   merge hub-map tag:"reviewed"
+   merge persona tag:"reviewed"
+   commit id:"ready for June 25"
+  </div>
+  <ul class="clean" style="margin-top:.5em;">
+    <li><strong>main</strong> stays clean and presentable at all times.</li>
+    <li>Each new piece gets its <strong>own branch</strong> — work in parallel without overwriting each other.</li>
+    <li>Review, then <strong>merge</strong>. The web tool already works this way.</li>
+  </ul>
+</section>
+
+<!-- 8 USE CASE 1 -->
+<section>
+  <div class="tag">Use case 01</div>
+  <h2>A teammate joins midweek</h2>
+  <div class="flow">
+    <div class="step"><span class="n">1</span><b>Clone the repo</b><span>One command, whole project.</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">2</span><b>Read README + HANDOFF</b><span>What it is + where we are.</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">3</span><b>Ask Claude to brief them</b><span>"Catch me up on the fleet decision."</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">4</span><b>Productive in ~10 min</b><span>No long hand-over meeting.</span></div>
+  </div>
+  <p class="quote" style="margin-top:1em;">Onboarding goes from "explain everything" to "read two files."</p>
+</section>
+
+<!-- 9 USE CASE 2 -->
+<section>
+  <div class="tag">Use case 02</div>
+  <h2>Tutor consultation tomorrow</h2>
+  <div class="flow">
+    <div class="step"><span class="n">1</span><b>Ask for the arguments</b><span>"Give me cited points defending the hub count."</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">2</span><b>Claude pulls from research/</b><span>Quote-ready lines + sources + weak-point answers.</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">3</span><b>You walk in prepared</b><span>Numbers and precedents at hand.</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">4</span><b>Log the feedback after</b><span>Decisions captured, not lost.</span></div>
+  </div>
+  <p class="sub" style="margin-top:1em;">The evidence library means you never improvise the facts.</p>
+</section>
+
+<!-- 10 USE CASE 3 -->
+<section>
+  <div class="tag">Use case 03</div>
+  <h2>Building a deliverable</h2>
+  <div class="flow">
+    <div class="step"><span class="n">1</span><b>Start a branch</b><span><span class="mono">car-land-map</span></span></div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">2</span><b>Claude drives Rhino / the tool</b><span>Scripts the model, generates the map.</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">3</span><b>Commit the result</b><span>Versioned, reversible.</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">4</span><b>Open a PR, merge</b><span>Team reviews, lands on main.</span></div>
+  </div>
+  <p class="sub" style="margin-top:1em;">The agent connects to the 3D model and the web tool — you direct, it produces.</p>
+</section>
+
+<!-- 11 USE CASE 4 -->
+<section>
+  <div class="tag">Use case 04</div>
+  <h2>Your session (or usage) ends mid-work</h2>
+  <div class="mermaid">
+flowchart LR
+    A[Working late...<br/>usage limit hits]:::warn --> B[Claude writes<br/>HANDOFF.md + session log]:::write
+    B --> C[Computer off 💤]:::off
+    C --> D[Next day: open folder]:::you
+    D --> E([Resume exactly<br/>where you stopped]):::mem
+    classDef warn fill:#3a2230,stroke:#ff7a90,color:#ffd9e0;
+    classDef write fill:#16233b,stroke:#3a4d70,color:#dbe6f5;
+    classDef off fill:#16233b,stroke:#3a4d70,color:#9fb0c7;
+    classDef you fill:#1f2d4a,stroke:#37d4be,color:#eaf2ff;
+    classDef mem fill:#3a2c0c,stroke:#f6b53c,color:#ffe9bf,stroke-width:2px;
+  </div>
+  <p class="quote" style="text-align:center;margin-top:.3em;">Nothing is ever lost between sessions.</p>
+</section>
+
+<!-- 12 RHYTHM -->
+<section>
+  <div class="kicker">The whole routine</div>
+  <h2>Three habits, that's it</h2>
+  <div class="cols" style="margin-top:.5em;">
+    <div class="card"><h3>▶ Start</h3><p>Open the folder. Claude reads <span class="mono">CLAUDE.md</span> + <span class="mono">HANDOFF.md</span> and you're oriented.</p></div>
+    <div class="card"><h3>✎ Work</h3><p>Just ask for what you need. New piece? Put it on a branch.</p></div>
+    <div class="card"><h3>⏹ End</h3><p>Claude logs the session &amp; updates <span class="mono">HANDOFF.md</span>. Memory saved.</p></div>
+  </div>
+  <p class="sub" style="margin-top:1em;text-align:center;">Keep it updated by simply <em>ending</em> your sessions — the agent handles the writing.</p>
+</section>
+
+<!-- 13 CLOSE -->
+<section>
+  <div class="center">
+    <span class="pill">Get in &amp; go</span>
+    <h2 style="margin-top:.4em;">Open the folder. Start working.</h2>
+    <ul class="clean" style="font-size:1.05em;margin-top:.3em;">
+      <li>Repo: <span class="mono">github.com/ofa5406/wolfsburg</span> <span class="sub">(private — ask to be added)</span></li>
+      <li>Web tool: <span class="mono">github.com/annestasiia/wolfsburg-activity-map</span></li>
+      <li>Read <span class="mono">README.md</span>, then <span class="mono">HANDOFF.md</span> — that's the whole onboarding.</li>
+    </ul>
+    <p class="big" style="color:var(--accent);margin-top:.8em;">Let's prove the post-car city works. 🚲</p>
+  </div>
+</section>
+
+</div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11.4.0/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({
+    startOnLoad:false, securityLevel:'loose', theme:'base',
+    themeVariables:{
+      fontFamily:'Inter, sans-serif', fontSize:'17px',
+      lineColor:'#5f739a', primaryColor:'#16233b', primaryTextColor:'#dbe6f5',
+      primaryBorderColor:'#3a4d70', secondaryColor:'#1f2d4a', tertiaryColor:'#16233b'
+    }
+  });
+  async function renderIn(slide){
+    if(!slide) return;
+    const nodes=[...slide.querySelectorAll('.mermaid')].filter(n=>!n.dataset.done);
+    if(!nodes.length) return;
+    nodes.forEach(n=>n.dataset.done='1');
+    try{ await mermaid.run({nodes}); }catch(e){ console.error(e); }
+    Reveal.layout();
+  }
+  Reveal.initialize({
+    hash:true, controls:true, progress:true, slideNumber:'c/t',
+    transition:'slide', backgroundTransition:'fade', width:1100, height:740, margin:0.04,
+  }).then(()=>{
+    renderIn(Reveal.getCurrentSlide());
+    Reveal.on('slidechanged', e=>renderIn(e.currentSlide));
+  });
+</script>
+</body>
+</html>
