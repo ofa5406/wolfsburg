@@ -3,6 +3,13 @@
 *Last updated: June 15, 2026*
 GitHub: https://github.com/annestasiia/wolfsburg-activity-map.git
 
+> **Canonical reference moved into the code repo.** The detailed, code-adjacent version of this
+> document now lives at `wolfsburg-activity-map/docs/MODES.md` (with `README.md` and `CLAUDE.md`
+> alongside it). Maintain it there; this file is kept as the project-workspace overview. Note the
+> tool's navigation has been restructured into **5 sections** (Strategy · Capacity · Hub System ·
+> Urban Design · Simulation) — the per-mode descriptions below remain accurate as the analytical
+> reference.
+
 ---
 
 ## What This Tool Is
