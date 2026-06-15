@@ -2,7 +2,7 @@
 
 *This is the single "where are we right now" file. Whenever you (or Claude) start a session, read this before anything else. Whenever you end a session, update it. It is the memory that survives when a chat ends or usage resets.*
 
-*Last updated: 2026-06-15 (title-fix session — project title corrected to "Post-Car Future of Wolfsburg" everywhere, incl. rewritten git history; deck redeployed)*
+*Last updated: 2026-06-15 (web-tool docs session — rewrote the Activity Map README, added CLAUDE.md + docs/MODES.md, merged & deployed)*
 
 ---
 
@@ -29,7 +29,7 @@ Wolfsburg reimagined as a **post-private-car city**: the organizing element shif
 ## What exists now
 
 - ✅ Hub typology logic (`project/hub_typologies.md`) + Rhino kit-of-parts (`toolpalette.3dm`, 45 blocks, 3 sample scenes).
-- ✅ Web tool "Wolfsburg Activity Map" (7 analysis modes, incl. hub placement + cycling network).
+- ✅ Web tool "Wolfsburg Activity Map" — now organised as **5 sections** (Strategy · Capacity · Hub System · Urban Design · Simulation); hub placement + cycling network live. Repo now has README + `CLAUDE.md` + `docs/MODES.md`; deploys from `master` (GitHub Pages).
 - ✅ **NEW: `research/` library** — ~10 cited documents (arguments, weak-points, hubs, mobility, precedents, behavior, theory, future, workflow). Start at `research/README.md`.
 - ✅ **NEW: session-memory system** — this file + `sessions/INDEX.md` + `sessions/_template.md`.
 
