@@ -2,7 +2,7 @@
 
 *This is the single "where are we right now" file. Whenever you (or Claude) start a session, read this before anything else. Whenever you end a session, update it. It is the memory that survives when a chat ends or usage resets.*
 
-*Last updated: 2026-06-15 (research session)*
+*Last updated: 2026-06-15 (title-fix session — project title corrected to "Post-Car Future of Wolfsburg" everywhere, incl. rewritten git history; deck redeployed)*
 
 ---
 
