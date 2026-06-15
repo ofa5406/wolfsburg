@@ -1,0 +1,27 @@
+# Web tool lives in its own repository — see README (annestasiia/wolfsburg-activity-map)
+wolfsburg-activity-map/
+
+# Dependencies / build artifacts
+node_modules/
+dist/
+build/
+.vite/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Rhino backups / temp
+*.3dmbak
+*.3dm.rhl
+*.rhl
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+*~
+.vscode/
+.idea/
