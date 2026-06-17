@@ -19,6 +19,7 @@ Quick-scan list of all open work. Update this during sessions and between them.
 - [ ] Street transformation sections — before/after for Kleiststraße and at least one other street | owner: team | source: June 4 consultation | by: June 25
 - [ ] 4-phase implementation timeline — Pilot → Hub backbone → Network reshaping → Post-car centre | owner: team | source: June 4 consultation | by: June 25
 - [ ] Update web-tool/status.md planned features — what is the team currently building or planning in the Activity Map? | owner: team | source: workshop setup session | by: anytime
+- [ ] **Build the HTML presentation** — single deck/site: concept + related topics, spatial diagrams & visualizations, before/afters, videos, **strategy plan** (bigger scale incl. outer settlements), **masterplan** (city-centre scale: traffic plan, hubs, land acquisition, L-hub reuse scenarios) | owner: team | source: 2026-06-17 decision | by: June 25
 
 ### From hub-system rethink — June 17 (see project/hub_concept_vs_tool.md + decisions.md)
 Design questions RESOLVED 2026-06-17; remaining items are implementation:

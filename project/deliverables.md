@@ -21,6 +21,7 @@
 | Persona journey — one detailed home → VW factory trip | Not started | "Anna" worker persona, show time/transfers/experience |
 | Street transformation sections — before/after | Partial | Kleiststraße done; need at least one more + the canal-side parking → park |
 | Implementation timeline — 4-phase transition | Not started | Pilot → Hub backbone → Network reshaping → Post-car centre |
+| **HTML presentation** — single deck/site carrying the whole project | Not started | Decided 2026-06-17. Sections: concept + all related topics; spatial diagrams & visualizations; before/afters; videos; **strategy plan** (bigger scale, incl. outer settlements); **masterplan** (city-centre scale — traffic plan, hubs, land acquisition, L-hub reuse scenarios). Serves June 25 / Summaery / competition. Build deferred. |
 | Physical model | Not started | Due August 14 |
 
 ---

@@ -48,9 +48,10 @@ None of the seven proof deliverables are produced yet. In rough priority:
 ## Resume here (next actions)
 
 1. **Hub concept — RESOLVED 2026-06-17** (`decisions.md` + `project/hub_concept_vs_tool.md`): typology protected; S unchanged; M = near underground parking + surface typology; L = **L-Anchor** (central reuse) + **L-Gateway** (edge depot + park-and-switch interchange). Remaining items are *implementation*: decide if L-Gateways count toward the 6; add an L-Gateway typology variant; web-tool code change (algorithm currently excludes L from central cores); coverage radii; methodology-vs-code. See `tasks.md`.
-2. Skim `research/README.md`, then read `research/07_weak-points-actions.md` → pick the highest-leverage fixes.
-3. Begin the **car-land map** and **hub-coverage map** (highest rhetorical value, both feasible in Rhino/web tool).
-4. Use `research/09_execution-workflow.md` for the realistic week-by-week plan to June 25.
+2. **HTML presentation — queued (decided 2026-06-17):** build a single deck/site covering concept, spatial diagrams/visualizations, before/afters, videos, **strategy plan** (bigger scale, incl. outer settlements) and **masterplan** (city-centre scale: traffic plan, hubs, land acquisition, L-hub reuse scenarios). Build deferred; recorded in `project/deliverables.md` + `tasks.md`. Most visuals still to be produced; live web tool can be embedded.
+3. Skim `research/README.md`, then read `research/07_weak-points-actions.md` → pick the highest-leverage fixes.
+4. Begin the **car-land map** and **hub-coverage map** (highest rhetorical value, both feasible in Rhino/web tool).
+5. Use `research/09_execution-workflow.md` for the realistic week-by-week plan to June 25.
 
 **Paused thread — MOIA/MIA research (2026-06-17):** new doc `research/10_moia-mia-precedent.md` is written but not yet folded into the rest. Key takeaway: MOIA is **VW-owned** → "Wolfsburg = ideal pilot city" home-advantage frame, plus AMAG/Zurich validation numbers (600 AVs / 230k weekly trips / 5-min / 96%). To continue: (a) fold the frame + numbers into `research/06` and `07`; (b) spec the MIA-style "Simulator slider" panel for the web tool. See the 7 tasks in `tasks.md` and `sessions/2026-06-17_moia-mia-research/notes.md`.
 
