@@ -5,6 +5,7 @@ Add a line here at the END of every session. This + `HANDOFF.md` are how work su
 
 ---
 
+- **2026-06-17** — [Hub system rethink](2026-06-17_hub-system-rethink/notes.md) — group reopened the hub concept; the tool places hubs from existing parking (M=underground, L=multi-storey), raising "these are garages, not hubs." Wrote a neutral 3-way comparison (`project/hub_concept_vs_tool.md`). S stays a hub; M location logic + L anchor-vs-depot unresolved. Also found the deployed methodology page describes methods the code doesn't implement.
 - **2026-06-17** — [MOIA & MIA research](2026-06-17_moia-mia-research/notes.md) — researched VW's ridepooling subsidiary + its MIA simulator; wrote `research/10`, added 7 tasks. Key: VW ownership = "home-advantage" frame; AMAG/Zurich validation numbers. *Paused — continue later.*
 - **2026-06-15** — [Web-tool docs refresh](2026-06-15_web-tool-docs/notes.md) — rewrote the Activity Map README, added `CLAUDE.md` + `docs/MODES.md`; merged & deployed (PR #6 → master, PR #1 → main).
 - **2026-06-15** — [Title fix: "Postcard" → "Post-Car"](2026-06-15_postcard-fix/notes.md) — purged the mistyped project title everywhere incl. rewritten git history, redeployed deck, fixed the memory file (root cause).

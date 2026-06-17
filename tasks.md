@@ -20,6 +20,17 @@ Quick-scan list of all open work. Update this during sessions and between them.
 - [ ] 4-phase implementation timeline — Pilot → Hub backbone → Network reshaping → Post-car centre | owner: team | source: June 4 consultation | by: June 25
 - [ ] Update web-tool/status.md planned features — what is the team currently building or planning in the Activity Map? | owner: team | source: workshop setup session | by: anytime
 
+### From hub-system rethink — June 17 (see project/hub_concept_vs_tool.md + decisions.md)
+Design questions RESOLVED 2026-06-17; remaining items are implementation:
+- [x] Resolve the **L-hub** question → L broadened into **L-Anchor** (central reuse building) + **L-Gateway** (edge depot + park-and-switch interchange). | completed: June 17
+- [x] Decide **M-hub location logic** → M = near underground parking for fast AV service **+** full surface typology. | completed: June 17
+- [x] Settle **naming** → kept "hub"; typology protected, "garage" dropped as a label. | completed: June 17
+- [ ] **Decide:** do **L-Gateways** count toward the "6 L-hubs" public total, or are they a separate fleet-infrastructure layer? | owner: team | source: 2026-06-17 | by: June 25
+- [ ] **Typology:** add an **L-Gateway** variant (mode-change arrival sequence for inbound commuters) alongside S / M / L-Anchor sheets | owner: team | source: 2026-06-17 | by: June 25
+- [ ] **Web tool code:** the algorithm excludes L from central cores (`HUB_L_EXCLUDED_DISTRICTS`), so it cannot place L-Anchors centrally — lift the exclusion or split L into Anchor/Gateway sub-types | owner: web-tool | source: 2026-06-17 | by: June 25 | priority: high
+- [ ] Reconcile the web tool's **published methodology** (`HubAlgoPanel.jsx`: MCLP/AHP/KDE/isochrones) with what the **code actually does** (`hubLMAlgorithm.js`: parking-area greedy select) — implement toward it, or revise the text. Public-facing → jury risk | owner: web-tool | source: 2026-06-17 | by: June 25 | priority: high
+- [ ] Reconcile **coverage radii**: code uses 4000/2000/500 m (service ranges); concept uses 700-1000/300-500/150-250 m walking catchments | owner: web-tool | source: 2026-06-17 | by: anytime
+
 ### From MOIA/MIA research (research/10) — June 17
 - [ ] Add MOIA "home-advantage" frame to narrative + research/06 (VW subsidiary already builds this; Wolfsburg = ideal pilot city) | owner: team | source: research/10 | by: June 25 | effort: low / high-leverage
 - [ ] Add MOIA counters to the 3 weak points in research/07 (AV-realism, VW-company-town politics, who-operates-and-pays) | owner: team | source: research/10 | by: June 25 | effort: low / high-leverage
