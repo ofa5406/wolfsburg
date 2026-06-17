@@ -5,6 +5,25 @@ Newest entries at the top. Add freely — this is a scratchpad, not a formal doc
 
 ---
 
+## 2026-06-17 — Decided: build an HTML presentation
+
+The team decided to prepare a single **HTML presentation** carrying the whole project.
+
+**Scope agreed:**
+- Concept and all related topics
+- Spatial diagrams and visualizations
+- Before/afters
+- Videos
+- **Strategy plan** — bigger scale, including outer settlements
+- **Masterplan** — Wolfsburg city-centre scale: traffic plan, hubs, land acquisition,
+  and L-hub reuse scenarios
+
+Serves the June 25 / Summaery / competition deadlines. **Build deferred** — recorded as
+a deliverable (`project/deliverables.md`) and a task for now. Most visuals (maps,
+before/afters, renders, videos) still need producing; the live web tool can be embedded.
+
+---
+
 ## 2026-06-17 — Hub concept reopened (tool places hubs from parking)
 
 Long group debate on the hub system, triggered by how the web tool places hubs.
