@@ -26,13 +26,14 @@ This library is the answer. It is **balanced** toward the Aug 16 competition but
 | 01 | [`01_post-car-urbanism.md`](01_post-car-urbanism.md) | Post-car theory, parking-as-urban-form (Shoup), filtered permeability, 15-min city | medium |
 | 08 | [`08_future-projections.md`](08_future-projections.md) | AV adoption timelines, reclaimed-land futures, 2035/2050 scenarios | medium |
 | 09 | [`09_execution-workflow.md`](09_execution-workflow.md) | Realistic plan to Aug 16, Rhino workflow tips, AI/agentic tasks (incl. non-Claude tools) | medium |
+| 10 | [`10_moia-mia-precedent.md`](10_moia-mia-precedent.md) | **MOIA (VW's ridepooling subsidiary) + its MIA simulation tool** — the "home-advantage" frame, weak-point counters, AMAG/Zurich validation numbers, web-tool inspiration, similar-tools landscape | **June 25** |
 | — | [`sources.md`](sources.md) | Master bibliography — every citation, deduplicated, with URLs | rolling |
 
 Each document is self-contained and ends with a **"How to use this in the project"** box tying it to specific June 25 deliverables, plus its own Sources list.
 
 ## How to use the library
 
-- **Prepping for June 25?** Start with `06` (arguments) and `07` (weak points), then `03` (hubs) and `09` (workflow plan).
+- **Prepping for June 25?** Start with `06` (arguments) and `07` (weak points), then `03` (hubs) and `09` (workflow plan). `10` gives the VW/MOIA "home-advantage" frame + third-party validation numbers.
 - **Writing the competition narrative?** Pull from `01`, `04`, `05`, `08`.
 - **Need a citable number fast?** Search `sources.md` or the "Sources" section of the relevant doc.
 - **Defending the hub design?** `03` explains the *why* behind the toolpalette and tier logic.

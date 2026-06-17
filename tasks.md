@@ -20,6 +20,15 @@ Quick-scan list of all open work. Update this during sessions and between them.
 - [ ] 4-phase implementation timeline — Pilot → Hub backbone → Network reshaping → Post-car centre | owner: team | source: June 4 consultation | by: June 25
 - [ ] Update web-tool/status.md planned features — what is the team currently building or planning in the Activity Map? | owner: team | source: workshop setup session | by: anytime
 
+### From MOIA/MIA research (research/10) — June 17
+- [ ] Add MOIA "home-advantage" frame to narrative + research/06 (VW subsidiary already builds this; Wolfsburg = ideal pilot city) | owner: team | source: research/10 | by: June 25 | effort: low / high-leverage
+- [ ] Add MOIA counters to the 3 weak points in research/07 (AV-realism, VW-company-town politics, who-operates-and-pays) | owner: team | source: research/10 | by: June 25 | effort: low / high-leverage
+- [ ] Cite AMAG/Zurich validation (600 AVs / 230k weekly trips / 5-min wait / 96% acceptance) beside our fleet math | owner: team | source: research/10 | by: June 25 | effort: low
+- [ ] Web tool: prototype a "Simulator" panel — 3 live sliders (fleet size, max wait time, walking-conversion %) recomputing fleet + coverage (mirrors MIA Simulator) | owner: team | source: research/10 | by: June 25 | effort: medium / highest tool value
+- [ ] Web tool: add a service-area definition step (MIA Explorer) + a full-screen "Presenter" scenario view for unattended Summaery exhibition | owner: team | source: research/10 | by: July 9 | effort: medium
+- [ ] Adopt MIA parameter vocabulary across tool UI + presentation (service area, fleet size, max wait, detour ratio, acceptance rate, service quality vs viability vs policy goals) | owner: team | source: research/10 | by: June 25 | effort: low
+- [ ] STRETCH (post-June-25): run one agent-based scenario in MATSim/FleetPy (VW shift wave) for a defensible simulated fleet number | owner: team | source: research/10 | by: Aug 16 | effort: high
+
 ---
 
 ## In Progress
