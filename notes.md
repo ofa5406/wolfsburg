@@ -5,6 +5,41 @@ Newest entries at the top. Add freely — this is a scratchpad, not a formal doc
 
 ---
 
+## 2026-06-17 — Hub concept reopened (tool places hubs from parking)
+
+Long group debate on the hub system, triggered by how the web tool places hubs.
+
+**The core issue (neutral):** the tool's hub placement is driven by **existing parking
+infrastructure** — in the code, **M = underground car parks, L = multi-storey car
+parks**. That collapses "hub" toward "garage": if a hub is only parking + AV pickup, it
+is infrastructure, not the spatial, multi-mobility *place* our concept describes
+("why anything on the surface if AVs are everywhere?").
+
+**Provisional landing (nothing locked):**
+- **S-hubs** → stay genuine spatial hubs (least parking-bound tier).
+- **M-hubs** → currently matched to under/above-ground parking (proximity + fast AV
+  service); may need new location logic to be real choice points.
+- **L-hubs** → *unresolved.* Teammate frames them as peripheral fleet
+  parking/maintenance (outside the city); the concept + `research/03` put L **in the
+  centre** as neighbourhood anchors. Anchor-vs-depot is the open question.
+- "Garage" is being used as a **working proxy name** for the parking-derived points.
+
+Full neutral comparison: `project/hub_concept_vs_tool.md`. Side-finding: the deployed
+methodology page (`HubAlgoPanel.jsx`) describes MCLP/AHP/KDE/isochrone methods the code
+does not actually implement — flag before the jury reads it.
+
+**RESOLVED later same day (see decisions.md):** protect the typology — separate *where*
+a hub sits (parking can decide, for fast AV servicing) from *what* it is (the spatial
+place stays). S unchanged. M = near underground parking **+** full surface typology;
+residual parking goes underground. L broadened into **L-Anchor** (central reuse building,
+mostly non-parking) **+ L-Gateway** (edge depot **and** park-and-switch interchange for
+inbound commuters — the threshold of the locked 5-zone model). Both L types are genuine
+hubs. Remaining items are implementation only: L-Gateway counts toward the 6?; add an
+L-Gateway typology variant; web-tool code change (L excluded from centre); coverage radii;
+methodology-vs-code.
+
+---
+
 ## 2026-06-15 — Hub toolpalette built in Rhino
 
 Built the 3D kit-of-parts in `toolpalette.3dm` (driven from terminal via the Rhino bridge).

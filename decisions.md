@@ -76,3 +76,23 @@ Formally agreed decisions only. Ideas and open questions go in `notes.md`.
 **Why:** Pragmatic transformation strategy — existing structure already in place, avoids new construction, converts car-storage infrastructure directly into mobility-hub infrastructure. Strong symbolic argument.
 
 **Alternatives considered:** New purpose-built L-hubs (rejected — existing car parks are more spatially and narratively convincing).
+
+---
+
+## 2026-06-17 — Hub system resolved (concept vs. tool reconciliation)
+
+**Context:** A group debate reopened the hub concept because the web tool places hubs from existing parking data (M = underground car parks, L = multi-storey car parks), which made hubs read as "garages." Full analysis in `project/hub_concept_vs_tool.md`.
+
+**Decided — the hub typology is protected; location and place are treated as separate questions** (parking infrastructure may determine *where* a hub sits for fast autonomous-vehicle servicing, but the hub remains the spatial public place the typology defines, expressed on the ground/surface):
+
+- **S-hubs — unchanged.** Keep the existing typology. Their placement is transit/activity-driven (bus stops + footfall + bike parking + parks), not parking-driven, so no conflict.
+- **M-hubs — parking-served place.** M-hubs sit close to (underground) parking infrastructure so autonomous cars can be serviced quickly, **and** retain their full surface typology (the spatial, multimodal elements). Residual parking demand is absorbed **underground**, freeing the surface for the hub-as-place.
+- **L-hubs — broadened into two sub-types**, both with a genuine public role:
+  - **L-Anchor** (central): reuse of former multi-storey car-park *buildings* as neighbourhood anchors — mostly non-parking functions (gastronomy, shops, community, housing above), with minor incidental parking if needed. As defined in `hub_typologies.md` (Scenario A). This refines/extends the 2026-06-04 decision (the 6 central car-park conversions remain L-Anchors).
+  - **L-Gateway** (city edge): multi-storey car parks on the outer approaches serving as fleet depot + maintenance **and** as park-and-switch **interchange** for inbound regional commuters — the threshold where a private car is left and the post-car system is entered. This is the operational edge of the locked 5-zone Groningen filtered-permeability model; private-car parking is deliberately concentrated here.
+
+**Why:** Protects the design typology while accepting the operational reality (parking served underground at M, concentrated at the L-Gateway edge). Giving the peripheral L a mode-change/interchange function means it is a true hub, not merely storage. Fits the already-locked 5-zone model and the typology's existing Scenario A/B.
+
+**Still open (implementation, not design):** (a) whether L-Gateways count toward the "6 L-hubs" public total or sit as a separate fleet-infrastructure layer; (b) the web tool's algorithm currently *excludes* L from the central cores, so it cannot place L-Anchors centrally — needs a code change or an L sub-type split; (c) the tool's coverage radii (L 4000 m / M 2000 m) are service ranges, not the typology's walking catchments; (d) the tool's published methodology page describes methods the code does not implement. Tracked in `tasks.md`.
+
+**Alternatives considered:** Abandoning surface hubs entirely (the "AVs are everywhere, why anything on the surface?" position) — rejected, as it reduces the project to mobility infrastructure and discards the public-life thesis.
