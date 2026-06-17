@@ -2,7 +2,7 @@
 
 *This is the single "where are we right now" file. Whenever you (or Claude) start a session, read this before anything else. Whenever you end a session, update it. It is the memory that survives when a chat ends or usage resets.*
 
-*Last updated: 2026-06-15 (web-tool docs session — rewrote the Activity Map README, added CLAUDE.md + docs/MODES.md, merged & deployed)*
+*Last updated: 2026-06-17 (MOIA & MIA research session — wrote research/10, added 7 tasks; research PAUSED, to continue later)*
 
 ---
 
@@ -50,6 +50,8 @@ None of the seven proof deliverables are produced yet. In rough priority:
 1. Skim `research/README.md`, then read `research/07_weak-points-actions.md` → pick the highest-leverage fixes.
 2. Begin the **car-land map** and **hub-coverage map** (highest rhetorical value, both feasible in Rhino/web tool).
 3. Use `research/09_execution-workflow.md` for the realistic week-by-week plan to June 25.
+
+**Paused thread — MOIA/MIA research (2026-06-17):** new doc `research/10_moia-mia-precedent.md` is written but not yet folded into the rest. Key takeaway: MOIA is **VW-owned** → "Wolfsburg = ideal pilot city" home-advantage frame, plus AMAG/Zurich validation numbers (600 AVs / 230k weekly trips / 5-min / 96%). To continue: (a) fold the frame + numbers into `research/06` and `07`; (b) spec the MIA-style "Simulator slider" panel for the web tool. See the 7 tasks in `tasks.md` and `sessions/2026-06-17_moia-mia-research/notes.md`.
 
 ## Open questions / risks
 

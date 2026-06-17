@@ -24,6 +24,25 @@
 - [Moreno's site](https://www.moreno-web.net/the-15-minutes-city-for-a-new-chrono-urbanism-pr-carlos-moreno/)
 - [Park4SUMP](https://park4sump.eu/news-events/news/why-paris-eliminating-72-its-street-parking-spaces)
 
+## 10 — MOIA & MIA (Volkswagen ridepooling precedent)
+
+- [MOIA — homepage](https://www.moia.io/en)
+- [MOIA — Mobility Consulting](https://www.moia.io/en/solutions/mobility-consulting)
+- [MOIA — MIA (Mobility Impact Analyzer) product page](https://www.moia.io/en/solutions/mobility-consulting/mia)
+- [MOIA blog — Mobility Impact Analyzer (workflow + AMAG/Zurich numbers)](https://www.moia.io/en/blog/mobility-impact-analyzer)
+- [MOIA blog — Autonomous Ridepooling Across Germany: A Simulation](https://www.moia.io/en/blog/autonomous-ridepooling-germany-simulation)
+- [MOIA news — New licensing model: ridepooling ecosystem for cities](https://www.moia.io/en/news/new-licensing-model-moia-opens-ridepooling-ecosystem-to-cities-and-local-transport-operators)
+- [Volkswagen Group — same licensing announcement](https://www.volkswagen-group.com/en/articles/new-licensing-model-moia-opens-ridepooling-ecosystem-to-cities-and-local-transport-operators-17664)
+- [MATSim — Show Case: MOIA](https://matsim.org/examples/moia/)
+- [FleetPy — Modular Open-Source MoD Simulation Tool (arXiv)](https://arxiv.org/pdf/2207.14246)
+- [SUMO — Simulation of Urban Mobility (SourceForge)](https://sourceforge.net/projects/sumo/)
+- [BEAM — Behavior, Energy, Autonomy, Mobility (LBNL)](https://transportation.lbl.gov/beam)
+- [ODySSEUS — Shared e-mobility simulator (GitHub)](https://github.com/smartdatapolito/odysseus)
+- [CityMoS — City Mobility Simulator](https://citymos.net/)
+- [OpenCAMS — Connected & Automated Mobility co-sim (arXiv)](https://arxiv.org/html/2507.09186v3)
+- [Bentley OpenPaths — transportation planning software](https://www.bentley.com/software/openpaths/)
+- [MDPI Smart Cities — Rethinking Pooled Ride-Hailing… System Limits](https://doi.org/10.3390/smartcities9040062)
+
 ## 02 — Mobility system & operations
 
 - [Reinventing Parking](https://www.reinventingparking.org/2013/02/cars-are-parked-95-of-time-lets-check.html)
