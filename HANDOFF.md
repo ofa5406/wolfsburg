@@ -2,7 +2,7 @@
 
 *This is the single "where are we right now" file. Whenever you (or Claude) start a session, read this before anything else. Whenever you end a session, update it. It is the memory that survives when a chat ends or usage resets.*
 
-*Last updated: 2026-06-17 (Hub-system rethink — group reopened the hub concept; wrote neutral comparison `project/hub_concept_vs_tool.md`. Earlier same day: MOIA & MIA research, wrote research/10, PAUSED.)*
+*Last updated: 2026-06-22 (HTML presentation — built and iterated the Auto-Stadt scroll presentation; two masterplan scales with crossfade animation; hub charts regenerated; see `sessions/2026-06-21_html-presentation/notes.md`)*
 
 ---
 
@@ -28,10 +28,12 @@ Wolfsburg reimagined as a **post-private-car city**: the organizing element shif
 
 ## What exists now
 
+- ✅ **HTML presentation** (`wolfsburg-presentation/`) — scroll-based site with Swiss-grid layout, named **Auto-Stadt**. Two masterplan scales (upper city / lower centre) with crossfade animation between hub network and catchment views. Hub data charts (heatmap, stacked bar, profile cards, area breakdown). Lightbox for enlarged plan views. Local only — not yet deployed.
+- ✅ **Rhino masterplan** (`wolfsburg_masterplan.3dm`) — road hierarchy in 5 tiers, hub points placed, catchment areas drawn, land acquisition zones marked. See `project/rhino_masterplan.md`.
 - ✅ Hub typology logic (`project/hub_typologies.md`) + Rhino kit-of-parts (`toolpalette.3dm`, 45 blocks, 3 sample scenes).
-- ✅ Web tool "Wolfsburg Activity Map" — now organised as **5 sections** (Strategy · Capacity · Hub System · Urban Design · Simulation); hub placement + cycling network live. Repo now has README + `CLAUDE.md` + `docs/MODES.md`; deploys from `master` (GitHub Pages).
-- ✅ **NEW: `research/` library** — ~10 cited documents (arguments, weak-points, hubs, mobility, precedents, behavior, theory, future, workflow). Start at `research/README.md`.
-- ✅ **NEW: session-memory system** — this file + `sessions/INDEX.md` + `sessions/_template.md`.
+- ✅ Web tool "Wolfsburg Activity Map" (annestasiia.github.io/wolfsburg-activity-map) — hub placement, cycling network, fleet/capacity calculations. Source of computed numbers used in the presentation.
+- ✅ **`research/` library** — ~10 cited documents. Start at `research/README.md`.
+- ✅ **session-memory system** — this file + `sessions/INDEX.md` + `sessions/_template.md`.
 
 ## What's NOT done yet — the June 25 deliverables
 
@@ -47,13 +49,13 @@ None of the seven proof deliverables are produced yet. In rough priority:
 
 ## Resume here (next actions)
 
-1. **Hub concept — RESOLVED 2026-06-17** (`decisions.md` + `project/hub_concept_vs_tool.md`): typology protected; S unchanged; M = near underground parking + surface typology; L = **L-Anchor** (central reuse) + **L-Gateway** (edge depot + park-and-switch interchange). Remaining items are *implementation*: decide if L-Gateways count toward the 6; add an L-Gateway typology variant; web-tool code change (algorithm currently excludes L from central cores); coverage radii; methodology-vs-code. See `tasks.md`.
-2. **HTML presentation — queued (decided 2026-06-17):** build a single deck/site covering concept, spatial diagrams/visualizations, before/afters, videos, **strategy plan** (bigger scale, incl. outer settlements) and **masterplan** (city-centre scale: traffic plan, hubs, land acquisition, L-hub reuse scenarios). Build deferred; recorded in `project/deliverables.md` + `tasks.md`. Most visuals still to be produced; live web tool can be embedded.
-3. Skim `research/README.md`, then read `research/07_weak-points-actions.md` → pick the highest-leverage fixes.
-4. Begin the **car-land map** and **hub-coverage map** (highest rhetorical value, both feasible in Rhino/web tool).
-5. Use `research/09_execution-workflow.md` for the realistic week-by-week plan to June 25.
+1. **Resolve e-bike number** — presentation currently shows 641 e-bikes / 1,273 total fleet (web tool computed), but locked design decision says 131 / 763 (tutor-accepted June 11). Group needs to agree and sync all files.
+2. **Drop in missing visuals** — section 2.2 (car-land map), before/after street sections (Kleiststraße), and persona journey diagrams (section 05) are all still placeholder. Export from Rhino when ready.
+3. **Hub concept — RESOLVED 2026-06-17** (`decisions.md` + `project/hub_concept_vs_tool.md`): typology protected; S unchanged; M = near underground parking + surface typology; L = **L-Anchor** (central reuse) + **L-Gateway** (edge depot + park-and-switch interchange). Remaining items: decide if L-Gateways count toward the 6; web-tool code change. See `tasks.md`.
+4. **Deploy the presentation** to a separate GitHub repo when ready for Summaery (July 9–12). Currently local only at `wolfsburg-presentation/`.
+5. Begin the **car-land map** (highest rhetorical value — the project's main argument).
 
-**Paused thread — MOIA/MIA research (2026-06-17):** new doc `research/10_moia-mia-precedent.md` is written but not yet folded into the rest. Key takeaway: MOIA is **VW-owned** → "Wolfsburg = ideal pilot city" home-advantage frame, plus AMAG/Zurich validation numbers (600 AVs / 230k weekly trips / 5-min / 96%). To continue: (a) fold the frame + numbers into `research/06` and `07`; (b) spec the MIA-style "Simulator slider" panel for the web tool. See the 7 tasks in `tasks.md` and `sessions/2026-06-17_moia-mia-research/notes.md`.
+**Paused thread — MOIA/MIA research (2026-06-17):** `research/10_moia-mia-precedent.md` written but not folded in. To continue: fold frame + numbers into `research/06` and `07`; spec the MIA-style simulator panel for the web tool.
 
 ## Open questions / risks
 

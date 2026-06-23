@@ -80,13 +80,16 @@ What the project must demonstrate before final submission:
 
 *(Update this section whenever the active work shifts)*
 
+**As of June 20, 2026:** Masterplan Rhino file (`wolfsburg_masterplan.3dm`) updated with:
+road hierarchy cleaned into 5 access tiers, hub points placed and intersected with the
+street network, hub catchment/effect areas drawn, and acquired land / possible development
+zones marked. Full layer reference in `project/rhino_masterplan.md`.
+
 **As of June 15, 2026:** Hub typology design logic is complete (`project/hub_typologies.md`).
 The **3D kit-of-parts is now built in Rhino** (`toolpalette.3dm`): all 45 hub elements
 modelled as reusable blocks on material-based layers, a labelled palette catalogue, and
 three sample hub scenes (S / M / L) with street context. Full catalogue in
-`project/rhino_toolpalette.md`; rebuildable from `rhino/build_toolpalette.py`. Next:
-typology drawing sheets (plan/section/axonometric per tier), and adapting the L-hub scene
-to the real VW factory-gate site.
+`project/rhino_toolpalette.md`; rebuildable from `rhino/build_toolpalette.py`.
 
 ---
 
@@ -94,8 +97,12 @@ to the real VW factory-gate site.
 
 *(Update this after each session or decision)*
 
-- [ ] Map all 68 hub locations with coverage radii
-- [ ] Produce the "car-land" composite graphic (parking + roads dedicated to cars)
+- [x] Road hierarchy — cleaned and sorted into 5 access tiers in masterplan file (June 20, see `rhino_masterplan.md`)
+- [x] Hub points placed and intersected with street network in masterplan file (June 20)
+- [x] Hub catchment / effect areas drawn in masterplan file (June 20)
+- [x] Acquired land / possible development zones drawn in masterplan file (June 20)
+- [ ] Map all 68 hub locations with coverage radii — **geometry exists, export needed**
+- [ ] Produce the "car-land" composite graphic (parking + roads dedicated to cars) — **layers exist, export needed**
 - [x] Hub typology design logic — element palette, tier definitions, spatial logic (June 15, see `hub_typologies.md`)
 - [x] Rhino kit-of-parts — 45 element blocks, material layers, palette catalogue, 3 sample scenes (June 15, see `rhino_toolpalette.md` / `toolpalette.3dm`)
 - [ ] Hub typology drawings — plan, section, axonometric per tier (S, M, L)
