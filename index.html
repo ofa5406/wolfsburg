@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>stadt.hub — Post-Car Wolfsburg</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="progress-bar" id="progress"></div>
+
+  <nav class="nav" id="nav">
+    <span class="nav-brand">&lt;stadt.hub&gt;</span>
+    <span class="nav-center">
+      <a href="#s01">Vision</a> /
+      <a href="#s02">Why</a> /
+      <a href="#s03">How</a> /
+      <a href="#s04">Scenarios</a> /
+      <a href="#s05">Numbers</a> /
+    </span>
+  </nav>
+  <div class="nav-rule" id="nav-rule"></div>
+
+  <!-- ═══════════════════════════════════════════════════
+       01  VISION
+  ════════════════════════════════════════════════════ -->
+  <section class="section s-dark s01-section" id="s01">
+
+    <!-- Background video loop — two videos crossfade -->
+    <video class="s01-video s01-video--a active" id="hero-vid-a" autoplay muted playsinline>
+      <source src="videos/hero1.mp4" type="video/mp4">
+    </video>
+    <video class="s01-video s01-video--b" id="hero-vid-b" muted playsinline>
+      <source src="videos/hero2.mp4" type="video/mp4">
+    </video>
+    <div class="s01-overlay"></div>
+
+    <div class="container s01-content">
+      <div class="display-header animate">
+        <h1 class="display-title">&lt;stadt.hub&gt;</h1>
+        <span class="display-counter">01</span>
+      </div>
+      <div class="display-rule"></div>
+      <div class="anno-grid animate delay-1">
+        <span class="anno">(Vision)</span>
+        <p class="thesis">// integrated multimodal mobility infrastructure</p>
+        <span class="anno-side">
+          Bauhaus-Universität Weimar + M.Sc. IUDD<br><br>
+          Prompt City :: Wolfsburg Urban Vision :: SoSe26<br><br>
+          Omer Faruk Aslan<br>
+          Anastasiia Mulyndina<br>
+          Basak Pinar
+        </span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       02  VISION AND REASONING — chapter break
+  ════════════════════════════════════════════════════ -->
+  <section class="section chapter-break" id="s02">
+    <div class="chapter-num animate">02</div>
+    <h2 class="chapter-title animate delay-1">Vision and<br>reasoning</h2>
+    <p class="chapter-sub animate delay-2">
+      What this vision gives us — and why Wolfsburg needs it.
+    </p>
+  </section>
+
+  <!-- ───────────────────────────────────────────────────
+       2.1  OUTCOME
+  ─────────────────────────────────────────────────── -->
+  <section class="section" id="s02-1">
+
+    <div class="display-header animate">
+      <h2 class="display-title">Outcome</h2>
+      <span class="display-counter">2.1</span>
+    </div>
+    <div class="display-rule"></div>
+
+    <div class="anno-grid animate delay-1">
+      <span class="anno">(About)</span>
+      <p class="thesis">
+        What this vision gives us — the benefits of a post-car city
+        in spatial, financial, and human terms.
+      </p>
+      <span class="anno-side">
+        Numbers, visuals, street views, satellite imagery —
+        help them see it.
+      </span>
+    </div>
+
+    <div class="data-table animate delay-2 mt-64">
+      <div class="data-row">
+        <span class="data-label">Land freed from car storage</span>
+        <span class="data-value">— m²</span>
+        <span class="data-note">Parking lots, surface storage, car-only roads reclaimed for public life</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Shared vehicles in fleet</span>
+        <span class="data-value">1,273</span>
+        <span class="data-note">641 e-bikes · 55 shuttle pods · 33 buses · 369 micro-pods · 175 EVs</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Trips served per day</span>
+        <span class="data-value">104k</span>
+        <span class="data-note">17,400 residents + 18,000 workers + 7,080 daily visitors</span>
+      </div>
+      <div class="data-row data-row--money">
+        <span class="data-label">Saved per household / year</span>
+        <span class="data-value">7,596 €</span>
+        <span class="data-note">€727/mo private car → €94/mo shared mobility · 87% cost reduction · ADAC 2024 / MOIA Hamburg</span>
+      </div>
+    </div>
+
+    <!-- Dot matrix — fleet scale comparison -->
+    <div class="anno-grid mt-64 animate delay-3">
+      <span class="anno">(Fleet scale)</span>
+      <div class="dot-matrix">
+        <div class="dm-block">
+          <div class="dm-row-label">
+            <span class="dm-count dm-count--cars">49,648</span>
+            <span class="dm-mode-name">private cars / day</span>
+            <span class="dm-unit">each dot = 10 vehicles</span>
+          </div>
+          <div class="dm-dots" id="dm-cars"></div>
+        </div>
+        <div class="dm-divider">
+          <span class="dm-ratio">→ 1 shared vehicle replaces 39 private cars</span>
+        </div>
+        <div class="dm-block">
+          <div class="dm-row-label">
+            <span class="dm-count">1,273</span>
+            <span class="dm-mode-name">shared fleet</span>
+          </div>
+          <div class="dm-dots" id="dm-fleet"></div>
+          <div class="dm-legend" id="dm-legend"></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ───────────────────────────────────────────────────
+       2.2  PROBLEM
+  ─────────────────────────────────────────────────── -->
+  <section class="section" id="s02-2">
+
+    <div class="display-header animate">
+      <h2 class="display-title">Problem</h2>
+      <span class="display-counter">2.2</span>
+    </div>
+    <div class="display-rule"></div>
+
+    <div class="anno-grid animate delay-1">
+      <span class="anno">(Problem)</span>
+      <p class="thesis">
+        Wolfsburg dedicates a disproportionate share of its urban land
+        to private car storage. This model is no longer necessary.
+      </p>
+      <span class="anno-side">
+        The VW shift waves define the city's rhythm —
+        and created its infrastructure.
+      </span>
+    </div>
+
+    <div class="split-card animate delay-2 mt-64">
+      <div class="split-meta">
+        <span class="split-meta-tag">Car-land map</span>
+        <p class="split-meta-desc">
+          "The City Stored in Cars" — all land dedicated to
+          parking, surface lots, and car-only roads.
+        </p>
+      </div>
+      <div class="split-img split-img--slideshow">
+        <div class="scene-slideshow">
+          <img class="scene-slide active" src="charts/problem_1.jpeg" alt="Problem image 1">
+          <img class="scene-slide" src="charts/problem_2.jpeg" alt="Problem image 2">
+          <img class="scene-slide" src="charts/problem_3.jpeg" alt="Problem image 3">
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       03  HOW IT IS REALIZED — chapter break
+  ════════════════════════════════════════════════════ -->
+  <section class="section chapter-break s-dark" id="s03">
+    <div class="chapter-num animate">03</div>
+    <h2 class="chapter-title animate delay-1">How it is<br>realized</h2>
+    <p class="chapter-sub animate delay-2">
+      From city scale to hub scale — the spatial logic of the system.
+    </p>
+  </section>
+
+  <!-- ───────────────────────────────────────────────────
+       3.1  STRATEGIC PLAN
+  ─────────────────────────────────────────────────── -->
+  <section class="section" id="s03-1">
+
+    <div class="display-header animate">
+      <h2 class="display-title">Strategy</h2>
+      <span class="display-counter">3.1</span>
+    </div>
+    <div class="display-rule"></div>
+
+    <div class="anno-grid animate delay-1">
+      <span class="anno">(City scale)</span>
+      <div>
+        <span class="step-label">(Strategic plan)</span>
+        <p class="step-heading">Zoning, connections,<br>mobility as a service</p>
+
+        <span class="step-label">(Network)</span>
+        <p class="step-heading">Peripheral settlements<br>connected</p>
+      </div>
+      <span class="anno-side">
+        Private-car-free core. Filtered permeability prevents
+        through-traffic. Mobility as a service, not a set of facilities.
+      </span>
+    </div>
+
+    <div class="hub-counts animate delay-2">
+      <div class="hub-count">
+        <span class="hc-num">5</span>
+        <span class="hc-label">L — Large hubs</span>
+        <span class="hc-desc">Repurposed multi-storey car parks. Backbone charging, storage, fleet management.</span>
+      </div>
+      <div class="hub-count">
+        <span class="hc-num">4</span>
+        <span class="hc-label">M — Medium hubs</span>
+        <span class="hc-desc">Neighbourhood transfer nodes. Bikes, EV charging, shuttle stops, public space.</span>
+      </div>
+      <div class="hub-count">
+        <span class="hc-num">131</span>
+        <span class="hc-label">S — Small hubs</span>
+        <span class="hc-desc">Minimal last-mile nodes. E-bike dock, pod stop, micro-transfer.</span>
+      </div>
+    </div>
+
+    <div class="split-card split-card--plan animate delay-2 mt-48">
+      <div class="split-meta">
+        <span class="split-meta-tag">Upper scale — city extent</span>
+        <p class="split-meta-desc">
+          Hub network and catchment areas across all of Wolfsburg —
+          road hierarchy, hub locations, and zone of influence.
+        </p>
+      </div>
+      <div class="split-img split-img--plan plan-crossfade" id="upper-plan-frame">
+        <img class="plan-layer" src="charts/masterplan_upper.jpg" alt="Hub network plan" />
+        <img class="plan-layer plan-layer--top" src="charts/masterplan_upper_catchment.jpg" alt="Hub catchment areas" />
+      </div>
+    </div>
+
+    <div class="split-card animate delay-3 mt-48">
+      <div class="split-meta">
+        <span class="split-meta-tag">Hub coverage</span>
+        <p class="split-meta-desc">
+          5 large interchange hubs, 4 district hubs, 131 micro-hubs —
+          80–90% of residents within 300 m of a hub.
+        </p>
+      </div>
+      <div class="split-img split-img--chart">
+
+        <!-- ── Hub Coverage Chart ── -->
+        <div class="hcov-chart">
+
+          <svg class="hcov-svg" viewBox="0 0 480 300" preserveAspectRatio="xMidYMid meet">
+
+            <!-- ── Left: concentric catchment rings (fully contained) ── -->
+            <!-- cx=118 r=106 → left edge = 12, safe -->
+            <circle class="hcov-ring" cx="118" cy="150" r="106"
+              fill="#1A1A1A" fill-opacity="0.03"
+              stroke="#1A1A1A" stroke-width="1.2" stroke-dasharray="5 4" stroke-opacity="0.3"/>
+            <circle class="hcov-ring" cx="118" cy="150" r="53"
+              fill="#2D6A4F" fill-opacity="0.08"
+              stroke="#2D6A4F" stroke-width="1.5" stroke-opacity="0.55"/>
+            <circle class="hcov-ring" cx="118" cy="150" r="26"
+              fill="#95B8A0" fill-opacity="0.35"
+              stroke="#95B8A0" stroke-width="1.5"/>
+
+            <!-- radius labels — placed clearly outside each ring edge -->
+            <!-- L: top of ring is at y=150-106=44, label just above -->
+            <text x="118" y="38" font-size="10" fill="#1A1A1A" opacity="0.35"
+              text-anchor="middle" font-family="inherit">L · 800 m</text>
+            <!-- M: top of ring is at y=150-53=97, label just above -->
+            <text x="118" y="90" font-size="10" fill="#2D6A4F" opacity="0.6"
+              text-anchor="middle" font-family="inherit">M · 400 m</text>
+            <!-- S: label centred inside zone -->
+            <text x="118" y="154" font-size="10" fill="#3D7060" opacity="0.55"
+              text-anchor="middle" font-family="inherit">S · 200 m</text>
+
+            <!-- vertical divider -->
+            <line x1="240" y1="16" x2="240" y2="284"
+              stroke="#1A1A1A" stroke-width="0.6" opacity="0.1"/>
+
+            <!-- ── Right: three tier rows ── -->
+            <!-- Each row: tier label (left) + count (right) + bar + catchment sub-label -->
+            <!-- Row spacing: 94px apart; starts at y=58 -->
+
+            <!-- Hub L -->
+            <text x="252" y="55" font-size="12" letter-spacing="0.08em"
+              fill="#888" font-family="inherit">HUB L</text>
+            <text class="hcov-bar-num hcov-bar-num-l"
+              x="468" y="55" font-size="15" font-weight="700"
+              fill="#1A1A1A" text-anchor="end" font-family="inherit">5 HUBS</text>
+            <rect class="hcov-bar-svg hcov-bar-l"
+              x="252" y="63" height="13" width="0" fill="#1A1A1A" rx="3"/>
+            <text x="252" y="90" font-size="9" fill="#AEAEB2"
+              font-family="inherit">800 M CATCHMENT</text>
+
+            <!-- Hub M -->
+            <text x="252" y="149" font-size="12" letter-spacing="0.08em"
+              fill="#2D6A4F" font-family="inherit">HUB M</text>
+            <text class="hcov-bar-num hcov-bar-num-m"
+              x="468" y="149" font-size="15" font-weight="700"
+              fill="#2D6A4F" text-anchor="end" font-family="inherit">4 HUBS</text>
+            <rect class="hcov-bar-svg hcov-bar-m"
+              x="252" y="157" height="13" width="0" fill="#2D6A4F" rx="3"/>
+            <text x="252" y="184" font-size="9" fill="#AEAEB2"
+              font-family="inherit">400 M CATCHMENT</text>
+
+            <!-- Hub S -->
+            <text x="252" y="243" font-size="12" letter-spacing="0.08em"
+              fill="#3D8B6E" font-family="inherit">HUB S</text>
+            <text class="hcov-bar-num hcov-bar-num-s"
+              x="468" y="243" font-size="15" font-weight="700"
+              fill="#3D8B6E" text-anchor="end" font-family="inherit">131 HUBS</text>
+            <rect class="hcov-bar-svg hcov-bar-s"
+              x="252" y="251" height="13" width="0" fill="#95B8A0" rx="3"/>
+            <text x="252" y="278" font-size="9" fill="#AEAEB2"
+              font-family="inherit">200 M CATCHMENT</text>
+
+          </svg>
+
+          <div class="hcov-kpis">
+            <div class="hcov-kpi"><strong>140</strong><span>total hubs</span></div>
+            <div class="hcov-kpi"><strong>4 km²</strong><span>zone area</span></div>
+            <div class="hcov-kpi"><strong>80–90%</strong><span>within 300 m</span></div>
+            <div class="hcov-kpi"><strong>0.65%</strong><span>land used</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="split-card animate delay-3">
+      <div class="split-meta">
+        <span class="split-meta-tag">Hub area breakdown</span>
+        <p class="split-meta-desc">
+          S<sub>hub</sub> = S<sub>fleet</sub> + S<sub>circ</sub> + S<sub>charging</sub> + S<sub>program</sub>.
+          Per-hub footprint across all three tiers.
+        </p>
+      </div>
+      <div class="split-img split-img--chart">
+
+        <!-- ── Hub Area Breakdown Chart ── -->
+        <div class="habd-chart">
+
+          <div class="habd-legend">
+            <div class="habd-leg-item"><span class="habd-leg-dot" style="background:#2D6A4F"></span>Fleet parking</div>
+            <div class="habd-leg-item"><span class="habd-leg-dot" style="background:#52A882"></span>Circulation</div>
+            <div class="habd-leg-item"><span class="habd-leg-dot" style="background:#2980B9"></span>Charging</div>
+            <div class="habd-leg-item"><span class="habd-leg-dot" style="background:#C8CECE"></span>Program</div>
+          </div>
+
+          <!-- Hub L -->
+          <div class="habd-row" style="--habd-delay:0.1s">
+            <div class="habd-row-head">
+              <div class="habd-tier-id" style="background:#1A1A1A">L</div>
+              <span class="habd-tier-name">Hub L · 5 hubs</span>
+              <span class="habd-per-hub">2,539 m² / hub</span>
+            </div>
+            <div class="habd-bar-wrap">
+              <div class="habd-bar">
+                <div class="habd-seg" style="width:54.6%;background:#2D6A4F"><span>1,385</span></div>
+                <div class="habd-seg" style="width:32.7%;background:#52A882"><span>831</span></div>
+                <div class="habd-seg" style="width:3.6%;background:#2980B9"><span></span></div>
+                <div class="habd-seg" style="width:9.1%;background:#C8CECE"><span></span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hub M -->
+          <div class="habd-row" style="--habd-delay:0.3s">
+            <div class="habd-row-head">
+              <div class="habd-tier-id" style="background:#2D6A4F">M</div>
+              <span class="habd-tier-name">Hub M · 4 hubs</span>
+              <span class="habd-per-hub">369 m² / hub</span>
+            </div>
+            <div class="habd-bar-wrap">
+              <div class="habd-bar">
+                <div class="habd-seg" style="width:60.4%;background:#2D6A4F"><span>223</span></div>
+                <div class="habd-seg" style="width:24.2%;background:#52A882"><span>89</span></div>
+                <div class="habd-seg" style="width:6.4%;background:#2980B9"><span>24</span></div>
+                <div class="habd-seg" style="width:9.1%;background:#C8CECE"><span>34</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hub S -->
+          <div class="habd-row" style="--habd-delay:0.5s">
+            <div class="habd-row-head">
+              <div class="habd-tier-id" style="background:#95B8A0;color:#1A1A1A">S</div>
+              <span class="habd-tier-name">Hub S · 131 hubs</span>
+              <span class="habd-per-hub">91 m² / hub</span>
+            </div>
+            <div class="habd-bar-wrap">
+              <div class="habd-bar">
+                <div class="habd-seg" style="width:68.9%;background:#2D6A4F"><span>63</span></div>
+                <div class="habd-seg" style="width:13.8%;background:#52A882"><span>12</span></div>
+                <div class="habd-seg" style="width:8.3%;background:#2980B9"><span>8</span></div>
+                <div class="habd-seg" style="width:9.0%;background:#C8CECE"><span></span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="habd-total">
+            <span>All hubs combined</span>
+            <span><strong>26,092 m²</strong> · 2.61 ha · 0.65% of zone</span>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ───────────────────────────────────────────────────
+       3.2  CITY CENTRE
+  ─────────────────────────────────────────────────── -->
+  <section class="section" id="s03-2">
+
+    <div class="display-header animate">
+      <h2 class="display-title">Centre</h2>
+      <span class="display-counter">3.2</span>
+    </div>
+    <div class="display-rule"></div>
+
+    <div class="anno-grid animate delay-1">
+      <span class="anno">(City centre)</span>
+      <div>
+        <span class="step-label">(Scale transition)</span>
+        <p class="step-heading">Traffic plan +<br>urban zoning</p>
+
+        <span class="step-label">(Hub functions)</span>
+        <p class="step-heading">Mobility layer +<br>facility layer</p>
+      </div>
+      <span class="anno-side">
+        Hub locations with catchment areas. Each hub carries
+        two layers: vehicle operations and public programme.
+      </span>
+    </div>
+
+    <!-- City-centre data viz -->
+    <div class="cc-stats animate delay-2">
+
+      <!-- KPI row -->
+      <div class="cc-kpi-row">
+        <div class="cc-kpi">
+          <span class="cc-kpi-num" data-target="2800">0</span>
+          <span class="cc-kpi-unit">residents</span>
+          <span class="cc-kpi-label">Stadtmitte district · WOKS 2023</span>
+        </div>
+        <div class="cc-kpi">
+          <span class="cc-kpi-num" data-target="4">0</span>
+          <span class="cc-kpi-unit">Hub M</span>
+          <span class="cc-kpi-label">district mobility hubs</span>
+        </div>
+        <div class="cc-kpi">
+          <span class="cc-kpi-num" data-target="369">0</span>
+          <span class="cc-kpi-unit">m²</span>
+          <span class="cc-kpi-label">footprint per Hub M</span>
+        </div>
+        <div class="cc-kpi">
+          <span class="cc-kpi-num" data-target="7">0</span>
+          <span class="cc-kpi-unit">charge pts</span>
+          <span class="cc-kpi-label">per Hub M · peak simultaneous</span>
+        </div>
+      </div>
+
+      <!-- Fleet composition bar -->
+      <div class="cc-fleet">
+        <span class="cc-fleet-label">Fleet per Hub M — 14 vehicles (incl. 20% reserve)</span>
+        <div class="cc-fleet-bar-wrap">
+          <div class="cc-fleet-bar">
+            <div class="cc-fleet-seg" style="width:28.6%;background:#27AE60"><span>4</span></div>
+            <div class="cc-fleet-seg" style="width:28.6%;background:#2980B9"><span>4</span></div>
+            <div class="cc-fleet-seg" style="width:21.4%;background:#E67E22"><span>3</span></div>
+            <div class="cc-fleet-seg" style="width:14.3%;background:#8E44AD"><span>2</span></div>
+            <div class="cc-fleet-seg" style="width:7.1%;background:#2C3E50"><span>1</span></div>
+          </div>
+        </div>
+        <div class="cc-fleet-legend">
+          <div class="cc-leg"><span class="cc-leg-dot" style="background:#27AE60"></span>E-Bike</div>
+          <div class="cc-leg"><span class="cc-leg-dot" style="background:#2980B9"></span>Auto Pod</div>
+          <div class="cc-leg"><span class="cc-leg-dot" style="background:#E67E22"></span>Car-Share EV</div>
+          <div class="cc-leg"><span class="cc-leg-dot" style="background:#8E44AD"></span>Auto Shuttle</div>
+          <div class="cc-leg"><span class="cc-leg-dot" style="background:#2C3E50"></span>Auto Bus</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="split-card split-card--plan animate delay-3 mt-48">
+      <div class="split-meta">
+        <span class="split-meta-tag">Lower scale — city centre</span>
+        <p class="split-meta-desc">
+          City-centre scale — hub locations with catchment areas,
+          acquired land, traffic reorganization, and zone boundaries.
+        </p>
+      </div>
+      <div class="split-img split-img--plan split-img--plan-lower plan-crossfade" id="lower-plan-frame">
+        <img class="plan-layer" src="charts/masterplan_lower.jpg" alt="City centre plan" />
+        <img class="plan-layer plan-layer--top" src="charts/masterplan_lower_catchment.jpg" alt="City centre catchment areas" />
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ───────────────────────────────────────────────────
+       3.3  HUB SCALE — typologies
+  ─────────────────────────────────────────────────── -->
+  <section class="section" id="s03-3">
+
+    <div class="display-header animate">
+      <h2 class="display-title">Hubs</h2>
+      <span class="display-counter">3.3</span>
+    </div>
+    <div class="display-rule"></div>
+
+    <div class="anno-grid animate delay-1">
+      <span class="anno">(Focus scale)</span>
+      <p class="thesis">
+        Spatial and mobility features of each hub tier,
+        explained through function diagrams.
+        Toolkit palette and element placement exemplified
+        at the VW factory gate.
+      </p>
+      <span class="anno-side">
+        L, M, S — three tiers, three spatial logics,
+        one coherent system.
+      </span>
+    </div>
+
+    <!-- Hub explorer -->
+    <div class="anno-grid mt-48 animate delay-2">
+      <span class="anno">(Hubs)</span>
+      <div class="hub-explorer">
+
+        <!-- Sidebar: L / M / S selectors -->
+        <div class="hub-tabs">
+          <button class="hub-tab active" data-hub="l">
+            <div class="htl-icon htl-icon--l">L</div>
+            <div class="hub-tab-info">
+              <span class="hub-tab-name">Large hub</span>
+              <span class="hub-tab-sub">5 · large interchange hubs</span>
+              <div class="htl-modes">
+                <span class="htl-mode"><span class="htl-dot" style="background:#E67E22"></span>Car-Share EV</span>
+                <span class="htl-mode"><span class="htl-dot" style="background:#2C3E50"></span>Auto Bus</span>
+                <span class="htl-mode"><span class="htl-dot" style="background:#8E44AD"></span>Auto Shuttle</span>
+                <span class="htl-mode"><span class="htl-dot" style="background:#2980B9"></span>Auto Pod</span>
+              </div>
+            </div>
+          </button>
+          <button class="hub-tab" data-hub="m">
+            <div class="htl-icon htl-icon--m">M</div>
+            <div class="hub-tab-info">
+              <span class="hub-tab-name">Medium hub</span>
+              <span class="hub-tab-sub">4 · district mobility hubs</span>
+              <div class="htl-modes">
+                <span class="htl-mode"><span class="htl-dot" style="background:#8E44AD"></span>Auto Shuttle</span>
+                <span class="htl-mode"><span class="htl-dot" style="background:#2980B9"></span>Auto Pod</span>
+                <span class="htl-mode"><span class="htl-dot" style="background:#27AE60"></span>E-Bike</span>
+              </div>
+            </div>
+          </button>
+          <button class="hub-tab" data-hub="s">
+            <div class="htl-icon htl-icon--s">S</div>
+            <div class="hub-tab-info">
+              <span class="hub-tab-name">Small hub</span>
+              <span class="hub-tab-sub">131 · neighbourhood micro-hubs</span>
+              <div class="htl-modes">
+                <span class="htl-mode"><span class="htl-dot" style="background:#27AE60"></span>E-Bike</span>
+                <span class="htl-mode"><span class="htl-dot" style="background:#2980B9"></span>Auto Pod</span>
+              </div>
+            </div>
+          </button>
+        </div>
+
+        <!-- Detail panels -->
+        <div class="hub-panels">
+
+          <div class="hub-panel active" id="hub-panel-l">
+            <div class="hub-panel-body">
+              <div class="hub-panel-col">
+                <div class="tde-group-label">Mobility</div>
+                <div class="tde-grid">
+                  <div class="tde-chip">
+                    <span class="tde-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 18V7h5a3.5 3.5 0 0 1 0 7H9"/></svg></span>
+                    <div class="tde-text"><strong>Fleet parking</strong>Overnight docking + EV storage bays</div>
+                  </div>
+                  <div class="tde-chip">
+                    <span class="tde-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="13" rx="2"/><path d="M2 10h20M7 5V3M17 5V3"/><line x1="7" y1="17" x2="7" y2="19"/><line x1="17" y1="17" x2="17" y2="19"/></svg></span>
+                    <div class="tde-text"><strong>Transit node</strong>Autonomous bus terminal + rail interchange</div>
+                  </div>
+                  <div class="tde-chip">
+                    <span class="tde-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3v-4l3-6h12l3 6v4h-2"/><circle cx="7.5" cy="17" r="2.5"/><circle cx="16.5" cy="17" r="2.5"/><path d="M5 11h14"/></svg></span>
+                    <div class="tde-text"><strong>Car-share base</strong>Shared EV fleet dispatch + drop-off</div>
+                  </div>
+                  <div class="tde-chip">
+                    <span class="tde-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-2 8 11-12h-9l1-8z"/></svg></span>
+                    <div class="tde-text"><strong>Charging grid</strong>High-capacity EV + e-bike charge points</div>
+                  </div>
+                </div>
+              </div>
+              <div class="hub-panel-col">
+                <div class="tde-group-label">Facility</div>
+                <div class="tde-grid">
+                  <div class="tde-chip">
+                    <span class="tde-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12"/><path d="M12 12C10 12 5 10 5 4c4 0 7 4 7 8z"/><path d="M12 12c2 0 7-2 7-8-4 0-7 4-7 8z"/></svg></span>
+                    <div class="tde-text"><strong>Green roof</strong>Urban garden + rooftop ecology terrace</div>
+                  </div>
+                  <div class="tde-chip">
+                    <span class="tde-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="12"/><path d="M3 9l9-6 9 6"/><path d="M9 21v-6h6v6"/></svg></span>
+                    <div class="tde-text"><strong>Public ground floor</strong>Arcade + event / market space</div>
+                  </div>
+                  <div class="tde-chip">
+                    <span class="tde-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span>
+                    <div class="tde-text"><strong>Services</strong>Retail · food · daily needs</div>
+                  </div>
+                  <div class="tde-chip">
+                    <span class="tde-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>
+                    <div class="tde-text"><strong>Digital info</strong>Multimodal display + wayfinding tower</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hub-panel" id="hub-panel-m">
+            <div class="hub-panel-body">
+              <div class="hub-panel-col">
+                <div class="tde-group-label">Mobility</div>
+                <div class="tde-grid">
+                  <div class="tde-chip">
+                    <span class="tde-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="15" r="4"/><circle cx="18" cy="15" r="4"/><path d="M6 15l5-9h4l2 4"/><path d="M11 6l2 9"/><path d="M11 6h3"/></svg></span>
+                    <div class="tde-text"><strong>Bike dock</strong>E-bike + cargo bike docking station</div>
+                  </div>
+                  <div class="tde-chip">
+                    <span class="tde-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17V12l3-7h14l3 7v5H2z"/><line x1="2" y1="12" x2="22" y2="12"/><rect x="8" y="5" width="6" height="7"/><circle cx="6.5" cy="17" r="2.5"/><circle cx="17.5" cy="17" r="2.5"/></svg></span>
+                    <div class="tde-text"><strong>Pod stop</strong>Shuttle + micro-pod pick-up / drop-off</div>
+                  </div>
+                  <div class="tde-chip">
+                    <span class="tde-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3v-4l3-6h12l3 6v4h-2"/><circle cx="7.5" cy="17" r="2.5"/><circle cx="16.5" cy="17" r="2.5"/><path d="M5 11h14"/></svg></span>
+                    <div class="tde-text"><strong>EV pick-up</strong>Shared EV access point</div>
+                  </div>
+                  <div class="tde-chip">
+                    <span class="tde-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-2 8 11-12h-9l1-8z"/></svg></span>
+                    <div class="tde-text"><strong>Charging</strong>Mid-scale points, bike priority</div>
+                  </div>
+                </div>
+              </div>
+              <div class="hub-panel-col">
+                <div class="tde-group-label">Facility</div>
+                <div class="tde-grid">
+                  <div class="tde-chip">
+                    <span class="tde-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12"/><path d="M12 12C10 12 5 10 5 4c4 0 7 4 7 8z"/><path d="M12 12c2 0 7-2 7-8-4 0-7 4-7 8z"/></svg></span>
+                    <div class="tde-text"><strong>Greenery</strong>Planting strips + pocket park seating</div>
+                  </div>
+                  <div class="tde-chip">
+                    <span class="tde-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18"/><path d="M3 7l9-5 9 5"/><line x1="5" y1="7" x2="5" y2="19"/><line x1="19" y1="7" x2="19" y2="19"/><line x1="5" y1="13" x2="19" y2="13"/></svg></span>
+                    <div class="tde-text"><strong>Shelter</strong>Covered waiting area + canopy</div>
+                  </div>
+                  <div class="tde-chip">
+                    <span class="tde-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/><circle cx="12" cy="16" r="1" fill="currentColor" stroke="none"/></svg></span>
+                    <div class="tde-text"><strong>Kiosk + lockers</strong>Small retail · parcel logistics</div>
+                  </div>
+                  <div class="tde-chip">
+                    <span class="tde-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>
+                    <div class="tde-text"><strong>Digital info</strong>Route board + neighbourhood screen</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hub-panel" id="hub-panel-s">
+            <div class="hub-panel-body">
+              <div class="hub-panel-col">
+                <div class="tde-group-label">Mobility</div>
+                <div class="tde-grid">
+                  <div class="tde-chip">
+                    <span class="tde-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="15" r="4"/><circle cx="18" cy="15" r="4"/><path d="M6 15l5-9h4l2 4"/><path d="M11 6l2 9"/><path d="M11 6h3"/></svg></span>
+                    <div class="tde-text"><strong>Bike dock</strong>Compact e-bike docking only</div>
+                  </div>
+                  <div class="tde-chip">
+                    <span class="tde-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17V12l3-7h14l3 7v5H2z"/><line x1="2" y1="12" x2="22" y2="12"/><rect x="8" y="5" width="6" height="7"/><circle cx="6.5" cy="17" r="2.5"/><circle cx="17.5" cy="17" r="2.5"/></svg></span>
+                    <div class="tde-text"><strong>Micro-pod stop</strong>Last-mile access point</div>
+                  </div>
+                  <div class="tde-chip">
+                    <span class="tde-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-2 8 11-12h-9l1-8z"/></svg></span>
+                    <div class="tde-text"><strong>Charging</strong>Basic e-bike charge points</div>
+                  </div>
+                </div>
+              </div>
+              <div class="hub-panel-col">
+                <div class="tde-group-label">Facility</div>
+                <div class="tde-grid">
+                  <div class="tde-chip">
+                    <span class="tde-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12"/><path d="M12 12C10 12 5 10 5 4c4 0 7 4 7 8z"/><path d="M12 12c2 0 7-2 7-8-4 0-7 4-7 8z"/></svg></span>
+                    <div class="tde-text"><strong>Planting</strong>Tree pit + ground-level greenery</div>
+                  </div>
+                  <div class="tde-chip">
+                    <span class="tde-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18"/><path d="M3 7l9-5 9 5"/><line x1="5" y1="7" x2="5" y2="19"/><line x1="19" y1="7" x2="19" y2="19"/><line x1="5" y1="13" x2="19" y2="13"/></svg></span>
+                    <div class="tde-text"><strong>Shelter</strong>Lightweight canopy</div>
+                  </div>
+                  <div class="tde-chip">
+                    <span class="tde-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></span>
+                    <div class="tde-text"><strong>Repair</strong>Bike repair stand</div>
+                  </div>
+                  <div class="tde-chip">
+                    <span class="tde-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+                    <div class="tde-text"><strong>Wayfinding</strong>Lighting + signage</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Toolkit simulation -->
+    <div class="anno-grid mt-64 animate delay-3">
+      <span class="anno">(Toolkit)</span>
+      <div class="toolkit-frame">
+        <div class="toolkit-label">Toolkit simulation</div>
+        <div class="toolkit-embed">
+          <iframe src="hub-viewer/index.html"
+                  title="Hub Viewer — 3D Interactive Model"
+                  allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       04  SCENARIOS
+  ════════════════════════════════════════════════════ -->
+  <section class="section" id="s04">
+
+    <div class="display-header animate">
+      <h2 class="display-title">Scenarios</h2>
+      <span class="display-counter">04</span>
+    </div>
+    <div class="display-rule"></div>
+
+    <div class="anno-grid animate delay-1">
+      <span class="anno">(People)</span>
+      <p class="thesis">Four lives. One city. How the hub network works for everyone who uses it.</p>
+    </div>
+
+    <!-- Persona tab switcher -->
+    <div class="persona-tabs animate delay-2">
+      <button class="persona-tab active" data-persona="0">
+        <span class="persona-tab-num">01</span>
+        <span class="persona-tab-name">Sabine, 38</span>
+      </button>
+      <button class="persona-tab" data-persona="1">
+        <span class="persona-tab-num">02</span>
+        <span class="persona-tab-name">Lukas, 13</span>
+      </button>
+      <button class="persona-tab" data-persona="2">
+        <span class="persona-tab-num">03</span>
+        <span class="persona-tab-name">Thomas, 44</span>
+      </button>
+      <button class="persona-tab" data-persona="3">
+        <span class="persona-tab-num">04</span>
+        <span class="persona-tab-name">Gertrude, 85</span>
+      </button>
+    </div>
+
+    <!-- Persona panels -->
+    <div class="persona-stage animate delay-3">
+
+      <!-- ── 01 Sabine ── -->
+      <div class="persona-panel active" data-persona="0">
+        <div class="persona-portrait">
+          <div class="persona-portrait-imgs">
+            <img class="pp-img pp-img--before active" src="charts/sabine_before.png" alt="Sabine before">
+            <img class="pp-img pp-img--after"         src="charts/sabine_after.png"  alt="Sabine after">
+          </div>
+          <div class="pp-state-btns">
+            <button class="pp-state-btn active" data-state="before">Before</button>
+            <button class="pp-state-btn"        data-state="after">After</button>
+          </div>
+        </div>
+        <div class="persona-body">
+          <div class="persona-header-row">
+            <span class="persona-num">01</span>
+            <div>
+              <div class="persona-name">Sabine, 38</div>
+              <div class="persona-role">Office worker · two children</div>
+            </div>
+          </div>
+          <div class="pp-content pp-content--before active">
+            <div class="persona-story-col">
+              <span class="persona-ba-label">Before</span>
+              <p class="persona-story">Two family cars meant insurance, inspections, and repairs adding up to €400/month. Parking in the centre was a constant source of stress; mornings meant traffic and running late.</p>
+            </div>
+            <div class="persona-scene-img">
+              <div class="scene-slideshow">
+                <img class="scene-slide active" src="charts/sabine_before_1.png" alt="Before 1 — €400/month car costs">
+                <img class="scene-slide"        src="charts/sabine_before_2.png" alt="Before 2 — stuck in traffic">
+              </div>
+            </div>
+          </div>
+          <div class="pp-content pp-content--after">
+            <div class="persona-story-col">
+              <span class="persona-ba-label">After</span>
+              <p class="persona-story">The family gave up both cars. E-bike from the S-hub to the M-hub, then an autonomous shuttle to the office in 12 minutes. The kids ride the same shuttle to school on their own — safe, on schedule, no drop-off needed.</p>
+            </div>
+            <div class="persona-scene-img">
+              <div class="scene-slideshow">
+                <img class="scene-slide active" src="charts/sabine_after_1.png" alt="After 1 — cycling to S-hub">
+                <img class="scene-slide"        src="charts/sabine_after_2.png" alt="After 2 — kids in M-hub shuttle">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 02 Lukas ── -->
+      <div class="persona-panel" data-persona="1">
+        <div class="persona-portrait">
+          <div class="persona-portrait-imgs">
+            <img class="pp-img pp-img--before active" src="charts/lukas_before.png" alt="Lukas before">
+            <img class="pp-img pp-img--after"         src="charts/lukas_after.png"  alt="Lukas after">
+          </div>
+          <div class="pp-state-btns">
+            <button class="pp-state-btn active" data-state="before">Before</button>
+            <button class="pp-state-btn"        data-state="after">After</button>
+          </div>
+        </div>
+        <div class="persona-body">
+          <div class="persona-header-row">
+            <span class="persona-num">02</span>
+            <div>
+              <div class="persona-name">Lukas, 13</div>
+              <div class="persona-role">Secondary school student</div>
+            </div>
+          </div>
+          <div class="pp-content pp-content--before active">
+            <div class="persona-story-col">
+              <span class="persona-ba-label">Before</span>
+              <p class="persona-story">Everything outside his neighbourhood depended on whether a parent could drive him. The city might as well have ended at the next street.</p>
+            </div>
+            <div class="persona-scene-img">
+              <div class="scene-slideshow">
+                <img class="scene-slide active" src="charts/lukas_before_1.png" alt="Before 1 — bored at home, city out of reach">
+                <img class="scene-slide"        src="charts/lukas_before_2.png" alt="Before 2 — no bus, dependent on parents">
+              </div>
+            </div>
+          </div>
+          <div class="pp-content pp-content--after">
+            <div class="persona-story-col">
+              <span class="persona-ba-label">After</span>
+              <p class="persona-story">Every day starts with an e-bike from the nearest S-hub. Faster to school than the old bus. On weekends he rides to the lake with friends he met near the M-hub — kids from other districts he never would have crossed paths with before. For the first time, the whole city feels like his.</p>
+            </div>
+            <div class="persona-scene-img">
+              <div class="scene-slideshow">
+                <img class="scene-slide active" src="charts/lukas_after_1.png" alt="After 1 — cycling to S-hub">
+                <img class="scene-slide"        src="charts/lukas_after_2.png" alt="After 2 — friends at M-hub by the lake">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 03 Thomas ── -->
+      <div class="persona-panel" data-persona="2">
+        <div class="persona-portrait">
+          <div class="persona-portrait-imgs">
+            <img class="pp-img pp-img--before active" src="charts/thomas_before.png" alt="Thomas before">
+            <img class="pp-img pp-img--after"         src="charts/thomas_after.png"  alt="Thomas after">
+          </div>
+          <div class="pp-state-btns">
+            <button class="pp-state-btn active" data-state="before">Before</button>
+            <button class="pp-state-btn"        data-state="after">After</button>
+          </div>
+        </div>
+        <div class="persona-body">
+          <div class="persona-header-row">
+            <span class="persona-num">03</span>
+            <div>
+              <div class="persona-name">Thomas, 44</div>
+              <div class="persona-role">Engineer at the VW plant</div>
+            </div>
+          </div>
+          <div class="pp-content pp-content--before active">
+            <div class="persona-story-col">
+              <span class="persona-ba-label">Before</span>
+              <p class="persona-story">Thirty minutes in traffic every morning. A new car every three years — an obligation that just felt like the way things were.</p>
+            </div>
+            <div class="persona-scene-img">
+              <div class="scene-slideshow">
+                <img class="scene-slide active" src="charts/thomas_before_1.png" alt="Before 1 — 30 min in traffic">
+                <img class="scene-slide"        src="charts/thomas_before_2.png" alt="Before 2 — new car every 3 years">
+              </div>
+            </div>
+          </div>
+          <div class="pp-content pp-content--after">
+            <div class="persona-story-col">
+              <span class="persona-ba-label">After</span>
+              <p class="persona-story">An autonomous bus from the L-hub delivers him to the factory gate in 18 minutes, no congestion. He helps build the fleet, and he rides it. The city that made cars for the world is now making the future for itself.</p>
+            </div>
+            <div class="persona-scene-img">
+              <div class="scene-slideshow">
+                <img class="scene-slide active" src="charts/thomas_after_1.png" alt="After 1 — L-hub to VW plant in 18 min">
+                <img class="scene-slide"        src="charts/thomas_after_2.png" alt="After 2 — built here, rides here">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 04 Gertrude ── -->
+      <div class="persona-panel" data-persona="3">
+        <div class="persona-portrait">
+          <div class="persona-portrait-imgs">
+            <img class="pp-img pp-img--before active" src="charts/gertrude_before.png" alt="Gertrude before">
+            <img class="pp-img pp-img--after"         src="charts/gertrude_after.png"  alt="Gertrude after">
+          </div>
+          <div class="pp-state-btns">
+            <button class="pp-state-btn active" data-state="before">Before</button>
+            <button class="pp-state-btn"        data-state="after">After</button>
+          </div>
+        </div>
+        <div class="persona-body">
+          <div class="persona-header-row">
+            <span class="persona-num">04</span>
+            <div>
+              <div class="persona-name">Gertrude, 85</div>
+              <div class="persona-role">Retired</div>
+            </div>
+          </div>
+          <div class="pp-content pp-content--before active">
+            <div class="persona-story-col">
+              <span class="persona-ba-label">Before</span>
+              <p class="persona-story">After her leg gave out, she stopped driving. Every trip to the doctor or the market meant asking her daughter. Spontaneous outings quietly disappeared from her life.</p>
+            </div>
+            <div class="persona-scene-img">
+              <div class="scene-slideshow">
+                <img class="scene-slide active" src="charts/gertrude_before_1.png" alt="Before 1 — calling daughter for doctor appointment">
+                <img class="scene-slide"        src="charts/gertrude_before_2.png" alt="Before 2 — watching the market from inside">
+              </div>
+            </div>
+          </div>
+          <div class="pp-content pp-content--after">
+            <div class="persona-story-col">
+              <span class="persona-ba-label">After</span>
+              <p class="persona-story">An autonomous pod arrives at her door — booked from a tablet, no transfers, no steps. She goes to the market on Tuesdays again. She visits a friend across town without planning it a week ahead. Not because technology improved — because the city is finally arranged as if she lives in it too.</p>
+            </div>
+            <div class="persona-scene-img">
+              <div class="scene-slideshow">
+                <img class="scene-slide active" src="charts/gertrude_after_1.png" alt="After 1 — booking pod on tablet">
+                <img class="scene-slide"        src="charts/gertrude_after_2.png" alt="After 2 — out in the city again">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       05  ACHIEVED NUMBERS
+  ════════════════════════════════════════════════════ -->
+  <section class="section s-dark" id="s05">
+
+    <div class="display-header animate">
+      <h2 class="display-title">Achieved</h2>
+      <span class="display-counter">05</span>
+    </div>
+    <div class="display-rule"></div>
+
+    <div class="anno-grid animate delay-1">
+      <span class="anno">(Proof)</span>
+      <p class="thesis">The system, proven.</p>
+    </div>
+
+    <div class="checklist animate delay-2">
+      <div class="check-item">
+        <span class="check">✓</span>
+        <span class="check-label">1,273 shared vehicles</span>
+        <span class="check-detail">641 e-bikes · 55 shuttle pods · 33 autonomous buses · 369 micro-pods · 175 shared EVs</span>
+      </div>
+      <div class="check-item">
+        <span class="check">✓</span>
+        <span class="check-label">104,100 trips / day</span>
+        <span class="check-detail">17,400 residents + 18,000 workers + 7,080 daily visitors</span>
+      </div>
+      <div class="check-item">
+        <span class="check">✓</span>
+        <span class="check-label">140 hubs — city-wide coverage</span>
+        <span class="check-detail">80–90% of residents within 300 m of a hub</span>
+      </div>
+      <div class="check-item">
+        <span class="check">✓</span>
+        <span class="check-label">VW shift wave handled</span>
+        <span class="check-detail">10,000 workers served in ~1 hour peak demand</span>
+      </div>
+      <div class="check-item">
+        <span class="check">✓</span>
+        <span class="check-label">— m² of parking freed</span>
+        <span class="check-detail">Reclaimed for public life, housing, and green space</span>
+      </div>
+      <div class="check-item">
+        <span class="check">✓</span>
+        <span class="check-label">7,596 € saved per household / year</span>
+        <span class="check-detail">€727/mo private car → €94/mo shared mobility · 87% cost reduction</span>
+      </div>
+    </div>
+
+    <!-- Before / After auto-fade -->
+    <div class="ba-gallery animate delay-3">
+      <div class="ba-top-row">
+        <span class="anno">(Before / After)</span>
+        <div class="ba-tabs">
+          <button class="ba-tab active" data-pair="0">City overview</button>
+          <button class="ba-tab" data-pair="1">Canal edge</button>
+          <button class="ba-tab" data-pair="2">Kleiststr.</button>
+          <button class="ba-tab" data-pair="3">Schillerstr.</button>
+          <button class="ba-tab" data-pair="4">Rothenfelderstr.</button>
+        </div>
+      </div>
+      <div class="ba-fade" id="ba-fade">
+        <img class="ba-img-after"  id="ba-img-after"  src="charts/ba_v1_after.png"  alt="" draggable="false" />
+        <img class="ba-img-before" id="ba-img-before" src="charts/ba_v1_before.png" alt="" draggable="false" />
+        <span class="ba-tag ba-tag--l">Before</span>
+        <span class="ba-tag ba-tag--r">After</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       06  VISION — CLOSE
+  ════════════════════════════════════════════════════ -->
+  <section class="section s-dark" id="s06">
+
+    <div class="display-header animate mt-64">
+      <h2 class="display-title">Parking City<br>→ Hub City</h2>
+      <span class="display-counter">06</span>
+    </div>
+    <div class="display-rule"></div>
+
+    <div class="anno-grid animate delay-1">
+      <span class="anno">(Vision)</span>
+      <p class="thesis">
+        // a fundamentally new urban life through integrated multimodal mobility infrastructure
+      </p>
+    </div>
+
+    <div class="credits animate delay-2">
+      <p class="credits-module">
+        Prompt City · Wolfsburg Urban Vision · M.Sc. IUDD · SoSe 26
+      </p>
+      <p class="credits-authors">
+        Omer Faruk Aslan · Anastasiia Mulyndina · Basak Pinar
+      </p>
+    </div>
+
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">✕</button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+    <div class="lightbox-nav">
+      <button class="lb-btn" data-index="0">Hub network</button>
+      <button class="lb-btn" data-index="1">Catchment areas</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
