@@ -60,5 +60,5 @@ node -e 'global.window={};require("./data/model-data.js");require("./data/descri
 #   extract the IIFE and run: node --check
 ```
 
-Also open `index.html` and confirm: tabs = Perspective 1–4 + Iso, perspective orbit upright,
+Also open `index.html` and confirm: tabs = Perspective 1–5 + eye level 1–4 + Iso, perspective orbit upright,
 People/Trees toggles, legend filtering, hover cards, buildings light-gray with black edges.

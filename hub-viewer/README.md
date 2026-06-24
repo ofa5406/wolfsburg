@@ -15,8 +15,8 @@ server, no network: every library is vendored locally in `js/` and all data is l
 
 - **Right-drag** — orbit · **Middle-drag** — pan · **Wheel** — zoom
 - **Hover** any element — its description card appears (bigger heading, one-line text)
-- **Scene tabs** (top) — the Rhino named views (Perspective 1–4) + an orthographic **Iso**
-  preset, all centred on the hub. Opens on Perspective 1. Perspective orbit stays upright
+- **Scene tabs** (top) — the Rhino named views (Perspective 1–5 + eye level 1–4) + an
+  orthographic **Iso** preset, all centred on the hub. Opens on Perspective 1. Perspective orbit stays upright
   (orbits around world-up, no flipping); Iso is true parallel projection and stays orbitable.
 - **People: Off / On** (bottom-right) — toggle ~205 static low-poly **brown** figures on the
   hub surfaces (model scale, not animated). Default off.
