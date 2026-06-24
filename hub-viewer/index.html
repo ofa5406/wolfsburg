@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Wolfsburg Mobility Hub — Element Viewer</title>
+<style>
+  :root{ --ink:#1d2127; --muted:#6b7280; --line:#e5e7eb; --panel:#ffffff; }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;overflow:hidden;background:#f4f5f7;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink)}
+  #app{position:fixed;inset:0}
+  canvas{display:block}
+
+  #header{position:fixed;top:0;left:0;right:0;padding:14px 18px;pointer-events:none;
+    display:flex;justify-content:space-between;align-items:flex-start;z-index:5;gap:16px}
+  #title{font-size:15px;font-weight:700}
+  #title small{display:block;font-weight:500;color:var(--muted);font-size:12px;margin-top:2px}
+  #hint{font-size:11.5px;color:var(--muted);text-align:right;line-height:1.5}
+
+  /* Scene tabs */
+  #tabs{position:fixed;top:54px;left:50%;transform:translateX(-50%);z-index:6;
+    display:flex;gap:4px;background:rgba(255,255,255,.92);border:1px solid var(--line);
+    border-radius:10px;padding:4px;box-shadow:0 6px 24px rgba(0,0,0,.07);backdrop-filter:blur(6px)}
+  #tabs .tab{font-size:12px;font-weight:600;color:var(--muted);padding:6px 12px;border-radius:7px;
+    cursor:pointer;white-space:nowrap;border:1px solid transparent}
+  #tabs .tab:hover{color:var(--ink);background:#f1f2f4}
+  #tabs .tab.active{color:#fff;background:#1d2127;border-color:#1d2127}
+  #tabs .sep{width:1px;background:var(--line);margin:3px 2px}
+
+  #legend{position:fixed;left:18px;bottom:18px;background:rgba(255,255,255,.94);
+    border:1px solid var(--line);border-radius:10px;padding:11px 13px;font-size:12px;
+    backdrop-filter:blur(6px);box-shadow:0 6px 24px rgba(0,0,0,.07);z-index:5;max-width:250px}
+  #legend h4{margin:0 0 8px;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);
+    display:flex;justify-content:space-between;align-items:center}
+  #legend h4 a{pointer-events:auto;cursor:pointer;color:var(--muted);font-weight:600;text-transform:none;
+    letter-spacing:0;font-size:11px;text-decoration:underline}
+  #legend .row{display:flex;align-items:center;gap:9px;margin:5px 0;cursor:pointer;user-select:none}
+  #legend .sw{width:11px;height:11px;border-radius:3px;flex:0 0 auto}
+  #legend .row.off{opacity:.38}
+  #legend .row .ct{margin-left:auto;color:var(--muted);font-variant-numeric:tabular-nums}
+
+  #panel{position:fixed;max-width:340px;background:var(--panel);border:1px solid var(--line);
+    border-left-width:4px;border-radius:10px;box-shadow:0 12px 40px rgba(0,0,0,.15);padding:13px 16px;z-index:10;
+    opacity:0;transform:translateY(6px);transition:opacity .1s ease,transform .1s ease;pointer-events:none}
+  #panel.show{opacity:1;transform:translateY(0)}
+  #panel .pcat{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+  #panel .ptitle{font-size:18.5px;font-weight:800;line-height:1.18}
+  #panel .ptext{font-size:12.5px;line-height:1.5;color:#374151;margin-top:8px}
+
+  #controls{position:fixed;right:18px;bottom:18px;z-index:5;display:flex;gap:8px}
+  #controls button{border:1px solid var(--line);background:rgba(255,255,255,.94);color:var(--ink);
+    font-size:12px;font-weight:600;padding:8px 12px;border-radius:8px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.06)}
+  #controls button:hover{border-color:#999}
+  #btn-trees.contour,#btn-people.on{background:#1d2127;color:#fff;border-color:#1d2127}
+  #loading{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+    background:#f4f5f7;z-index:20;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<div id="header">
+  <div id="title">Wolfsburg Mobility Hub — Element Kit
+    <small>Parking City → Hub City · hover any element for its description</small>
+  </div>
+  <div id="hint">Right-drag orbit · middle-drag pan · wheel zoom<br>Click a category to show / hide it</div>
+</div>
+
+<div id="tabs"></div>
+
+<div id="legend">
+  <h4><span>Element categories</span><a id="toggle-all">toggle all</a></h4>
+  <div id="legend-rows"></div>
+</div>
+
+<div id="panel">
+  <div class="pcat" id="p-cat"></div>
+  <div class="ptitle" id="p-title"></div>
+  <div class="ptext" id="p-text"></div>
+</div>
+
+<div id="controls">
+  <button id="btn-people">People: Off</button>
+  <button id="btn-trees">Trees: Solid</button>
+  <button id="reset">Reset view</button>
+</div>
+<div id="loading">Loading model…</div>
+
+<script src="js/three.min.js"></script>
+<script src="js/OrbitControls.js"></script>
+<script src="js/LineSegmentsGeometry.js"></script>
+<script src="js/LineMaterial.js"></script>
+<script src="js/LineSegments2.js"></script>
+<script src="data/model-data.js"></script>
+<script src="data/descriptions.js"></script>
+<script>
+(function(){
+  "use strict";
+  var MODEL=window.HUB_MODEL, DESCS=window.HUB_DESCRIPTIONS||{}, CATS=window.HUB_CATEGORIES||{};
+  if(!MODEL){ document.getElementById('loading').textContent='model-data.js failed to load.'; return; }
+
+  var BG=0xf4f5f7, EDGE_COLOR=0x3a3f47, EDGE_OP=0.5, EDGE_TRI_CAP=150000;
+  var TREE_CONTOUR=0x2a2e35, DEFAULT_CAT_COLOR="#ff6a00";
+  var FAT_LINES = !!(THREE.LineSegments2 && THREE.LineSegmentsGeometry && THREE.LineMaterial);
+  var fatLineMats=[];   // resolution-dependent LineMaterials, refreshed on resize
+  var ORTHO_DIST=800, ORTHO_HALF=190;   // ortho framing (looser than Perspective 1)
+
+  var W=window.innerWidth, H=window.innerHeight;
+  var app=document.getElementById('app');
+  var renderer=new THREE.WebGLRenderer({antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setSize(W,H);
+  renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  renderer.outputEncoding=THREE.sRGBEncoding;
+  app.appendChild(renderer.domElement);
+  renderer.domElement.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+
+  var scene=new THREE.Scene(); scene.background=new THREE.Color(BG);
+
+  // ----- two cameras -----
+  var perspCam=new THREE.PerspectiveCamera(45, W/H, 0.5, 400000);
+  var orthoHalf=ORTHO_HALF;
+  var orthoCam=new THREE.OrthographicCamera(-1,1,1,-1,0.5, ORTHO_DIST*5);
+  function applyOrthoFrustum(){
+    var a=W/H; orthoCam.left=-orthoHalf*a; orthoCam.right=orthoHalf*a;
+    orthoCam.top=orthoHalf; orthoCam.bottom=-orthoHalf; orthoCam.updateProjectionMatrix();
+  }
+  applyOrthoFrustum();
+  var activeCam=perspCam;
+
+  // ----- lights (intensities driven by the active style) -----
+  var hemi=new THREE.HemisphereLight(0xffffff,0xbfc4cc,0.95); scene.add(hemi);
+  var amb=new THREE.AmbientLight(0xffffff,0.25); scene.add(amb);
+  var sun=new THREE.DirectionalLight(0xffffff,0.65);
+  sun.castShadow=true; sun.shadow.mapSize.set(4096,4096); sun.shadow.bias=-0.0004; scene.add(sun);
+
+  function buildGeometry(pos,idx){
+    var g=new THREE.BufferGeometry();
+    g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+    g.setIndex(idx); g.computeVertexNormals(); return g;
+  }
+  function rgb(c){ return new THREE.Color(c[0]/255,c[1]/255,c[2]/255); }
+  // ----- pastel / saturation helpers (Round 3) -----
+  function pastelN(c){               // [r,g,b] 0-1 -> softer + lighter 0-1
+    var L=0.299*c[0]+0.587*c[1]+0.114*c[2], ds=0.34, lt=0.18;
+    var r=c[0]+(L-c[0])*ds, g=c[1]+(L-c[1])*ds, b=c[2]+(L-c[2])*ds;
+    return [r+(1-r)*lt, g+(1-g)*lt, b+(1-b)*lt];
+  }
+  function rgbP(c){ var p=pastelN([c[0]/255,c[1]/255,c[2]/255]); return new THREE.Color(p[0],p[1],p[2]); }
+  function pastelizeCols(arr){       // vertex-colour Float array (0-1) -> pastel copy
+    var out=new Float32Array(arr.length);
+    for(var i=0;i<arr.length;i+=3){ var p=pastelN([arr[i],arr[i+1],arr[i+2]]); out[i]=p[0]; out[i+1]=p[1]; out[i+2]=p[2]; }
+    return out;
+  }
+  function saturate(col,amt){        // THREE.Color -> more vivid copy (push away from luminance)
+    var L=0.299*col.r+0.587*col.g+0.114*col.b, k=1+(amt==null?0.5:amt);
+    function cl(x){ return x<0?0:(x>1?1:x); }
+    return new THREE.Color(cl(L+(col.r-L)*k), cl(L+(col.g-L)*k), cl(L+(col.b-L)*k));
+  }
+  function catColor(cat){ return new THREE.Color((CATS[cat]&&CATS[cat].color)||DEFAULT_CAT_COLOR); }
+
+  var world=new THREE.Group(); scene.add(world);
+
+  // registries so a style can re-skin without rebuilding geometry
+  var ctxItems=[], ctxEdgeMats=[], treeItems=[], treeEdgeMats=[];
+
+  // ----- static context -----
+  MODEL.groups.forEach(function(grp){
+    var geo=buildGeometry(grp.pos,grp.idx);
+    var mesh=new THREE.Mesh(geo,new THREE.MeshStandardMaterial({
+      color:grp.nat?rgb(grp.color):rgbP(grp.color),roughness:0.94,metalness:0.0,side:THREE.DoubleSide}));
+    mesh.castShadow=true; mesh.receiveShadow=true; world.add(mesh);
+    ctxItems.push({mesh:mesh, raw:grp.color, nat:!!grp.nat});
+    if(grp.idx.length/3<=EDGE_TRI_CAP){
+      var em=new THREE.LineBasicMaterial({color:EDGE_COLOR,transparent:true,opacity:EDGE_OP});
+      world.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo,24),em)); ctxEdgeMats.push(em);
+    }
+  });
+
+  // ----- trees (solid + contour) -----
+  var treesSolid=new THREE.Group(), treesContour=new THREE.Group();
+  treesContour.visible=false; scene.add(treesSolid); scene.add(treesContour);
+  (MODEL.trees||[]).forEach(function(grp){
+    var geo=buildGeometry(grp.pos,grp.idx);
+    var mesh=new THREE.Mesh(geo,new THREE.MeshStandardMaterial({
+      color:rgbP(grp.color),roughness:0.95,metalness:0.0,side:THREE.DoubleSide}));
+    mesh.castShadow=true; mesh.receiveShadow=true; treesSolid.add(mesh);
+    treeItems.push({mesh:mesh, raw:grp.color});
+    var cm=new THREE.LineBasicMaterial({color:TREE_CONTOUR,transparent:true,opacity:0.8});
+    treesContour.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo,18),cm)); treeEdgeMats.push(cm);
+  });
+
+  // ----- elements (hoverable, category coloured) -----
+  var elementMeshes=[], byCategory={}, elementBox=new THREE.Box3();
+  function catBucket(cat){ if(!byCategory[cat]) byCategory[cat]={meshes:[],lines:[],visible:true}; return byCategory[cat]; }
+
+  // fat profile edges for the special buildings (falls back to plain LineSegments)
+  function makeProfileEdges(geo,colorHex,width){
+    var edges=new THREE.EdgesGeometry(geo,20);
+    if(FAT_LINES){
+      var lg=new THREE.LineSegmentsGeometry(); lg.setPositions(edges.attributes.position.array);
+      var lm=new THREE.LineMaterial({color:colorHex,linewidth:width,transparent:true,opacity:0.95});
+      lm.resolution.set(W,H); fatLineMats.push(lm);
+      var ls=new THREE.LineSegments2(lg,lm); ls.computeLineDistances(); ls.frustumCulled=false; return {obj:ls,mat:lm};
+    }
+    var lm2=new THREE.LineBasicMaterial({color:colorHex,transparent:true,opacity:0.95});
+    return {obj:new THREE.LineSegments(edges,lm2),mat:lm2};
+  }
+
+  MODEL.elements.forEach(function(el){
+    var cat=el.cat||"other", ccol=catColor(cat), bucket=catBucket(cat);
+
+    // --- special: h_interaction buildings (dark masses + thick profile + glow floors) ---
+    if(el.special==="interaction_buildings"){
+      var bgeo=buildGeometry(el.pos,el.idx);
+      var bmat=new THREE.MeshStandardMaterial({color:0xccced2,roughness:0.8,metalness:0.0,
+        side:THREE.DoubleSide,emissive:0x8a93a0,emissiveIntensity:0.0});
+      var bmesh=new THREE.Mesh(bgeo,bmat); bmesh.castShadow=true; bmesh.receiveShadow=true;
+      var prof=makeProfileEdges(bgeo,0x000000,2.2);   // pure black profile edges
+      // ground-floor (3_interaction) volumes — pastel accent, saturate + glow on hover
+      var iBase=new THREE.Color(0xe6cd92), iHot=saturate(iBase,0.7);
+      var igeo=buildGeometry(el.interaction.pos,el.interaction.idx);
+      var imat=new THREE.MeshStandardMaterial({color:0xe6cd92,roughness:0.6,metalness:0.0,
+        side:THREE.DoubleSide,emissive:iBase.clone(),emissiveIntensity:0.08});
+      var imesh=new THREE.Mesh(igeo,imat); imesh.castShadow=true; imesh.receiveShadow=true;
+      bmesh.userData={key:el.key,block:el.block,cat:cat,mat:bmat,lineMat:prof.mat,baseLineOp:0.95,
+        special:true,interMat:imat,interBaseEI:0.08,interHoverEI:0.5,interBaseCol:iBase.clone(),interHotCol:iHot,
+        baseEmis:0.0,hoverEmis:0.12};
+      world.add(bmesh); world.add(prof.obj); world.add(imesh);
+      elementMeshes.push(bmesh); elementBox.expandByObject(bmesh);
+      bucket.meshes.push(bmesh,imesh); bucket.lines.push(prof.obj);
+      return;
+    }
+
+    // --- normal element ---
+    var geo=buildGeometry(el.pos,el.idx);
+    if(el.col&&el.col.length===el.pos.length) geo.setAttribute('color',new THREE.Float32BufferAttribute(pastelizeCols(el.col),3));
+    var mat=new THREE.MeshStandardMaterial({vertexColors:!!(el.col&&el.col.length),color:0xffffff,
+      roughness:0.85,metalness:0.0,side:THREE.DoubleSide,emissive:ccol.clone(),emissiveIntensity:0.0});
+    var mesh=new THREE.Mesh(geo,mat); mesh.castShadow=true; mesh.receiveShadow=true;
+    var lineMat=new THREE.LineBasicMaterial({color:ccol.clone(),transparent:true,opacity:0.85});
+    var lines=new THREE.LineSegments(new THREE.EdgesGeometry(geo,20),lineMat);
+    mesh.userData={key:el.key,block:el.block,cat:cat,mat:mat,lineMat:lineMat,lines:lines,
+      baseLineOp:0.85,baseEmis:0.0,hoverEmis:0.5,accent:ccol.clone(),accentHot:saturate(ccol,0.55),
+      rawCol:(el.col&&el.col.length===el.pos.length)?el.col:null};
+    world.add(mesh); world.add(lines); elementMeshes.push(mesh); elementBox.expandByObject(mesh);
+    bucket.meshes.push(mesh); bucket.lines.push(lines);
+  });
+
+  // ----- ground shadow catcher -----
+  var bmin=MODEL.meta.bbox_min, bmax=MODEL.meta.bbox_max;
+  var span=Math.max(bmax[0]-bmin[0],bmax[2]-bmin[2]);
+  var groundShadowMat=new THREE.ShadowMaterial({opacity:0.16});
+  var ground=new THREE.Mesh(new THREE.PlaneGeometry(span*3,span*3),groundShadowMat);
+  ground.rotation.x=-Math.PI/2;
+  ground.position.set((bmin[0]+bmax[0])/2,bmin[1]-0.05,(bmin[2]+bmax[2])/2);
+  ground.receiveShadow=true; scene.add(ground);
+
+  // sun relative to scene
+  var sc0=elementBox.getCenter(new THREE.Vector3());
+  sun.position.set(sc0.x+span*0.5,sc0.y+span*0.9,sc0.z+span*0.35);
+  sun.target.position.copy(sc0); scene.add(sun.target);
+  var sc=sun.shadow.camera, sh=span*0.65;
+  sc.left=-sh; sc.right=sh; sc.top=sh; sc.bottom=-sh; sc.near=1; sc.far=span*3; sc.updateProjectionMatrix();
+
+  // canopy centre for ortho presets
+  var canopy=(function(){
+    for(var i=0;i<MODEL.elements.length;i++) if(MODEL.elements[i].key==="h_canopy_1") return MODEL.elements[i].center;
+    return sc0.toArray();
+  })();
+  var canopyV=new THREE.Vector3(canopy[0],canopy[1],canopy[2]);
+
+  // ----- static low-poly people (white silhouette, toggled) -----
+  function mergeGeos(parts){
+    var pos=[], idx=[], off=0;
+    parts.forEach(function(g){
+      g.computeVertexNormals();
+      var gp=g.attributes.position.array, gi=g.index?g.index.array:null;
+      for(var i=0;i<gp.length;i++) pos.push(gp[i]);
+      if(gi){ for(var j=0;j<gi.length;j++) idx.push(gi[j]+off); }
+      else { for(var k=0;k<gp.length/3;k++) idx.push(off+k); }
+      off += gp.length/3;
+    });
+    var m=new THREE.BufferGeometry();
+    m.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+    m.setIndex(idx); m.computeVertexNormals(); return m;
+  }
+  function box(w,h,d,x,y,z){ var g=new THREE.BoxGeometry(w,h,d); g.translate(x,y,z); return g; }
+  function makeHuman(){            // ~1.7 m tall, feet at y=0, facing +z
+    var head=new THREE.SphereGeometry(0.115,8,6); head.translate(0,1.555,0);
+    return mergeGeos([
+      box(0.17,0.78,0.17,-0.105,0.39,0), box(0.17,0.78,0.17,0.105,0.39,0),   // legs
+      box(0.40,0.60,0.23,0,1.12,0),                                          // torso
+      box(0.115,0.62,0.13,-0.275,1.12,0), box(0.115,0.62,0.13,0.275,1.12,0), // arms
+      box(0.16,0.12,0.16,0,1.46,0),                                          // neck/shoulders
+      head
+    ]);
+  }
+  var people=null;
+  if(MODEL.people && MODEL.people.length){
+    var humanGeo=makeHuman();
+    var humanMat=new THREE.MeshStandardMaterial({color:0x6f4e37,roughness:0.95,metalness:0.0,
+      emissive:0x2a1d14,emissiveIntensity:0.0});
+    people=new THREE.InstancedMesh(humanGeo,humanMat,MODEL.people.length);
+    people.castShadow=true; people.receiveShadow=false;
+    var _m=new THREE.Matrix4(), _q=new THREE.Quaternion(), _yup=new THREE.Vector3(0,1,0),
+        _one=new THREE.Vector3(1,1,1), _p=new THREE.Vector3();
+    MODEL.people.forEach(function(pp,i){
+      _q.setFromAxisAngle(_yup, pp[3]||0);
+      _p.set(pp[0],pp[1],pp[2]); _m.compose(_p,_q,_one); people.setMatrixAt(i,_m);
+    });
+    people.instanceMatrix.needsUpdate=true; people.visible=false; people.frustumCulled=false; scene.add(people);
+  }
+
+  // ===== style presets (live re-skin via the Style dropdown) =====
+  function lum(c){ return 0.299*c[0]+0.587*c[1]+0.114*c[2]; }
+  function pastelT(c,ds,lt){ var L=lum(c),r=c[0]+(L-c[0])*ds,g=c[1]+(L-c[1])*ds,b=c[2]+(L-c[2])*ds;
+    return [r+(1-r)*lt,g+(1-g)*lt,b+(1-b)*lt]; }                       // desat + lighten
+  function muteT(c,ds,mul){ var L=lum(c); return [(c[0]+(L-c[0])*ds)*mul,(c[1]+(L-c[1])*ds)*mul,(c[2]+(L-c[2])*ds)*mul]; }
+  function grayT(c,lift){ var L=lum(c),v=L+(1-L)*lift; return [v,v,v]; } // luminance -> gray, lifted
+  function darkenC(col,t){ return new THREE.Color(col.r*(1-t),col.g*(1-t),col.b*(1-t)); }
+  var STYLES={
+    muted:{ bg:0xeceef0, hemi:0.45, amb:0.10, sun:1.0, shadow:0.28,
+      edgeColor:0x101216, edgeOp:0.88, treeEdgeOp:0.8,
+      fill:function(c){return muteT(c,0.15,0.82);},
+      elemEdge:function(cat){return darkenC(cat,0.25);},
+      bldMass:0xb9bdc3, bldFloor:0xcdb066, peopleColor:0x5e4230 }
+  };
+  var activeStyle=null;
+  function applyStyle(name){
+    var s=STYLES[name]||STYLES.line; activeStyle=s;
+    scene.background.set(s.bg);
+    hemi.intensity=s.hemi; amb.intensity=s.amb; sun.intensity=s.sun;
+    groundShadowMat.opacity=s.shadow;
+    var fc=s.fillContext||s.fill;
+    ctxItems.forEach(function(it){
+      if(it.nat){ it.mesh.material.color.copy(rgb(it.raw)); }
+      else { var p=fc([it.raw[0]/255,it.raw[1]/255,it.raw[2]/255]); it.mesh.material.color.setRGB(p[0],p[1],p[2]); }
+    });
+    ctxEdgeMats.forEach(function(m){ m.color.setHex(s.edgeColor); m.opacity=s.edgeOp; });
+    treeItems.forEach(function(it){ var p=s.fill([it.raw[0]/255,it.raw[1]/255,it.raw[2]/255]); it.mesh.material.color.setRGB(p[0],p[1],p[2]); });
+    treeEdgeMats.forEach(function(m){ m.color.setHex(s.edgeColor); m.opacity=s.treeEdgeOp; });
+    elementMeshes.forEach(function(mesh){
+      var ud=mesh.userData;
+      if(ud.special){
+        ud.mat.color.setHex(s.bldMass);
+        var fb=new THREE.Color(s.bldFloor); ud.interBaseCol.copy(fb); ud.interHotCol.copy(saturate(fb,0.7));
+        ud.interMat.color.copy(fb); if(hovered!==mesh) ud.interMat.emissive.copy(fb);
+        return;
+      }
+      if(ud.rawCol){
+        var attr=mesh.geometry.getAttribute('color');
+        if(attr){ var a=attr.array, rc=ud.rawCol;
+          for(var i=0;i<a.length;i+=3){ var p=s.fill([rc[i],rc[i+1],rc[i+2]]); a[i]=p[0]; a[i+1]=p[1]; a[i+2]=p[2]; }
+          attr.needsUpdate=true; }
+      }
+      var cat=catColor(ud.cat);
+      ud.accent=s.elemEdge(cat); ud.accentHot=saturate(cat,0.55);
+      if(hovered!==mesh){ ud.mat.emissive.copy(ud.accent); ud.lineMat.color.copy(ud.accent); }
+    });
+    if(typeof humanMat!=="undefined" && humanMat) humanMat.color.setHex(s.peopleColor);
+    if(hovered){ var h=hovered; hovered=null; setHover(h); }   // refresh hover visual mid-switch
+  }
+
+  // ----- controls (Rhino style) -----
+  var controls=new THREE.OrbitControls(perspCam, renderer.domElement);
+  controls.enableDamping=true; controls.dampingFactor=0.08;
+  controls.screenSpacePanning=true;
+  controls.minPolarAngle=0.01; controls.maxPolarAngle=Math.PI-0.01;   // free, can dip below horizon
+  controls.minDistance=8; controls.maxDistance=span*1.8;
+  controls.mouseButtons={ LEFT:null, MIDDLE:THREE.MOUSE.PAN, RIGHT:THREE.MOUSE.ROTATE };
+  controls.touches={ ONE:THREE.TOUCH.ROTATE, TWO:THREE.TOUCH.DOLLY_PAN };
+
+  function setFov(lens){ perspCam.fov=2*Math.atan(12/(lens||50))*180/Math.PI; perspCam.updateProjectionMatrix(); }
+
+  function applyPersp(v){
+    activeCam=perspCam;
+    perspCam.up.set(0,1,0);   // world up — ignore the named-view roll so orbit doesn't tilt/flip
+    perspCam.position.set(v.pos[0],v.pos[1],v.pos[2]);
+    setFov(v.lens);
+    controls.object=perspCam;
+    controls.target.set(v.target[0],v.target[1],v.target[2]);
+    controls.update();
+  }
+  function applyOrtho(dir,up){
+    activeCam=orthoCam; orthoCam.zoom=1; orthoCam.up.set(up[0],up[1],up[2]);
+    orthoCam.position.set(canopyV.x+dir[0]*ORTHO_DIST, canopyV.y+dir[1]*ORTHO_DIST, canopyV.z+dir[2]*ORTHO_DIST);
+    applyOrthoFrustum();
+    controls.object=orthoCam;
+    controls.target.copy(canopyV);
+    controls.update();
+  }
+
+  // ----- scene tabs -----
+  var tabsEl=document.getElementById('tabs'), tabDefs=[], tabEls=[];
+  (MODEL.meta.views||[]).forEach(function(v){ tabDefs.push({label:v.name, kind:'persp', view:v}); });
+  tabDefs.push({sep:true});
+  tabDefs.push({label:"Iso",   kind:'ortho', dir:[0.7,0.7,0.7], up:[0,1,0]});
+
+  var activeTabIdx=0;
+  function activate(idx){
+    var d=tabDefs[idx]; if(!d||d.sep) return;
+    activeTabIdx=idx;
+    if(d.kind==='persp') applyPersp(d.view); else applyOrtho(d.dir,d.up);
+    tabEls.forEach(function(t,i){ if(t) t.classList.toggle('active', i===idx); });
+  }
+  tabDefs.forEach(function(d,i){
+    if(d.sep){ var s=document.createElement('div'); s.className='sep'; tabsEl.appendChild(s); tabEls.push(null); return; }
+    var b=document.createElement('div'); b.className='tab'; b.textContent=d.label;
+    b.addEventListener('click', function(){ activate(i); });
+    tabsEl.appendChild(b); tabEls.push(b);
+  });
+
+  // ----- legend -----
+  var rowsEl=document.getElementById('legend-rows');
+  var order=["hub","mob","shel","env","way","soc","lit","str","opt"];
+  var present=order.filter(function(c){return byCategory[c];})
+                .concat(Object.keys(byCategory).filter(function(c){return order.indexOf(c)<0;}));
+  present.forEach(function(cat){
+    var meta=CATS[cat]||{name:cat,color:DEFAULT_CAT_COLOR}, count=byCategory[cat].meshes.length;
+    var row=document.createElement('div'); row.className='row';
+    row.innerHTML='<span class="sw" style="background:'+meta.color+'"></span><span>'+meta.name+'</span><span class="ct">'+count+'</span>';
+    row.addEventListener('click', function(){
+      var g=byCategory[cat]; g.visible=!g.visible;
+      g.meshes.forEach(function(m){m.visible=g.visible;}); g.lines.forEach(function(l){l.visible=g.visible;});
+      row.classList.toggle('off',!g.visible);
+    });
+    rowsEl.appendChild(row);
+  });
+  document.getElementById('toggle-all').addEventListener('click', function(){
+    var anyOn=present.some(function(c){return byCategory[c].visible;});
+    present.forEach(function(cat,i){
+      var g=byCategory[cat]; g.visible=!anyOn;
+      g.meshes.forEach(function(m){m.visible=g.visible;}); g.lines.forEach(function(l){l.visible=g.visible;});
+      rowsEl.children[i].classList.toggle('off',!g.visible);
+    });
+  });
+
+  // ----- trees toggle -----
+  var treesMode='solid', btnTrees=document.getElementById('btn-trees');
+  btnTrees.addEventListener('click', function(){
+    treesMode = treesMode==='solid' ? 'contour' : 'solid';
+    var solid = treesMode==='solid';
+    treesSolid.visible=solid; treesContour.visible=!solid;
+    btnTrees.textContent='Trees: '+(solid?'Solid':'Contour');
+    btnTrees.classList.toggle('contour',!solid);
+  });
+
+  // ----- people toggle -----
+  var btnPeople=document.getElementById('btn-people');
+  if(!people){ btnPeople.disabled=true; btnPeople.style.opacity=0.5; }
+  btnPeople.addEventListener('click', function(){
+    if(!people) return;
+    people.visible=!people.visible;
+    btnPeople.textContent='People: '+(people.visible?'On':'Off');
+    btnPeople.classList.toggle('on',people.visible);
+  });
+
+  // ----- reset -----
+  document.getElementById('reset').addEventListener('click', function(){ activate(activeTabIdx); });
+
+  // ----- hover -----
+  var raycaster=new THREE.Raycaster(), mouse=new THREE.Vector2();
+  var panel=document.getElementById('panel');
+  var pCat=document.getElementById('p-cat'), pTitle=document.getElementById('p-title'), pText=document.getElementById('p-text');
+  var hovered=null;
+  function setHover(mesh){
+    if(hovered===mesh) return;
+    if(hovered){ var p=hovered.userData;
+      p.mat.emissiveIntensity=p.baseEmis||0.0;
+      if(p.accent) p.mat.emissive.copy(p.accent);
+      if(p.lineMat){ p.lineMat.opacity=(p.baseLineOp!=null?p.baseLineOp:0.85); if(p.accent&&p.lineMat.color) p.lineMat.color.copy(p.accent); }
+      if(p.interMat){ p.interMat.emissiveIntensity=(p.interBaseEI!=null?p.interBaseEI:0.12); if(p.interBaseCol) p.interMat.emissive.copy(p.interBaseCol); }
+    }
+    hovered=mesh;
+    if(hovered){
+      var ud=hovered.userData;
+      ud.mat.emissiveIntensity=(ud.hoverEmis!=null?ud.hoverEmis:0.5);
+      if(ud.accentHot) ud.mat.emissive.copy(ud.accentHot);       // hover = more saturated
+      if(ud.lineMat){ ud.lineMat.opacity=1.0; if(ud.accentHot&&ud.lineMat.color) ud.lineMat.color.copy(ud.accentHot); }
+      if(ud.interMat){ ud.interMat.emissiveIntensity=(ud.interHoverEI!=null?ud.interHoverEI:0.55); if(ud.interHotCol) ud.interMat.emissive.copy(ud.interHotCol); }
+      var d=DESCS[ud.key], meta=CATS[ud.cat]||{name:ud.cat,color:DEFAULT_CAT_COLOR};
+      pCat.textContent=meta.name; pCat.style.color=meta.color;
+      pTitle.textContent=d?d.title:ud.block;
+      pText.textContent=d?d.text:'No description yet — add "'+ud.key+'" in descriptions.js';
+      panel.style.borderLeftColor=meta.color; panel.classList.add('show'); document.body.style.cursor='pointer';
+    } else { panel.classList.remove('show'); document.body.style.cursor='default'; }
+  }
+  function onMove(e){
+    mouse.x=(e.clientX/window.innerWidth)*2-1; mouse.y=-(e.clientY/window.innerHeight)*2+1;
+    raycaster.setFromCamera(mouse, activeCam);
+    var hits=raycaster.intersectObjects(elementMeshes,false), hit=null;
+    for(var i=0;i<hits.length;i++){ if(hits[i].object.visible){ hit=hits[i].object; break; } }
+    setHover(hit);
+    var px=e.clientX+16, py=e.clientY+16;
+    if(px+350>window.innerWidth) px=e.clientX-350-16;
+    if(py+170>window.innerHeight) py=window.innerHeight-180;
+    panel.style.left=px+'px'; panel.style.top=py+'px';
+  }
+  renderer.domElement.addEventListener('pointermove', onMove);
+
+  window.addEventListener('resize', function(){
+    W=window.innerWidth; H=window.innerHeight;
+    perspCam.aspect=W/H; perspCam.updateProjectionMatrix();
+    applyOrthoFrustum();
+    renderer.setSize(W,H);
+    fatLineMats.forEach(function(m){ m.resolution.set(W,H); });
+  });
+
+  function animate(){ requestAnimationFrame(animate); controls.update(); renderer.render(scene, activeCam); }
+
+  // start on the Muted style + Perspective 1 (tab 0)
+  applyStyle('muted');
+  activate(0);
+  document.getElementById('loading').style.display='none';
+  animate();
+})();
+</script>
+</body>
+</html>

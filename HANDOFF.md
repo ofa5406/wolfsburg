@@ -2,7 +2,7 @@
 
 *This is the single "where are we right now" file. Whenever you (or Claude) start a session, read this before anything else. Whenever you end a session, update it. It is the memory that survives when a chat ends or usage resets.*
 
-*Last updated: 2026-06-22 (HTML presentation — built and iterated the Auto-Stadt scroll presentation; two masterplan scales with crossfade animation; hub charts regenerated; see `sessions/2026-06-21_html-presentation/notes.md`)*
+*Last updated: 2026-06-24 (Hub Viewer — built a standalone, embeddable 3D hub-element viewer in `hub-viewer/`; iterated nav, dark→muted restyle, static people, hover cards; locked the "Muted & deep" look; packaged for reuse + committed. See `sessions/2026-06-24_hub-viewer-round2/notes.md`)*
 
 ---
 
@@ -29,6 +29,7 @@ Wolfsburg reimagined as a **post-private-car city**: the organizing element shif
 ## What exists now
 
 - ✅ **HTML presentation** (`wolfsburg-presentation/`) — scroll-based site with Swiss-grid layout, named **Auto-Stadt**. Two masterplan scales (upper city / lower centre) with crossfade animation between hub network and catchment views. Hub data charts (heatmap, stacked bar, profile cards, area breakdown). Lightbox for enlarged plan views. Local only — not yet deployed.
+- ✅ **Hub Viewer** (`hub-viewer/`) — standalone, offline, **embeddable** 3D viewer of one hub's element kit, exported from the Rhino model. Hover any element for a one-line description; tabs for the 4 named views + Iso; muted style with crisp edges; toggleable static people + trees. Self-contained (vendored three.js, baked `data/model-data.js`). Built to drop into a larger web tool — see `hub-viewer/README.md` + `hub-viewer/CLAUDE.md`.
 - ✅ **Rhino masterplan** (`wolfsburg_masterplan.3dm`) — road hierarchy in 5 tiers, hub points placed, catchment areas drawn, land acquisition zones marked. See `project/rhino_masterplan.md`.
 - ✅ Hub typology logic (`project/hub_typologies.md`) + Rhino kit-of-parts (`toolpalette.3dm`, 45 blocks, 3 sample scenes).
 - ✅ Web tool "Wolfsburg Activity Map" (annestasiia.github.io/wolfsburg-activity-map) — hub placement, cycling network, fleet/capacity calculations. Source of computed numbers used in the presentation.

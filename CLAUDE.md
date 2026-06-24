@@ -86,8 +86,16 @@ wolfsburg/
 │   ├── deliverables.md       ← What needs to be produced and by when
 │   └── archive/              ← Saved versions before major updates
 │
+├── hub-viewer/            ← Standalone, embeddable 3D viewer of one hub's element kit
+│   ├── README.md             ← How to open / embed + the data schema
+│   └── CLAUDE.md             ← Briefing for reusing or embedding the tool
+│
 ├── web-tool/
 │   └── status.md             ← Current state of the Wolfsburg Activity Map tool
+│
+├── visuals/               ← Image/video generation for the project
+│   ├── image-prompts.md      ← Prompt playbook + anchored styles (read for any image task)
+│   └── generated/            ← Downloaded outputs + style-anchor reference images
 │
 ├── sessions/              ← One folder per working session with Claude
 │   ├── INDEX.md              ← Running log of all sessions (newest first)
