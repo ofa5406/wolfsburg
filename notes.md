@@ -5,6 +5,12 @@ Newest entries at the top. Add freely — this is a scratchpad, not a formal doc
 
 ---
 
+## 2026-06-25 — Project name: `<stadt.hub>`
+
+We have a name for the whole project: **`<stadt.hub>`**. Keeping "Post-Car Future of Wolfsburg" as the descriptive line. Updated README, CLAUDE.md, HANDOFF.md, project/current.md; logged in decisions.md. (Historical session logs/archives left as-is.)
+
+---
+
 ## 2026-06-17 — Decided: build an HTML presentation
 
 The team decided to prepare a single **HTML presentation** carrying the whole project.

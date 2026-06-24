@@ -1,4 +1,6 @@
-# Post-Car Future of Wolfsburg — Workshop Briefing
+# `<stadt.hub>` — Workshop Briefing
+
+*Project name: **`<stadt.hub>`** (working subtitle: Post-Car Future of Wolfsburg).*
 
 **Read this file at the start of every session — then read `HANDOFF.md`.**
 

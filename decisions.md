@@ -4,6 +4,12 @@ Formally agreed decisions only. Ideas and open questions go in `notes.md`.
 
 ---
 
+## 2026-06-25 — Project name locked: `<stadt.hub>`
+
+The project has an official name: **`<stadt.hub>`**. "Post-Car Future of Wolfsburg" / "Parking City → Hub City" remain the descriptive subtitle/thesis. Replaces the earlier presentation working title "Auto-Stadt". Name introduced across the identity docs (README, CLAUDE.md, HANDOFF.md, project/current.md). Rendered in code style in Markdown so the angle brackets display (a bare `<stadt.hub>` is otherwise parsed as an HTML tag and hidden).
+
+---
+
 ## 2026-06-11 — Fleet composition accepted
 
 **Decided:** Fleet of 763 vehicles total:
