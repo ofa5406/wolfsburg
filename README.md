@@ -1,6 +1,6 @@
-# Post-Car Future of Wolfsburg — Project Workspace
+# `<stadt.hub>` — Project Workspace
 
-A shared workspace for our urban-design project **"Post-Car Future of Wolfsburg"** — reimagining Wolfsburg as a **post-private-car city** where the organizing element of mobility shifts from **parking → mobility hubs**, freeing car-dominated land for public life.
+A shared workspace for our urban-design project **`<stadt.hub>`** — *Post-Car Future of Wolfsburg* — reimagining Wolfsburg as a **post-private-car city** where the organizing element of mobility shifts from **parking → mobility hubs**, freeing car-dominated land for public life.
 
 > Studio project, Bauhaus-Universität Weimar ("Prompt City" studio) + entry for the **Wolfsburg Award for Urban Vision 2026**.
 

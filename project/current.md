@@ -1,4 +1,6 @@
-# Post-Car Future of Wolfsburg — Current Project Description
+# `<stadt.hub>` — Current Project Description
+
+*Project name: **`<stadt.hub>`** — Post-Car Future of Wolfsburg.*
 
 *Update this file after consultations, group decisions, working sessions, and milestones.
 Before major updates, copy the current version to `archive/vN_YYYY-MM-DD.md` first.*
