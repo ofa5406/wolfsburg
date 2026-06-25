@@ -112,6 +112,21 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   opacity: 0.65;
 }
 
+.nav-tool {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.nav-tool:hover { opacity: 1; }
+
+.credits-tool-link {
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.65;
+  transition: opacity 0.2s;
+}
+.credits-tool-link:hover { opacity: 1; }
+
 .nav-rule {
   position: fixed;
   top: var(--nav-h);
