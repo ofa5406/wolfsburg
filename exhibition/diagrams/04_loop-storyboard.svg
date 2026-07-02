@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <rect width="1200" height="700" fill="#EAEAEA"/>
+  <text x="60" y="52" font-size="13" letter-spacing="3" fill="rgba(10,10,10,0.6)">(EXHIBITION — SUMMAERY 2026)</text>
+  <text x="60" y="84" font-size="26" font-weight="bold" fill="#0A0A0A">04 · “The 60-Second City” — loop storyboard (~75 s, silent, seamless)</text>
+  <line x1="60" y1="100" x2="1140" y2="100" stroke="rgba(10,10,10,0.15)" stroke-width="1"/>
+
+  <!-- row 1 -->
+  <g font-size="11" fill="#0A0A0A">
+    <g transform="translate(60,140)">
+      <rect width="140" height="79" fill="#0A0A0A"/>
+      <text x="8" y="20" fill="#F5F4EF" font-size="13" font-weight="bold">&lt;stadt.hub&gt;</text>
+      <text x="8" y="38" fill="rgba(245,244,239,0.7)">hero video</text>
+      <text x="0" y="97" font-weight="bold">01 · 0–6 s</text><text x="0" y="112" fill="rgba(10,10,10,0.6)">videos/hero1.mp4</text>
+    </g>
+    <g transform="translate(215,140)">
+      <rect width="140" height="79" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="1.5"/>
+      <text x="8" y="30">“Wolfsburg was built</text><text x="8" y="45">around the car.”</text>
+      <text x="0" y="97" font-weight="bold">02 · 6–11 s</text><text x="0" y="112" fill="rgba(10,10,10,0.6)">problem_1.jpeg</text>
+    </g>
+    <g transform="translate(370,140)">
+      <rect width="140" height="79" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="1.5"/>
+      <text x="8" y="30">“A parked car uses its</text><text x="8" y="45">space ~23 h a day.”</text>
+      <text x="0" y="97" font-weight="bold">03 · 11–16 s</text><text x="0" y="112" fill="rgba(10,10,10,0.6)">problem_2.jpeg</text>
+    </g>
+    <g transform="translate(525,140)">
+      <rect width="140" height="79" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="1.5"/>
+      <text x="8" y="30">“100,000 trips/day.</text><text x="8" y="45">PT 20% · bike 8%.”</text>
+      <text x="0" y="97" font-weight="bold">04 · 16–21 s</text><text x="0" y="112" fill="rgba(10,10,10,0.6)">problem_3.jpeg</text>
+    </g>
+    <g transform="translate(680,140)">
+      <rect width="140" height="79" fill="#F5F4EF" stroke="#E8500A" stroke-width="2.5"/>
+      <circle cx="24" cy="30" r="4" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+      <circle cx="38" cy="30" r="4" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+      <circle cx="52" cy="30" r="4" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+      <circle cx="96" cy="30" r="4" fill="#E8500A"/><circle cx="110" cy="30" r="4" fill="#E8500A"/>
+      <text x="8" y="60">dots collapse → 763</text>
+      <text x="0" y="97" font-weight="bold">05 · 21–28 s</text><text x="0" y="112" fill="#E8500A">dot-matrix animation</text>
+    </g>
+    <g transform="translate(835,140)">
+      <rect width="140" height="79" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="1.5"/>
+      <text x="8" y="24">fleet row:</text>
+      <text x="8" y="42">131 · 55 · 33 ·</text><text x="8" y="57">369 · 175</text>
+      <text x="0" y="97" font-weight="bold">06 · 28–33 s</text><text x="0" y="112" fill="rgba(10,10,10,0.6)">deck s02 styling</text>
+    </g>
+    <g transform="translate(990,140)">
+      <rect width="140" height="79" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="1.5"/>
+      <text x="8" y="30">“68 hubs. Every door</text><text x="8" y="45">a short walk away.”</text>
+      <text x="0" y="97" font-weight="bold">07 · 33–38 s</text><text x="0" y="112" fill="rgba(10,10,10,0.6)">masterplan crossfade</text>
+    </g>
+  </g>
+
+  <!-- row 2 -->
+  <g font-size="11" fill="#0A0A0A">
+    <g transform="translate(60,320)">
+      <rect width="140" height="79" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="1.5"/>
+      <circle cx="30" cy="40" r="12" fill="#0A0A0A"/><circle cx="66" cy="40" r="8" fill="#0A0A0A"/><circle cx="96" cy="40" r="5" fill="#0A0A0A"/>
+      <text x="8" y="70">6 L · 19 M · 43 S</text>
+      <text x="0" y="97" font-weight="bold">08 · 38–42 s</text><text x="0" y="112" fill="rgba(10,10,10,0.6)">hub_profile_cards.png</text>
+    </g>
+    <g transform="translate(215,320)">
+      <rect width="70" height="79" fill="#0A0A0A"/><rect x="70" width="70" height="79" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="1.5"/>
+      <text x="0" y="97" font-weight="bold">09 · 42–47 s</text><text x="0" y="112" fill="rgba(10,10,10,0.6)">ba_v3 wipe — Kleiststr.</text>
+    </g>
+    <g transform="translate(370,320)">
+      <rect width="70" height="79" fill="#0A0A0A"/><rect x="70" width="70" height="79" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="1.5"/>
+      <text x="0" y="97" font-weight="bold">10 · 47–52 s</text><text x="0" y="112" fill="rgba(10,10,10,0.6)">ba_v4 wipe — Schillerstr.</text>
+    </g>
+    <g transform="translate(525,320)">
+      <rect width="70" height="79" fill="#0A0A0A"/><rect x="70" width="70" height="79" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="1.5"/>
+      <text x="0" y="97" font-weight="bold">11 · 52–57 s</text><text x="0" y="112" fill="rgba(10,10,10,0.6)">ba_v2 wipe — canal edge</text>
+    </g>
+    <g transform="translate(680,320)">
+      <rect width="140" height="79" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="1.5"/>
+      <text x="8" y="30">“Thomas builds the fleet</text><text x="8" y="45">— and rides it. 18 min.”</text>
+      <text x="0" y="97" font-weight="bold">12 · 57–63 s</text><text x="0" y="112" fill="rgba(10,10,10,0.6)">thomas_after_1.png</text>
+    </g>
+    <g transform="translate(835,320)">
+      <rect width="140" height="79" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="1.5"/>
+      <text x="8" y="30">“Not fewer trips. Less</text><text x="8" y="45">parking. More city.”</text>
+      <text x="0" y="97" font-weight="bold">13 · 63–69 s</text><text x="0" y="112" fill="rgba(10,10,10,0.6)">masterplan_hero zoom</text>
+    </g>
+    <g transform="translate(990,320)">
+      <rect width="140" height="79" fill="#0A0A0A"/>
+      <text x="8" y="30" fill="#F5F4EF">PARKING CITY →</text><text x="8" y="45" fill="#F5F4EF">HUB CITY  ·  [QR ×2]</text>
+      <text x="8" y="63" fill="rgba(245,244,239,0.7)">“touch to explore ↓”</text>
+      <text x="0" y="97" font-weight="bold">14 · 69–75 s</text><text x="0" y="112" fill="rgba(10,10,10,0.6)">→ loops to 01</text>
+    </g>
+  </g>
+
+  <!-- behaviour band -->
+  <line x1="60" y1="470" x2="1140" y2="470" stroke="rgba(10,10,10,0.15)"/>
+  <text x="60" y="504" font-size="14" font-weight="bold" fill="#0A0A0A">Kiosk behaviour</text>
+  <g font-size="13" fill="#0A0A0A">
+    <rect x="60" y="524" width="300" height="64" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="1.5"/>
+    <text x="76" y="550">LOOP plays (attract mode)</text>
+    <text x="76" y="570" fill="rgba(10,10,10,0.6)">silent · big type · one message/shot</text>
+    <rect x="450" y="524" width="300" height="64" fill="#F5F4EF" stroke="#E8500A" stroke-width="2.5"/>
+    <text x="466" y="550">any key / mouse / touch</text>
+    <text x="466" y="570" fill="rgba(10,10,10,0.6)">→ full scroll deck, kiosk fullscreen</text>
+    <rect x="840" y="524" width="300" height="64" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="1.5"/>
+    <text x="856" y="550">~90 s idle</text>
+    <text x="856" y="570" fill="rgba(10,10,10,0.6)">→ back to the loop, from shot 01</text>
+  </g>
+  <line x1="360" y1="556" x2="450" y2="556" stroke="#E8500A" stroke-width="2.5"/>
+  <line x1="750" y1="556" x2="840" y2="556" stroke="#0A0A0A" stroke-width="1.5"/>
+  <text x="60" y="640" font-size="12" fill="rgba(10,10,10,0.5)">Shot 05: the [CARS-REPLACED] figure must be recomputed for the locked 763 fleet before production — see draft-content.md warning box.</text>
+</svg>
