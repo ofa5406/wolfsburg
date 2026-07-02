@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#E8500A"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="560" fill="#EAEAEA"/>
+
+  <text x="60" y="52" font-size="13" letter-spacing="3" fill="rgba(10,10,10,0.6)">(EXHIBITION — SUMMAERY 2026)</text>
+  <text x="60" y="84" font-size="26" font-weight="bold" fill="#0A0A0A">02 · The legibility ladder — an exhibit that explains itself</text>
+  <line x1="60" y1="100" x2="1140" y2="100" stroke="rgba(10,10,10,0.15)" stroke-width="1"/>
+
+  <!-- four steps -->
+  <g>
+    <rect x="60" y="150" width="240" height="270" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="2"/>
+    <text x="80" y="192" font-size="34" font-weight="bold" fill="#E8500A">10 s</text>
+    <text x="80" y="222" font-size="15" font-weight="bold" fill="#0A0A0A">Get it walking past</text>
+    <text x="80" y="252" font-size="13" fill="#0A0A0A">Title wall +</text>
+    <text x="80" y="270" font-size="13" fill="#0A0A0A">the taped parking space +</text>
+    <text x="80" y="288" font-size="13" fill="#0A0A0A">one dot-matrix strip:</text>
+    <text x="80" y="306" font-size="13" fill="#0A0A0A">hollow dots → solid dots</text>
+    <text x="80" y="400" font-size="12" fill="rgba(10,10,10,0.5)">no reading required</text>
+  </g>
+  <line x1="300" y1="285" x2="340" y2="285" stroke="#E8500A" stroke-width="2.5" marker-end="url(#arr2)"/>
+  <g>
+    <rect x="340" y="150" width="240" height="270" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="2"/>
+    <text x="360" y="192" font-size="34" font-weight="bold" fill="#E8500A">60 s</text>
+    <text x="360" y="222" font-size="15" font-weight="bold" fill="#0A0A0A">Watch the argument</text>
+    <text x="360" y="252" font-size="13" fill="#0A0A0A">Station A1:</text>
+    <text x="360" y="270" font-size="13" fill="#0A0A0A">the silent 75-second loop —</text>
+    <text x="360" y="288" font-size="13" fill="#0A0A0A">problem → 763 fleet → 68 hubs</text>
+    <text x="360" y="306" font-size="13" fill="#0A0A0A">→ before/after streets</text>
+    <text x="360" y="400" font-size="12" fill="rgba(10,10,10,0.5)">one message per shot</text>
+  </g>
+  <line x1="580" y1="285" x2="620" y2="285" stroke="#E8500A" stroke-width="2.5" marker-end="url(#arr2)"/>
+  <g>
+    <rect x="620" y="150" width="240" height="270" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="2"/>
+    <text x="640" y="192" font-size="34" font-weight="bold" fill="#E8500A">5 min</text>
+    <text x="640" y="222" font-size="15" font-weight="bold" fill="#0A0A0A">Explore by hand</text>
+    <text x="640" y="252" font-size="13" fill="#0A0A0A">Touch A1 → full scroll deck</text>
+    <text x="640" y="270" font-size="13" fill="#0A0A0A">A2 → hover the 3D hub kit</text>
+    <text x="640" y="288" font-size="13" fill="#0A0A0A">B → four lives, before/after</text>
+    <text x="640" y="306" font-size="13" fill="#0A0A0A">C → the space transforms</text>
+    <text x="640" y="400" font-size="12" fill="rgba(10,10,10,0.5)">interfaces invite, never trap</text>
+  </g>
+  <line x1="860" y1="285" x2="900" y2="285" stroke="#E8500A" stroke-width="2.5" marker-end="url(#arr2)"/>
+  <g>
+    <rect x="900" y="150" width="240" height="270" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="2"/>
+    <text x="920" y="192" font-size="34" font-weight="bold" fill="#E8500A">Home</text>
+    <text x="920" y="222" font-size="15" font-weight="bold" fill="#0A0A0A">Act &amp; take away</text>
+    <text x="920" y="252" font-size="13" fill="#0A0A0A">Place a sticker-hub on the map</text>
+    <text x="920" y="270" font-size="13" fill="#0A0A0A">Take a dot card or a</text>
+    <text x="920" y="288" font-size="13" fill="#0A0A0A">persona ticket — QR links to</text>
+    <text x="920" y="306" font-size="13" fill="#0A0A0A">the live deck &amp; map</text>
+    <text x="920" y="400" font-size="12" fill="rgba(10,10,10,0.5)">the exhibit leaves with them</text>
+  </g>
+
+  <line x1="60" y1="460" x2="1140" y2="460" stroke="rgba(10,10,10,0.15)" stroke-width="1"/>
+  <text x="60" y="495" font-size="14" fill="#0A0A0A">Test (midterm brief): “if a visitor cannot read the concept from the exhibit alone in under a minute, it is not exhibition-ready.”</text>
+  <text x="60" y="518" font-size="12" fill="rgba(10,10,10,0.5)">Every depth works without narration; each step is optional and self-contained.</text>
+</svg>

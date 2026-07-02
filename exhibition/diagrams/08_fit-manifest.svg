@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <rect width="1200" height="700" fill="#EAEAEA"/>
+  <text x="60" y="52" font-size="13" letter-spacing="3" fill="rgba(10,10,10,0.6)">(EXHIBITION — ALTERNATIVE 2)</text>
+  <text x="60" y="84" font-size="26" font-weight="bold" fill="#0A0A0A">08 · The manifest — the same 12.5 m², yesterday and today</text>
+  <line x1="60" y1="100" x2="1140" y2="100" stroke="rgba(10,10,10,0.15)" stroke-width="1"/>
+
+  <!-- YESTERDAY panel -->
+  <g>
+    <rect x="60" y="140" width="510" height="330" fill="#0F0F0F"/>
+    <text x="90" y="182" font-size="16" font-weight="bold" fill="#F5F4EF">YESTERDAY</text>
+    <!-- car -->
+    <rect x="120" y="230" width="390" height="140" rx="34" fill="none" stroke="#F5F4EF" stroke-width="3"/>
+    <rect x="205" y="248" width="200" height="60" rx="22" fill="none" stroke="#F5F4EF" stroke-width="2.5"/>
+    <circle cx="200" cy="372" r="26" fill="#0F0F0F" stroke="#F5F4EF" stroke-width="3"/>
+    <circle cx="430" cy="372" r="26" fill="#0F0F0F" stroke="#F5F4EF" stroke-width="3"/>
+    <text x="90" y="440" font-size="14" fill="rgba(245,244,239,0.85)">1 user · motionless ~23 h a day · 0 m² left for anyone else</text>
+  </g>
+
+  <!-- TODAY panel -->
+  <g>
+    <rect x="630" y="140" width="510" height="330" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="2"/>
+    <text x="660" y="182" font-size="16" font-weight="bold" fill="#0A0A0A">TODAY</text>
+    <!-- stacked area bar: total width 440 px = 12.5 m² → 35.2 px per m², 2px gaps -->
+    <g>
+      <rect x="660" y="210" width="77"  height="56" fill="#0A0A0A"/>
+      <rect x="739" y="210" width="12"  height="56" fill="#0A0A0A" opacity="0.75"/>
+      <rect x="753" y="210" width="88"  height="56" fill="#0A0A0A" opacity="0.55"/>
+      <rect x="843" y="210" width="42"  height="56" fill="#0A0A0A" opacity="0.4"/>
+      <rect x="887" y="210" width="20"  height="56" fill="#0A0A0A" opacity="0.28"/>
+      <rect x="909" y="210" width="6"   height="56" fill="#0A0A0A" opacity="0.2"/>
+      <rect x="917" y="210" width="183" height="56" fill="#E8500A"/>
+    </g>
+    <g font-size="11" fill="#0A0A0A">
+      <text x="660" y="292">table+chairs</text><text x="660" y="306">2.2</text>
+      <text x="753" y="292">chalk field</text><text x="753" y="306">2.5</text>
+      <text x="845" y="292">bike</text><text x="845" y="306">1.2</text>
+      <text x="890" y="326">screen·pots·crate 1.2</text>
+      <text x="917" y="292" fill="#E8500A" font-weight="bold">free</text><text x="953" y="292" fill="#E8500A" font-weight="bold">5.4 m²</text>
+    </g>
+    <text x="660" y="368" font-size="14" fill="#0A0A0A">a café · a gallery of chalk ideas · a bike · a tree ·</text>
+    <text x="660" y="388" font-size="14" fill="#0A0A0A">an exhibition — and room left to stand and argue</text>
+    <text x="660" y="440" font-size="14" font-weight="bold" fill="#0A0A0A">serves everyone who sits, draws, takes, passes</text>
+  </g>
+
+  <!-- multiplier strip -->
+  <line x1="60" y1="510" x2="1140" y2="510" stroke="rgba(10,10,10,0.15)"/>
+  <text x="60" y="548" font-size="16" font-weight="bold" fill="#0A0A0A">× 12,500</text>
+  <text x="185" y="548" font-size="14" fill="#0A0A0A">spaces like this one in Wolfsburg’s centre <tspan fill="rgba(10,10,10,0.5)" font-size="12">(verify count against parking inventory before print)</tspan></text>
+  <!-- dot strip: 50 dots, 1 dot = 250 spaces -->
+  <g fill="#E8500A">
+    <circle cx="68" cy="590" r="7"/><circle cx="90" cy="590" r="7"/><circle cx="112" cy="590" r="7"/><circle cx="134" cy="590" r="7"/><circle cx="156" cy="590" r="7"/><circle cx="178" cy="590" r="7"/><circle cx="200" cy="590" r="7"/><circle cx="222" cy="590" r="7"/><circle cx="244" cy="590" r="7"/><circle cx="266" cy="590" r="7"/>
+    <circle cx="288" cy="590" r="7"/><circle cx="310" cy="590" r="7"/><circle cx="332" cy="590" r="7"/><circle cx="354" cy="590" r="7"/><circle cx="376" cy="590" r="7"/><circle cx="398" cy="590" r="7"/><circle cx="420" cy="590" r="7"/><circle cx="442" cy="590" r="7"/><circle cx="464" cy="590" r="7"/><circle cx="486" cy="590" r="7"/>
+    <circle cx="508" cy="590" r="7"/><circle cx="530" cy="590" r="7"/><circle cx="552" cy="590" r="7"/><circle cx="574" cy="590" r="7"/><circle cx="596" cy="590" r="7"/><circle cx="618" cy="590" r="7"/><circle cx="640" cy="590" r="7"/><circle cx="662" cy="590" r="7"/><circle cx="684" cy="590" r="7"/><circle cx="706" cy="590" r="7"/>
+    <circle cx="728" cy="590" r="7"/><circle cx="750" cy="590" r="7"/><circle cx="772" cy="590" r="7"/><circle cx="794" cy="590" r="7"/><circle cx="816" cy="590" r="7"/><circle cx="838" cy="590" r="7"/><circle cx="860" cy="590" r="7"/><circle cx="882" cy="590" r="7"/><circle cx="904" cy="590" r="7"/><circle cx="926" cy="590" r="7"/>
+    <circle cx="948" cy="590" r="7"/><circle cx="970" cy="590" r="7"/><circle cx="992" cy="590" r="7"/><circle cx="1014" cy="590" r="7"/><circle cx="1036" cy="590" r="7"/><circle cx="1058" cy="590" r="7"/><circle cx="1080" cy="590" r="7"/><circle cx="1102" cy="590" r="7"/><circle cx="1124" cy="590" r="7"/>
+  </g>
+  <circle cx="68" cy="590" r="11" fill="none" stroke="#0A0A0A" stroke-width="2.5"/>
+  <text x="60" y="632" font-size="12" fill="rgba(10,10,10,0.5)">1 dot = 250 parking spaces · the circled one is the one you are standing in</text>
+  <text x="60" y="668" font-size="13" fill="#0A0A0A" font-weight="bold">This board leans against the screen stand — it is the exhibit’s entire wall text.</text>
+</svg>
