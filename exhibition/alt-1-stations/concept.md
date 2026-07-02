@@ -37,13 +37,13 @@ in under a minute, it is not exhibition-ready."* We design for four depths of at
 | **5 minutes** | Free exploration: scroll deck, 3D hub anatomy, persona lives | Stations A1/A2/B |
 | **Take-home** | A dot card or persona ticket with QR to the live deck & map | Print layer |
 
-Diagram: [`diagrams/02_visitor-journey.svg`](diagrams/02_visitor-journey.svg)
+Diagram: [`diagrams/02_visitor-journey.svg`](../diagrams/02_visitor-journey.svg)
 
 ## 3. The stations
 
 Equipment is shared between 5 projects, so the plan is **tiered**: Tier A must happen with
 computer-pool machines alone; B and C are what we request from the pool. Full matrix:
-[`diagrams/03_equipment-tiers.svg`](diagrams/03_equipment-tiers.svg)
+[`diagrams/03_equipment-tiers.svg`](../diagrams/03_equipment-tiers.svg)
 
 ### A1 — "The 60-Second City" *(Tier A — pool PC or 1 large TV)*
 A silent, auto-looping ~75 s film built entirely from existing assets
@@ -52,7 +52,7 @@ A silent, auto-looping ~75 s film built entirely from existing assets
 no UI on screen. **Any key/mouse/touch interrupts into the existing scroll deck** for free
 exploration; after ~90 s idle it returns to the loop.
 Storyboard with timings and asset filenames: [`draft-content.md`](draft-content.md) §2 and
-[`diagrams/04_loop-storyboard.svg`](diagrams/04_loop-storyboard.svg).
+[`diagrams/04_loop-storyboard.svg`](../diagrams/04_loop-storyboard.svg).
 *Build note: the loop itself is a small follow-up build (video export or a `loop.html`
 added later on a separate branch); the storyboard here is production-ready.*
 
@@ -81,7 +81,7 @@ edge (small print, taped):
 > *"A parked car uses this space ~23 hours a day. One shared vehicle replaces dozens of parked ones."*
 
 Physical, cheap, emotional — and photographable, which is how Summaery projects travel.
-Setup diagram: [`diagrams/06_parking-space-projection.svg`](diagrams/06_parking-space-projection.svg).
+Setup diagram: [`diagrams/06_parking-space-projection.svg`](../diagrams/06_parking-space-projection.svg).
 **Fallback if no projector is granted:** the same rectangle is taped anyway, and its
 interior is tiled with A3 prints of the after-renders + one A3 dot-matrix panel. The
 rectangle is the idea; the projector is only its best version.
@@ -90,7 +90,7 @@ rectangle is the idea; the projector is only its best version.
 1. **Dot-matrix fact cards (A6, B/W + accent, laser-printable):** one number per card, dot-matrix
    on the front, one explaining sentence + QR on the back. Series of 6 — copy in
    [`draft-content.md`](draft-content.md) §5, mockups in
-   [`diagrams/05_dot-matrix-cards.svg`](diagrams/05_dot-matrix-cards.svg).
+   [`diagrams/05_dot-matrix-cards.svg`](../diagrams/05_dot-matrix-cards.svg).
 2. **Persona tickets (DIN-long, styled like transit tickets):** one per persona; front =
    route Before→After, back = story + QR to `#s04`. A small rack of them next to Station B.
 3. **Participation wall — "Where would you put a hub?":** the masterplan tiled from A3
@@ -103,7 +103,7 @@ rectangle is the idea; the projector is only its best version.
 
 ## 4. Floor layout
 
-See [`diagrams/01_station-layout.svg`](diagrams/01_station-layout.svg). Principles:
+See [`diagrams/01_station-layout.svg`](../diagrams/01_station-layout.svg). Principles:
 
 - The **taped parking space is the room's centre of gravity**; screens face outward from it
   so the loop attracts from the corridor/door.

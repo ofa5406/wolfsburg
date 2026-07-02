@@ -1,33 +1,46 @@
-# `exhibition/` — Summaery 2026 Exhibition Concept
+# `exhibition/` — Summaery 2026 Exhibition Concepts
 
 **Event:** Summaery, Bauhaus-Universität Weimar — **July 9–12, 2026**
-**Venue:** Computer pool (shared with 4 other class projects)
+**Venue:** Computer pool (equipment shared with 4 other class projects)
 **Constraint:** Visitors browse **without narration** — the exhibit must explain itself.
 
-This folder is the complete planning package for the `<stadt.hub>` Summaery exhibit.
-It contains **no code changes** to the presentation — the live deck at
-[ofa5406.github.io/wolfsburg](https://ofa5406.github.io/wolfsburg/) is untouched.
+Two worked-out alternatives, sharing one foundation (the dot-matrix graphic system, the
+60-second loop, the card series, the locked numbers). Decide as a team, or combine them.
+This folder changes **nothing** about the live presentation at
+[ofa5406.github.io/wolfsburg](https://ofa5406.github.io/wolfsburg/).
+
+## The two alternatives
+
+| | **Alt 1 — Station constellation** | **Alt 2 — One Parking Space (purified)** |
+|---|---|---|
+| Idea | Stations (loop screen, 3D hub, personas, projection) orbit a taped, projected-on parking space | The taped 5.0 × 2.5 m space is **the entire exhibit** — furnished as reclaimed street: café table + chairs, pots, bike, chalk drawings, one screen. Everything fits inside |
+| Equipment | 2 PCs + TV + tablet + projector | 1 screen + 1 PC + 1 tablet (no projector) |
+| Effort risk | Tech (projector grant, kiosk babysitting) | Logistics (furniture sourcing, chalk management) |
+| Visitor role | Watch → explore → act | **Sit inside the argument** from second one |
+| Folder | [`alt-1-stations/`](alt-1-stations/) | [`alt-2-parking-space/`](alt-2-parking-space/) |
+
+**Combo option:** Alt 2's furnished space + Alt 1's projector cycle aimed at the chalk
+field for the Summaery evenings — the maximal version if the pool grants everything.
 
 ## Contents
 
-| File | What it is | Read when |
-|------|-----------|-----------|
-| [`concept.md`](concept.md) | The exhibition concept: big idea, station plan, equipment tiers, idea catalogue (incl. rejected options), floor layout | First — decide as a team what to adopt |
-| [`draft-content.md`](draft-content.md) | Complete draft content: 60-second loop storyboard, all label/caption copy, persona ticket cards, fact cards, QR targets | When producing anything |
-| [`production-checklist.md`](production-checklist.md) | Day-by-day build/print/test plan July 1 → 9, per-station fallbacks | Immediately after the concept is agreed |
-| [`diagrams/`](diagrams/) | SVG diagrams: floor layout, visitor journey, equipment tiers, loop storyboard, card mockups, parking-space projection | Alongside `concept.md` |
-| [`index.html`](index.html) | Standalone visual concept page (same Swiss-grid aesthetic as the deck). Once merged to `main` it auto-deploys at `/wolfsburg/exhibition/` without affecting the root presentation | To review the concept in the browser |
+| Path | What it is |
+|------|-----------|
+| `alt-1-stations/concept.md` · `draft-content.md` · `production-checklist.md` | The multi-station concept, all copy, build plan |
+| `alt-2-parking-space/concept.md` · `draft-content.md` · `production-checklist.md` | The purified single-space concept, its manifest/menu/label copy, build plan |
+| [`diagrams/`](diagrams/) | Shared SVGs: 01 layout (Alt 1) · 02 legibility ladder · 03 equipment tiers (Alt 1) · 04 loop storyboard · 05 dot-matrix cards · 06 projection setup (Alt 1) · **07 furnishing plan (Alt 2)** · **08 fit manifest (Alt 2)** |
+| [`index.html`](index.html) | Visual concept page presenting both alternatives (auto-deploys at `/wolfsburg/exhibition/` after merge to `main`; root presentation untouched) |
 
-## How this relates to the deadlines
+## Shared foundation (used by both alternatives)
 
-- **July 9–12 (Summaery):** this folder is the plan. The shift is *defended → self-explaining*
-  (`research/09_execution-workflow.md` §"June 25 → July 9–12").
-- **Aug 16 (Wolfsburg Award):** the loop storyboard and the dot-matrix graphic system drafted
-  here are directly reusable for the competition boards ("cut to the single strongest narrative").
+- **60-Second City loop** — storyboard in `alt-1-stations/draft-content.md` §2
+- **Dot-matrix card series + persona tickets** — copy in `alt-1-stations/draft-content.md` §4–5
+- **Title wall** — §1 (Alt 2 adds one line)
+- **Accent colour `#E8500A`** — validated (contrast + CVD) on the deck's light and dark surfaces
 
-## ⚠️ One thing to resolve before printing anything
+## ⚠️ Before printing anything
 
-All numbers in this folder use the **tutor-accepted locked figures**
-(fleet **763**, hubs **68** = 6 L / 19 M / 43 S — see `decisions.md`).
-The live deck currently shows the web-tool figures (1,273 fleet / 140 hubs / 49,648 cars).
-See the warning box at the top of [`draft-content.md`](draft-content.md).
+All materials use the **locked figures** (fleet **763**, hubs **68** = 6 L / 19 M / 43 S —
+`decisions.md`). The live deck still shows the web-tool run (1,273 / 140). Two figures
+need verification: **`[CARS-REPLACED]`** (recompute for the 763 fleet) and Alt 2's
+**"~12,500 spaces"** manifest claim (check against the parking inventory).

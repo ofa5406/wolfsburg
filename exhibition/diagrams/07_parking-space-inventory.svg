@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <rect width="1200" height="760" fill="#EAEAEA"/>
+  <text x="60" y="52" font-size="13" letter-spacing="3" fill="rgba(10,10,10,0.6)">(EXHIBITION — ALTERNATIVE 2)</text>
+  <text x="60" y="84" font-size="26" font-weight="bold" fill="#0A0A0A">07 · One Parking Space — furnishing plan, 1:33 (1 grid square = 0.5 m)</text>
+  <line x1="60" y1="100" x2="1140" y2="100" stroke="rgba(10,10,10,0.15)" stroke-width="1"/>
+
+  <!-- grid -->
+  <g stroke="rgba(10,10,10,0.08)" stroke-width="1">
+    <line x1="155" y1="150" x2="155" y2="525"/><line x1="230" y1="150" x2="230" y2="525"/><line x1="305" y1="150" x2="305" y2="525"/><line x1="380" y1="150" x2="380" y2="525"/><line x1="455" y1="150" x2="455" y2="525"/><line x1="530" y1="150" x2="530" y2="525"/><line x1="605" y1="150" x2="605" y2="525"/><line x1="680" y1="150" x2="680" y2="525"/><line x1="755" y1="150" x2="755" y2="525"/>
+    <line x1="80" y1="225" x2="830" y2="225"/><line x1="80" y1="300" x2="830" y2="300"/><line x1="80" y1="375" x2="830" y2="375"/><line x1="80" y1="450" x2="830" y2="450"/>
+  </g>
+
+  <!-- car shadow (4.5 x 1.8 m) -->
+  <rect x="120" y="205" width="675" height="270" rx="40" fill="none" stroke="rgba(10,10,10,0.35)" stroke-width="2" stroke-dasharray="10 8"/>
+  <text x="700" y="465" font-size="11" fill="rgba(10,10,10,0.45)" text-anchor="end">← a car was stored here (taped “shadow”, 4.5 × 1.8 m)</text>
+
+  <!-- parking space boundary -->
+  <rect x="80" y="150" width="750" height="375" fill="none" stroke="#E8500A" stroke-width="6" stroke-dasharray="20 12"/>
+
+  <!-- 2 screen on stand (0.8 x 0.5) head end left -->
+  <rect x="92" y="288" width="120" height="75" fill="#0A0A0A"/>
+  <text x="152" y="330" font-size="12" fill="#F5F4EF" text-anchor="middle">2 screen</text>
+
+  <!-- 3 chalk field (2.0 x 1.25) -->
+  <rect x="235" y="170" width="300" height="187" fill="#0A0A0A" opacity="0.85"/>
+  <text x="385" y="250" font-size="14" fill="#F5F4EF" text-anchor="middle" font-weight="bold">3 chalk field</text>
+  <text x="385" y="270" font-size="11" fill="rgba(245,244,239,0.75)" text-anchor="middle">“draw what you’d put here”</text>
+  <!-- hopscotch seed -->
+  <g stroke="#F5F4EF" stroke-width="1.5" fill="none">
+    <rect x="258" y="190" width="24" height="24"/><rect x="258" y="214" width="24" height="24"/><rect x="246" y="238" width="24" height="24"/><rect x="270" y="238" width="24" height="24"/><rect x="258" y="262" width="24" height="24"/>
+  </g>
+
+  <!-- 4 bicycle (1.9 x 0.6) top right -->
+  <rect x="545" y="162" width="285" height="90" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+  <circle cx="600" cy="207" r="26" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+  <circle cx="760" cy="207" r="26" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+  <line x1="600" y1="207" x2="680" y2="180" stroke="#0A0A0A" stroke-width="2"/><line x1="680" y1="180" x2="760" y2="207" stroke="#0A0A0A" stroke-width="2"/><line x1="622" y1="180" x2="680" y2="180" stroke="#0A0A0A" stroke-width="2"/>
+  <text x="688" y="243" font-size="12" fill="#0A0A0A" text-anchor="middle">4 bicycle</text>
+
+  <!-- 1 cafe table + 3 chairs -->
+  <circle cx="640" cy="400" r="52" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="2.5"/>
+  <text x="640" y="396" font-size="12" fill="#0A0A0A" text-anchor="middle" font-weight="bold">1 table</text>
+  <text x="640" y="412" font-size="10" fill="rgba(10,10,10,0.6)" text-anchor="middle">menu · tablet · tickets</text>
+  <rect x="560" y="345" width="34" height="34" fill="#0A0A0A" transform="rotate(-15 577 362)"/>
+  <rect x="700" y="340" width="34" height="34" fill="#0A0A0A" transform="rotate(20 717 357)"/>
+  <rect x="655" y="465" width="34" height="34" fill="#0A0A0A" transform="rotate(8 672 482)"/>
+  <text x="736" y="470" font-size="11" fill="rgba(10,10,10,0.6)">3 chairs</text>
+
+  <!-- 5 pots bottom left -->
+  <circle cx="300" cy="470" r="28" fill="none" stroke="#0A0A0A" stroke-width="2.5"/>
+  <circle cx="300" cy="470" r="10" fill="#E8500A"/>
+  <circle cx="368" cy="482" r="18" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+  <circle cx="415" cy="465" r="14" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+  <text x="300" y="518" font-size="12" fill="#0A0A0A">5 tree + pots</text>
+
+  <!-- 6 crate -->
+  <rect x="520" y="440" width="60" height="45" fill="#E8500A"/>
+  <text x="518" y="505" font-size="12" fill="#0A0A0A">6 crate: cards + chalk</text>
+
+  <!-- dimensions -->
+  <line x1="80" y1="560" x2="830" y2="560" stroke="rgba(10,10,10,0.6)" stroke-width="1"/>
+  <text x="455" y="580" font-size="12" fill="rgba(10,10,10,0.6)" text-anchor="middle">5.0 m</text>
+  <line x1="860" y1="150" x2="860" y2="525" stroke="rgba(10,10,10,0.6)" stroke-width="1"/>
+  <text x="872" y="342" font-size="12" fill="rgba(10,10,10,0.6)">2.5 m</text>
+
+  <!-- tally column -->
+  <g font-size="13" fill="#0A0A0A">
+    <text x="920" y="170" font-size="15" font-weight="bold">The fit — 12.5 m²</text>
+    <text x="920" y="200">1 · table + 3 chairs</text><text x="1140" y="200" text-anchor="end">2.2</text>
+    <text x="920" y="224">2 · screen on stand</text><text x="1140" y="224" text-anchor="end">0.4</text>
+    <text x="920" y="248">3 · chalk field</text><text x="1140" y="248" text-anchor="end">2.5</text>
+    <text x="920" y="272">4 · bicycle</text><text x="1140" y="272" text-anchor="end">1.2</text>
+    <text x="920" y="296">5 · tree + pots</text><text x="1140" y="296" text-anchor="end">0.6</text>
+    <text x="920" y="320">6 · crate</text><text x="1140" y="320" text-anchor="end">0.2</text>
+    <line x1="920" y1="334" x2="1140" y2="334" stroke="#0A0A0A" stroke-width="1.5"/>
+    <text x="920" y="356" font-weight="bold">occupied</text><text x="1140" y="356" text-anchor="end" font-weight="bold">7.1 m²</text>
+    <text x="920" y="380" font-weight="bold" fill="#E8500A">free to move</text><text x="1140" y="380" text-anchor="end" font-weight="bold" fill="#E8500A">5.4 m²</text>
+    <!-- tally bar -->
+    <rect x="920" y="398" width="125" height="16" fill="#0A0A0A"/>
+    <rect x="1047" y="398" width="93" height="16" fill="#E8500A"/>
+    <text x="920" y="436" font-size="11" fill="rgba(10,10,10,0.6)">57% furnished · 43% still open —</text>
+    <text x="920" y="452" font-size="11" fill="rgba(10,10,10,0.6)">a car uses 100% and moves 1 h/day</text>
+  </g>
+
+  <line x1="60" y1="640" x2="1140" y2="640" stroke="rgba(10,10,10,0.15)"/>
+  <text x="60" y="672" font-size="13" fill="#0A0A0A">Layout logic: screen at the head end faces the room (attract) · chalk field where the windscreen was · the café sits ON the taped car-shadow · bike and green line the long edge.</text>
+  <text x="60" y="696" font-size="12" fill="rgba(10,10,10,0.5)">All footprints measured from standard furniture sizes — re-measure the borrowed pieces on setup day and adjust.</text>
+</svg>
