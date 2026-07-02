@@ -45,7 +45,7 @@ Fallbacks are listed per station so nothing blocks on the equipment pool's decis
 ## Setup day (Wed July 8)
 
 - [ ] Tape the 5.0 × 2.5 m rectangle; corners square; caption strips on the long edge.
-- [ ] Stations per [`diagrams/01_station-layout.svg`](diagrams/01_station-layout.svg):
+- [ ] Stations per [`diagrams/01_station-layout.svg`](../diagrams/01_station-layout.svg):
       A1 facing the entrance, C in the middle, map near the exit path.
 - [ ] Cable-tape everything walkable; set all machines to never-sleep; screens to full
       brightness; A1 in kiosk full-screen.
