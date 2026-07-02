@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0A0A0A"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="660" fill="#EAEAEA"/>
+  <text x="60" y="52" font-size="13" letter-spacing="3" fill="rgba(10,10,10,0.6)">(EXHIBITION — SUMMAERY 2026)</text>
+  <text x="60" y="84" font-size="26" font-weight="bold" fill="#0A0A0A">06 · Station C — “One Parking Space”, the thesis at 1:1</text>
+  <line x1="60" y1="100" x2="1140" y2="100" stroke="rgba(10,10,10,0.15)" stroke-width="1"/>
+
+  <!-- SECTION VIEW -->
+  <text x="60" y="140" font-size="14" font-weight="bold" fill="#0A0A0A">Section</text>
+  <!-- floor line -->
+  <line x1="60" y1="330" x2="700" y2="330" stroke="#0A0A0A" stroke-width="3"/>
+  <!-- taped rectangle in section -->
+  <line x1="140" y1="330" x2="540" y2="330" stroke="#E8500A" stroke-width="7"/>
+  <text x="340" y="356" font-size="13" fill="#E8500A" text-anchor="middle" font-weight="bold">taped area 5.0 m</text>
+  <!-- plinth + projector -->
+  <rect x="590" y="240" width="50" height="90" fill="#0A0A0A"/>
+  <rect x="596" y="216" width="38" height="24" fill="#0A0A0A"/>
+  <text x="660" y="236" font-size="12" fill="#0A0A0A">XGIMI Halo+</text>
+  <text x="660" y="252" font-size="12" fill="rgba(10,10,10,0.6)">on plinth ~0.9 m,</text>
+  <text x="660" y="268" font-size="12" fill="rgba(10,10,10,0.6)">tilted down</text>
+  <!-- throw cone -->
+  <path d="M615,228 L140,330 L540,330 Z" fill="#E8500A" opacity="0.16"/>
+  <line x1="615" y1="228" x2="140" y2="330" stroke="#E8500A" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <line x1="615" y1="228" x2="540" y2="330" stroke="#E8500A" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <!-- person -->
+  <circle cx="90" cy="240" r="12" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+  <line x1="90" y1="252" x2="90" y2="300" stroke="#0A0A0A" stroke-width="2"/>
+  <line x1="90" y1="300" x2="78" y2="330" stroke="#0A0A0A" stroke-width="2"/>
+  <line x1="90" y1="300" x2="102" y2="330" stroke="#0A0A0A" stroke-width="2"/>
+  <line x1="90" y1="266" x2="70" y2="290" stroke="#0A0A0A" stroke-width="2"/>
+  <line x1="90" y1="266" x2="110" y2="290" stroke="#0A0A0A" stroke-width="2"/>
+
+  <!-- PLAN VIEW -->
+  <text x="770" y="140" font-size="14" font-weight="bold" fill="#0A0A0A">Plan</text>
+  <rect x="770" y="160" width="330" height="165" fill="#F5F4EF" stroke="#E8500A" stroke-width="4" stroke-dasharray="14 8"/>
+  <text x="935" y="230" font-size="13" fill="#0A0A0A" text-anchor="middle">projected scene fills the tape exactly</text>
+  <text x="935" y="250" font-size="12" fill="rgba(10,10,10,0.5)" text-anchor="middle">(mask/crop each render to 2:1)</text>
+  <rect x="770" y="333" width="330" height="12" fill="#0A0A0A"/>
+  <text x="770" y="366" font-size="12" fill="#0A0A0A">static caption strip, taped at the long edge:</text>
+  <text x="770" y="386" font-size="13" font-weight="bold" fill="#0A0A0A">“A parked car uses this space ~23 hours a day.”</text>
+
+  <!-- scene cycle -->
+  <line x1="60" y1="430" x2="1140" y2="430" stroke="rgba(10,10,10,0.15)"/>
+  <text x="60" y="464" font-size="14" font-weight="bold" fill="#0A0A0A">The 40-second cycle (crops from existing after-renders — charts/ba_v2..v5_after)</text>
+  <g font-size="13" fill="#0A0A0A">
+    <rect x="60"  y="484" width="190" height="90" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="1.5"/><text x="72" y="512" font-weight="bold">1 …or shade</text><text x="72" y="532" fill="rgba(10,10,10,0.6)">trees, canal edge</text>
+    <rect x="270" y="484" width="190" height="90" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="1.5"/><text x="282" y="512" font-weight="bold">2 …or a café</text><text x="282" y="532" fill="rgba(10,10,10,0.6)">terrace, Kleiststr.</text>
+    <rect x="480" y="484" width="190" height="90" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="1.5"/><text x="492" y="512" font-weight="bold">3 …or twelve bikes</text><text x="492" y="532" fill="rgba(10,10,10,0.6)">S-hub dock</text>
+    <rect x="690" y="484" width="190" height="90" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="1.5"/><text x="702" y="512" font-weight="bold">4 …or a place to play</text><text x="702" y="532" fill="rgba(10,10,10,0.6)">play street</text>
+    <rect x="900" y="484" width="200" height="90" fill="#0A0A0A"/><text x="912" y="512" font-weight="bold" fill="#F5F4EF">5 …×12,500: a city</text><text x="912" y="532" fill="rgba(245,244,239,0.7)">masterplan hero</text>
+  </g>
+  <line x1="250" y1="529" x2="270" y2="529" stroke="#0A0A0A" stroke-width="1.5" marker-end="url(#arr6)"/>
+  <line x1="460" y1="529" x2="480" y2="529" stroke="#0A0A0A" stroke-width="1.5" marker-end="url(#arr6)"/>
+  <line x1="670" y1="529" x2="690" y2="529" stroke="#0A0A0A" stroke-width="1.5" marker-end="url(#arr6)"/>
+  <line x1="880" y1="529" x2="900" y2="529" stroke="#0A0A0A" stroke-width="1.5" marker-end="url(#arr6)"/>
+
+  <text x="60" y="614" font-size="12" fill="rgba(10,10,10,0.5)">Fallback without projector: tape the rectangle anyway and tile its interior with A3 after-render prints — the rectangle is the idea, the projector is only its best version.</text>
+</svg>

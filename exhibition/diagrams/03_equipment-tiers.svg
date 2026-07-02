@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <rect width="1200" height="640" fill="#EAEAEA"/>
+  <text x="60" y="52" font-size="13" letter-spacing="3" fill="rgba(10,10,10,0.6)">(EXHIBITION — SUMMAERY 2026)</text>
+  <text x="60" y="84" font-size="26" font-weight="bold" fill="#0A0A0A">03 · Equipment tiers — the exhibit scales to what the pool grants</text>
+  <line x1="60" y1="100" x2="1140" y2="100" stroke="rgba(10,10,10,0.15)" stroke-width="1"/>
+
+  <!-- column headers -->
+  <text x="360" y="150" font-size="16" font-weight="bold" fill="#0A0A0A">TIER A — guaranteed</text>
+  <text x="360" y="170" font-size="12" fill="rgba(10,10,10,0.6)">pool PCs only</text>
+  <text x="660" y="150" font-size="16" font-weight="bold" fill="#0A0A0A">TIER B — requested</text>
+  <text x="660" y="170" font-size="12" fill="rgba(10,10,10,0.6)">+ 1 TV, + 1 tablet</text>
+  <text x="940" y="150" font-size="16" font-weight="bold" fill="#0A0A0A">TIER C — requested</text>
+  <text x="940" y="170" font-size="12" fill="rgba(10,10,10,0.6)">+ 1 XGIMI projector</text>
+  <line x1="60" y1="186" x2="1140" y2="186" stroke="#0A0A0A" stroke-width="2"/>
+
+  <!-- rows -->
+  <g font-size="14" fill="#0A0A0A">
+    <text x="60" y="222" font-weight="bold">A1 · 60-Second City</text>
+    <rect x="360" y="206" width="18" height="18" fill="#0A0A0A"/>
+    <text x="388" y="221">pool PC + monitor</text>
+    <rect x="660" y="206" width="18" height="18" fill="#E8500A"/>
+    <text x="688" y="221">large TV, seen from door</text>
+    <text x="940" y="221" fill="rgba(10,10,10,0.4)">—</text>
+    <line x1="60" y1="240" x2="1140" y2="240" stroke="rgba(10,10,10,0.15)"/>
+
+    <text x="60" y="276" font-weight="bold">A2 · Hub Anatomy (3D)</text>
+    <rect x="360" y="260" width="18" height="18" fill="#0A0A0A"/>
+    <text x="388" y="275">second pool PC, offline</text>
+    <text x="660" y="275" fill="rgba(10,10,10,0.4)">—</text>
+    <text x="940" y="275" fill="rgba(10,10,10,0.4)">—</text>
+    <line x1="60" y1="294" x2="1140" y2="294" stroke="rgba(10,10,10,0.15)"/>
+
+    <text x="60" y="330" font-weight="bold">B · Choose a Life (personas)</text>
+    <rect x="360" y="314" width="18" height="18" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+    <text x="388" y="329">fallback: deck #s04 on A1</text>
+    <rect x="660" y="314" width="18" height="18" fill="#E8500A"/>
+    <text x="688" y="329">Galaxy Note tablet, kiosk mode</text>
+    <text x="940" y="329" fill="rgba(10,10,10,0.4)">—</text>
+    <line x1="60" y1="348" x2="1140" y2="348" stroke="rgba(10,10,10,0.15)"/>
+
+    <text x="60" y="384" font-weight="bold">C · One Parking Space</text>
+    <rect x="360" y="368" width="18" height="18" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+    <text x="388" y="383">tape + A3 prints inside</text>
+    <text x="660" y="383" fill="rgba(10,10,10,0.4)">—</text>
+    <rect x="940" y="368" width="18" height="18" fill="#E8500A"/>
+    <text x="968" y="383">projected transformations</text>
+    <line x1="60" y1="402" x2="1140" y2="402" stroke="rgba(10,10,10,0.15)"/>
+
+    <text x="60" y="438" font-weight="bold">Print layer (cards, map, title)</text>
+    <rect x="360" y="422" width="18" height="18" fill="#0A0A0A"/>
+    <text x="388" y="437">independent of all hardware</text>
+    <text x="660" y="437" fill="rgba(10,10,10,0.4)">—</text>
+    <text x="940" y="437" fill="rgba(10,10,10,0.4)">—</text>
+    <line x1="60" y1="456" x2="1140" y2="456" stroke="rgba(10,10,10,0.15)"/>
+  </g>
+
+  <!-- legend -->
+  <rect x="60" y="500" width="18" height="18" fill="#0A0A0A"/>
+  <text x="88" y="515" font-size="13" fill="#0A0A0A">works with guaranteed kit</text>
+  <rect x="320" y="500" width="18" height="18" fill="#E8500A"/>
+  <text x="348" y="515" font-size="13" fill="#0A0A0A">upgrade if the request is granted</text>
+  <rect x="640" y="500" width="18" height="18" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+  <text x="668" y="515" font-size="13" fill="#0A0A0A">fallback exists (see production-checklist.md)</text>
+
+  <line x1="60" y1="548" x2="1140" y2="548" stroke="rgba(10,10,10,0.15)"/>
+  <text x="60" y="580" font-size="13" fill="#0A0A0A">Request to the pool (modest on purpose — 5 projects share it): 2 in-room PCs · 1 large TV · 1 Galaxy tablet · 1 XGIMI Halo+.</text>
+  <text x="60" y="602" font-size="12" fill="rgba(10,10,10,0.5)">Every station has a Tier-A fallback: nothing about the exhibit can be blocked by the equipment decision.</text>
+</svg>

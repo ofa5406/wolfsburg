@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 980" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <defs>
+    <pattern id="dotsSolid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="5" fill="#E8500A"/>
+    </pattern>
+    <pattern id="dotsHollow" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="5" fill="none" stroke="#0A0A0A" stroke-width="1.6"/>
+    </pattern>
+    <pattern id="dotsInk" width="16" height="16" patternUnits="userSpaceOnUse">
+      <circle cx="8" cy="8" r="3.5" fill="#0A0A0A"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="980" fill="#EAEAEA"/>
+  <text x="60" y="52" font-size="13" letter-spacing="3" fill="rgba(10,10,10,0.6)">(EXHIBITION — SUMMAERY 2026)</text>
+  <text x="60" y="84" font-size="26" font-weight="bold" fill="#0A0A0A">05 · “Take a dot home” — A6 fact-card series (front-face mockups)</text>
+  <line x1="60" y1="100" x2="1140" y2="100" stroke="rgba(10,10,10,0.15)" stroke-width="1"/>
+  <text x="60" y="126" font-size="12" fill="rgba(10,10,10,0.5)">Dot fields here are indicative — make counts exact in the print files. Identity is double-encoded: hollow = private/today, solid = shared/hub city.</text>
+
+  <!-- CARD 1 · 763 -->
+  <g transform="translate(60,160)">
+    <rect width="250" height="354" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="2"/>
+    <rect x="25" y="25" width="200" height="160" fill="url(#dotsSolid)"/>
+    <text x="25" y="245" font-size="56" font-weight="bold" fill="#0A0A0A">763</text>
+    <text x="25" y="275" font-size="14" fill="#0A0A0A">shared vehicles replace the</text>
+    <text x="25" y="293" font-size="14" fill="#0A0A0A">centre’s private cars</text>
+    <text x="25" y="330" font-size="11" fill="rgba(10,10,10,0.5)">1 dot = 10 vehicles · back: fleet mix + QR</text>
+  </g>
+
+  <!-- CARD 2 · 68 -->
+  <g transform="translate(355,160)">
+    <rect width="250" height="354" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="2"/>
+    <circle cx="55" cy="60" r="16" fill="#E8500A"/><circle cx="100" cy="60" r="16" fill="#E8500A"/><circle cx="145" cy="60" r="16" fill="#E8500A"/>
+    <circle cx="55" cy="100" r="16" fill="#E8500A"/><circle cx="100" cy="100" r="16" fill="#E8500A"/><circle cx="145" cy="100" r="16" fill="#E8500A"/>
+    <g fill="#E8500A">
+      <circle cx="45" cy="140" r="8"/><circle cx="70" cy="140" r="8"/><circle cx="95" cy="140" r="8"/><circle cx="120" cy="140" r="8"/><circle cx="145" cy="140" r="8"/><circle cx="170" cy="140" r="8"/><circle cx="195" cy="140" r="8"/>
+      <circle cx="45" cy="163" r="8"/><circle cx="70" cy="163" r="8"/><circle cx="95" cy="163" r="8"/><circle cx="120" cy="163" r="8"/><circle cx="145" cy="163" r="8"/><circle cx="170" cy="163" r="8"/>
+      <circle cx="45" cy="186" r="8"/><circle cx="70" cy="186" r="8"/><circle cx="95" cy="186" r="8"/><circle cx="120" cy="186" r="8"/><circle cx="145" cy="186" r="8"/><circle cx="170" cy="186" r="8"/>
+    </g>
+    <text x="25" y="245" font-size="56" font-weight="bold" fill="#0A0A0A">68</text>
+    <text x="25" y="275" font-size="14" fill="#0A0A0A">mobility hubs instead of</text>
+    <text x="25" y="293" font-size="14" fill="#0A0A0A">parking: 6 L · 19 M · 43 S</text>
+    <text x="25" y="330" font-size="11" fill="rgba(10,10,10,0.5)">1 dot = 1 hub, sized by tier · 43 S as fine grain</text>
+  </g>
+
+  <!-- CARD 3 · 23h -->
+  <g transform="translate(650,160)">
+    <rect width="250" height="354" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="2"/>
+    <g>
+      <circle cx="55" cy="55" r="11" fill="#0A0A0A"/><circle cx="90" cy="55" r="11" fill="#0A0A0A"/><circle cx="125" cy="55" r="11" fill="#0A0A0A"/><circle cx="160" cy="55" r="11" fill="#0A0A0A"/><circle cx="195" cy="55" r="11" fill="#0A0A0A"/><circle cx="55" cy="90" r="11" fill="#0A0A0A"/>
+      <circle cx="90" cy="90" r="11" fill="#0A0A0A"/><circle cx="125" cy="90" r="11" fill="#0A0A0A"/><circle cx="160" cy="90" r="11" fill="#0A0A0A"/><circle cx="195" cy="90" r="11" fill="#0A0A0A"/><circle cx="55" cy="125" r="11" fill="#0A0A0A"/><circle cx="90" cy="125" r="11" fill="#0A0A0A"/>
+      <circle cx="125" cy="125" r="11" fill="#0A0A0A"/><circle cx="160" cy="125" r="11" fill="#0A0A0A"/><circle cx="195" cy="125" r="11" fill="#0A0A0A"/><circle cx="55" cy="160" r="11" fill="#0A0A0A"/><circle cx="90" cy="160" r="11" fill="#0A0A0A"/><circle cx="125" cy="160" r="11" fill="#0A0A0A"/>
+      <circle cx="160" cy="160" r="11" fill="#0A0A0A"/><circle cx="195" cy="160" r="11" fill="#0A0A0A"/><circle cx="55" cy="195" r="11" fill="#0A0A0A"/><circle cx="90" cy="195" r="11" fill="#0A0A0A"/><circle cx="125" cy="195" r="11" fill="#0A0A0A"/>
+      <circle cx="160" cy="195" r="11" fill="none" stroke="#E8500A" stroke-width="3"/>
+    </g>
+    <text x="25" y="255" font-size="56" font-weight="bold" fill="#0A0A0A">23 h</text>
+    <text x="25" y="285" font-size="14" fill="#0A0A0A">a day: how long the average</text>
+    <text x="25" y="303" font-size="14" fill="#0A0A0A">car sits parked</text>
+    <text x="25" y="330" font-size="11" fill="rgba(10,10,10,0.5)">24 dots = 24 hours · the hollow one is driving</text>
+  </g>
+
+  <!-- CARD 4 · 100,000 -->
+  <g transform="translate(60,560)">
+    <rect width="250" height="354" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="2"/>
+    <rect x="25" y="25" width="200" height="160" fill="url(#dotsInk)"/>
+    <text x="25" y="245" font-size="42" font-weight="bold" fill="#0A0A0A">100,000</text>
+    <text x="25" y="275" font-size="14" fill="#0A0A0A">trips a day — 17k residents,</text>
+    <text x="25" y="293" font-size="14" fill="#0A0A0A">18k workers, 17k visitors</text>
+    <text x="25" y="330" font-size="11" fill="rgba(10,10,10,0.5)">1 dot = 1,000 trips · sized for the 9,000-trip peak hour</text>
+  </g>
+
+  <!-- CARD 5 · 8% -->
+  <g transform="translate(355,560)">
+    <rect width="250" height="354" fill="#F5F4EF" stroke="#0A0A0A" stroke-width="2"/>
+    <rect x="25" y="25" width="200" height="160" fill="url(#dotsHollow)"/>
+    <circle cx="35" cy="35" r="5" fill="#E8500A"/><circle cx="55" cy="35" r="5" fill="#E8500A"/><circle cx="75" cy="35" r="5" fill="#E8500A"/><circle cx="95" cy="35" r="5" fill="#E8500A"/>
+    <circle cx="115" cy="35" r="5" fill="#E8500A"/><circle cx="135" cy="35" r="5" fill="#E8500A"/><circle cx="155" cy="35" r="5" fill="#E8500A"/><circle cx="175" cy="35" r="5" fill="#E8500A"/>
+    <text x="25" y="245" font-size="56" font-weight="bold" fill="#0A0A0A">8%</text>
+    <text x="25" y="275" font-size="14" fill="#0A0A0A">of trips are cycled today.</text>
+    <text x="25" y="293" font-size="14" fill="#0A0A0A">Groningen: ~60%.</text>
+    <text x="25" y="330" font-size="11" fill="rgba(10,10,10,0.5)">100 dots = all trips · solid = by bike</text>
+  </g>
+
+  <!-- CARD 6 · placeholder -->
+  <g transform="translate(650,560)">
+    <rect width="250" height="354" fill="#F5F4EF" stroke="#E8500A" stroke-width="2.5" stroke-dasharray="10 7"/>
+    <rect x="25" y="25" width="200" height="160" fill="url(#dotsHollow)" opacity="0.45"/>
+    <text x="25" y="245" font-size="34" font-weight="bold" fill="#E8500A">[CARS-</text>
+    <text x="25" y="282" font-size="34" font-weight="bold" fill="#E8500A">REPLACED]</text>
+    <text x="25" y="312" font-size="13" fill="#0A0A0A">private cars made unnecessary</text>
+    <text x="25" y="336" font-size="11" fill="rgba(10,10,10,0.5)">DO NOT PRINT until recomputed for the 763 fleet</text>
+  </g>
+
+  <!-- back-face note -->
+  <g transform="translate(945,160)">
+    <rect width="195" height="754" fill="none" stroke="rgba(10,10,10,0.3)" stroke-width="1.5" stroke-dasharray="6 6"/>
+    <text x="20" y="40" font-size="14" font-weight="bold" fill="#0A0A0A">Card backs</text>
+    <text x="20" y="70" font-size="12" fill="#0A0A0A">· one explaining</text>
+    <text x="30" y="88" font-size="12" fill="#0A0A0A">sentence</text>
+    <text x="20" y="116" font-size="12" fill="#0A0A0A">· QR → live deck</text>
+    <text x="20" y="144" font-size="12" fill="#0A0A0A">· &lt;stadt.hub&gt; +</text>
+    <text x="30" y="162" font-size="12" fill="#0A0A0A">team credit line</text>
+    <text x="20" y="200" font-size="12" fill="rgba(10,10,10,0.6)">Copy for all six</text>
+    <text x="20" y="218" font-size="12" fill="rgba(10,10,10,0.6)">backs is in</text>
+    <text x="20" y="236" font-size="12" fill="rgba(10,10,10,0.6)">draft-content.md §5</text>
+    <rect x="20" y="640" width="60" height="60" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+    <rect x="32" y="652" width="12" height="12" fill="#0A0A0A"/><rect x="56" y="652" width="12" height="12" fill="#0A0A0A"/><rect x="32" y="676" width="12" height="12" fill="#0A0A0A"/><rect x="52" y="672" width="20" height="20" fill="#0A0A0A"/>
+    <text x="94" y="676" font-size="11" fill="rgba(10,10,10,0.5)">QR ≥ 3 cm</text>
+  </g>
+
+  <text x="60" y="950" font-size="12" fill="rgba(10,10,10,0.5)">Print: A6, 300 gsm if possible, B/W laser + accent #E8500A (validated for print/screen and CVD) · ~40 of each to start, restock daily.</text>
+</svg>

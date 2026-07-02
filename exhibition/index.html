@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>&lt;stadt.hub&gt; — Summaery Exhibition Concepts</title>
+<style>
+  :root{
+    --bg:#EAEAEA; --bg-dark:#0F0F0F; --ink:#0A0A0A;
+    --ink-dim:rgba(10,10,10,.4); --ink-mid:rgba(10,10,10,.6);
+    --white:#F5F4EF; --rule:rgba(10,10,10,.15); --accent:#E8500A;
+    --font:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    --pad:clamp(24px,4vw,60px);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.5}
+  section{padding:var(--pad);max-width:1280px;margin:0 auto}
+  .anno{font-size:.688rem;letter-spacing:3px;text-transform:uppercase;color:var(--ink-mid)}
+  h1{font-size:clamp(2.6rem,7vw,5.5rem);line-height:1.02;letter-spacing:-.02em;margin:.35em 0 .2em}
+  h2{font-size:clamp(1.6rem,3.4vw,2.4rem);margin:.2em 0 .5em;letter-spacing:-.01em}
+  h2 .alt{color:var(--accent)}
+  .counter{font-size:clamp(2rem,5vw,3.4rem);color:var(--ink-dim);font-weight:700}
+  .rule{border:none;border-top:1px solid var(--rule);margin:1.2rem 0}
+  .head-row{display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  p.lead{font-size:1.25rem;max-width:52rem}
+  p,li{max-width:52rem}
+  ul{padding-left:1.2rem;margin:.6rem 0}
+  .accent{color:var(--accent)}
+  .tag{display:inline-block;border:2px solid var(--ink);padding:.15em .6em;font-size:.8rem;font-weight:700;letter-spacing:1px;margin-right:.5em}
+  .tag--a{background:var(--ink);color:var(--white)}
+  .tag--r{border-color:var(--accent);color:var(--accent)}
+  figure{margin:2rem 0}
+  figure img{width:100%;height:auto;display:block;border:1px solid var(--rule);background:var(--white)}
+  figcaption{font-size:.8rem;color:var(--ink-mid);margin-top:.5rem}
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(16px,2vw,24px)}
+  .card{background:var(--white);border:2px solid var(--ink);padding:1.2rem 1.4rem}
+  .card h3{font-size:1.05rem;margin-bottom:.4rem}
+  .card .anno{display:block;margin-bottom:.5rem}
+  .dark{background:var(--bg-dark);color:var(--white)}
+  .dark .anno{color:rgba(245,244,239,.55)}
+  .dark .rule{border-top-color:rgba(255,255,255,.12)}
+  .dark p{color:rgba(245,244,239,.85)}
+  table{border-collapse:collapse;width:100%;font-size:.9rem;background:var(--white);color:var(--ink)}
+  th,td{border:1px solid var(--rule);padding:.5em .7em;text-align:left;vertical-align:top}
+  th{background:var(--ink);color:var(--white);font-weight:700}
+  .warn{border:3px solid var(--accent);background:var(--white);color:var(--ink);padding:1rem 1.3rem;margin:1.5rem 0;max-width:52rem}
+  .warn strong{color:var(--accent)}
+  a{color:inherit;text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px}
+  footer{padding:var(--pad);text-align:center;font-size:.8rem;color:var(--ink-mid)}
+  .dots{letter-spacing:.28em;font-size:1.1rem;user-select:none}
+</style>
+</head>
+<body>
+
+<section>
+  <span class="anno">(Summaery · July 9–12, 2026 · Computer Pool · Unattended)</span>
+  <h1>&lt;stadt.hub&gt;<br>Exhibition Concepts</h1>
+  <p class="lead">Parking City → Hub City — two alternatives for how the project presents itself when nobody is there to present it.</p>
+  <hr class="rule">
+  <p class="anno">TEAM DOCUMENT — not public · Alt 1: <a href="alt-1-stations/concept.md">concept</a> ·
+    <a href="alt-1-stations/draft-content.md">content</a> · <a href="alt-1-stations/production-checklist.md">checklist</a>
+    &nbsp;/&nbsp; Alt 2: <a href="alt-2-parking-space/concept.md">concept</a> ·
+    <a href="alt-2-parking-space/draft-content.md">content</a> · <a href="alt-2-parking-space/production-checklist.md">checklist</a></p>
+</section>
+
+<section class="dark">
+  <div class="head-row"><h2>The shared foundation</h2><span class="counter">01</span></div>
+  <hr class="rule">
+  <p class="lead">Both alternatives are built from the same parts — only the room changes.</p>
+  <p style="margin-top:1rem">A real <strong class="accent">5.0 × 2.5 m parking space taped on the floor</strong>;
+  the <strong class="accent">dot-matrix</strong> as graphic grammar
+  (<span class="dots">○○○○○</span> private/today · <span class="dots accent">●●●</span> shared/hub city, accent
+  <strong class="accent">#E8500A</strong>) — the device the critic singled out at finals; the silent
+  <strong>60-Second City loop</strong> as the voice of the exhibit; the <strong>A6 fact cards and persona tickets</strong>
+  as the take-home; and the locked figures: <strong>763 vehicles · 68 hubs</strong>.</p>
+  <figure>
+    <img src="diagrams/02_visitor-journey.svg" alt="Visitor journey: 10 seconds, 60 seconds, 5 minutes, take-home" style="background:#EAEAEA">
+    <figcaption style="color:rgba(245,244,239,.55)">The legibility ladder both alternatives must pass: 10 s → 60 s → 5 min → take-home, no narration.</figcaption>
+  </figure>
+  <figure>
+    <img src="diagrams/04_loop-storyboard.svg" alt="14-shot storyboard of the 60-second loop" style="background:#EAEAEA">
+    <figcaption style="color:rgba(245,244,239,.55)">The loop (~75 s, silent): full storyboard with asset filenames in <a href="alt-1-stations/draft-content.md" style="color:inherit">alt-1-stations/draft-content.md §2</a>.</figcaption>
+  </figure>
+  <figure>
+    <img src="diagrams/05_dot-matrix-cards.svg" alt="Mockups of the six A6 dot-matrix fact cards" style="background:#EAEAEA">
+    <figcaption style="color:rgba(245,244,239,.55)">“Take a dot home” — the A6 series. In Alt 2 the same cards become the café menu.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="head-row"><h2><span class="alt">Alt 1</span> — Station constellation</h2><span class="counter">02</span></div>
+  <hr class="rule">
+  <p class="lead">Stations orbit the taped space: a loop screen, the 3D hub kit, a persona tablet, a projection cycle, a sticker map.</p>
+  <div class="grid2" style="margin-top:1.5rem">
+    <div class="card"><span class="anno">Tier A</span><h3><span class="tag tag--a">A1</span>The 60-Second City</h3>
+      <p>Attract loop on the entrance-facing screen; touch → full deck; 90 s idle → loop.</p></div>
+    <div class="card"><span class="anno">Tier A</span><h3><span class="tag tag--a">A2</span>Hub Anatomy</h3>
+      <p>The existing <code>hub-viewer/</code> 3D kit — hover any element. Offline, zero build.</p></div>
+    <div class="card"><span class="anno">Tier B</span><h3><span class="tag">B</span>Choose a Life</h3>
+      <p>Four personas on a tablet; Thomas (VW case study) first in reading order.</p></div>
+    <div class="card" style="border-color:var(--accent);border-width:3px"><span class="anno">Tier C</span><h3><span class="tag tag--r">C</span>One Parking Space</h3>
+      <p>The taped rectangle + projector cycling what the footprint becomes. Fallback: A3 prints inside the tape.</p></div>
+    <div class="card"><span class="anno">Print</span><h3><span class="tag tag--a">P1</span>Take a dot home</h3>
+      <p>Fact cards + persona tickets, QR-linked to deck and map.</p></div>
+    <div class="card"><span class="anno">Print</span><h3><span class="tag tag--a">P2</span>Where would you put a hub?</h3>
+      <p>A3-tiled masterplan + dot stickers — a crowd-made dot-matrix by Sunday.</p></div>
+  </div>
+  <figure>
+    <img src="diagrams/01_station-layout.svg" alt="Schematic floor layout of the computer pool stations">
+    <figcaption>Alt 1 floor layout — full detail in <a href="alt-1-stations/concept.md">alt-1-stations/concept.md</a>; projection setup in <a href="diagrams/06_parking-space-projection.svg">diagram 06</a>; equipment tiers in <a href="diagrams/03_equipment-tiers.svg">diagram 03</a>.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="head-row"><h2><span class="alt">Alt 2</span> — One Parking Space, purified</h2><span class="counter">03</span></div>
+  <hr class="rule">
+  <p class="lead">Delete the stations. The furnished parking space <em>is</em> the exhibition — and everything fits inside it.</p>
+  <p style="margin-top:1rem">A café table with three chairs standing on the taped <em>shadow of a car</em>. A small tree and
+  pots along the edge. A bicycle on its stand. A chalk field underfoot, seeded with a hopscotch, filling with visitors'
+  drawings over four days. One screen at the head end plays the loop; the personas run on a tablet on the table; the fact
+  cards become the <strong>café menu</strong>; the manifest board is the only wall text. The exhibit applies the project's
+  own method to itself: <strong class="accent">count what fits in 12.5 m² — then sit in it.</strong></p>
+  <figure>
+    <img src="diagrams/07_parking-space-inventory.svg" alt="1:1 furnishing plan of the parking space with area tally">
+    <figcaption>The furnishing plan: 7.1 m² furnished, 5.4 m² still free — a parked car uses all 12.5 and moves one hour a day.</figcaption>
+  </figure>
+  <figure>
+    <img src="diagrams/08_fit-manifest.svg" alt="Manifest comparing the space as car storage versus furnished street">
+    <figcaption>The manifest board — yesterday vs. today on the same ground, ×12,500 across the centre. Copy in <a href="alt-2-parking-space/draft-content.md">alt-2-parking-space/draft-content.md</a>.</figcaption>
+  </figure>
+  <div class="grid2">
+    <div class="card"><span class="anno">Participation</span><h3>The chalk field</h3>
+      <p>“Draw what you'd put here.” Dark board + chalk (charcoal only on paper — the pool floor survives).
+      Photographed nightly: a 4-day time-lapse of a parking space becoming a place.</p></div>
+    <div class="card"><span class="anno">Equipment</span><h3>Less tech than Alt 1</h3>
+      <p>1 screen + 1 PC + 1 tablet. No projector — both XGIMIs go back to the class pool,
+      which is worth saying in the negotiation.</p></div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="head-row"><h2>Choosing</h2><span class="counter">04</span></div>
+  <hr class="rule">
+  <table>
+    <tr><th></th><th>Alt 1 · Stations</th><th>Alt 2 · One Parking Space</th></tr>
+    <tr><td>Core image</td><td>Room orbits an empty taped space</td><td>The space itself, furnished and alive</td></tr>
+    <tr><td>Screens</td><td>2 PCs + TV + tablet + projector</td><td>1 screen + 1 tablet</td></tr>
+    <tr><td>Main risk</td><td>Projector grant, tech babysitting</td><td>Furniture sourcing, chalk management</td></tr>
+    <tr><td>Visitor role</td><td>Watches, explores, then acts</td><td>Sits inside the argument immediately</td></tr>
+    <tr><td>The photo that travels</td><td>Projected rectangle</td><td>People at a café table in a parking space</td></tr>
+    <tr><td>Thesis</td><td>Explains reclaiming</td><td>Performs reclaiming</td></tr>
+  </table>
+  <p style="margin-top:1.2rem"><strong>Combo:</strong> Alt 2's furnished space + Alt 1's projector cycle onto the chalk
+  field for the Summaery evenings — the maximal version if the pool grants everything.</p>
+</section>
+
+<section>
+  <div class="head-row"><h2>Numbers &amp; next steps</h2><span class="counter">05</span></div>
+  <hr class="rule">
+  <div class="warn">
+    <strong>Before printing anything:</strong> all materials use the locked figures — <strong>763 vehicles · 68 hubs</strong>
+    (6 L / 19 M / 43 S). The live deck still shows the web-tool run (1,273 / 140). To verify:
+    <strong>[CARS-REPLACED]</strong> (recompute for 763) and Alt 2's <strong>“~12,500 spaces”</strong> manifest claim.
+  </div>
+  <table>
+    <tr><th>By</th><th>Do</th></tr>
+    <tr><td>Fri Jul 3</td><td>Pick Alt 1 / Alt 2 / combo · submit equipment request · verify the two numbers · measure the room · (Alt 2) confirm furniture sources</td></tr>
+    <tr><td>Wed Jul 8</td><td>Loop built · prints done · tape + furnish · unattended dry run + cold-visitor test</td></tr>
+    <tr><td>Jul 9–12</td><td>Daily: restock, charge, photograph (sticker map / chalk field) every evening</td></tr>
+  </table>
+  <p style="margin-top:1rem">Checklists: <a href="alt-1-stations/production-checklist.md">Alt 1</a> ·
+  <a href="alt-2-parking-space/production-checklist.md">Alt 2</a>.</p>
+</section>
+
+<footer>
+  &lt;stadt.hub&gt; · Parking City → Hub City · Ömer Faruk Aslan · Anastasiia Mulyndina · Başak Pınar<br>
+  Bauhaus-Universität Weimar · Urban Design Studio — Wolfsburg Future Mobility · Summaery 2026
+</footer>
+
+</body>
+</html>
