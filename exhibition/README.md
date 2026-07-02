@@ -28,6 +28,7 @@ field for the Summaery evenings — the maximal version if the pool grants every
 |------|-----------|
 | `alt-1-stations/concept.md` · `draft-content.md` · `production-checklist.md` | The multi-station concept, all copy, build plan |
 | `alt-2-parking-space/concept.md` · `draft-content.md` · `production-checklist.md` | The purified single-space concept, its manifest/menu/label copy, build plan |
+| [`moodboard.md`](moodboard.md) | Real-world precedents for every layer of both alternatives (PARK(ing) Day, Münster 1991, Candy Chang, CityScope Hamburg, Autostadt…) with links, "what to steal" notes and image-search keywords |
 | [`diagrams/`](diagrams/) | Shared SVGs: 01 layout (Alt 1) · 02 legibility ladder · 03 equipment tiers (Alt 1) · 04 loop storyboard · 05 dot-matrix cards · 06 projection setup (Alt 1) · **07 furnishing plan (Alt 2)** · **08 fit manifest (Alt 2)** |
 | [`index.html`](index.html) | Visual concept page presenting both alternatives (auto-deploys at `/wolfsburg/exhibition/` after merge to `main`; root presentation untouched) |
 

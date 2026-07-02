@@ -165,7 +165,14 @@ Kept honest so the team sees the trade-offs; adopt or discard at the July planni
 We deliberately **do not** request: the second/third TV, the Mogo, more tablets —
 5 projects share the pool, and a modest, specific request is likelier to be granted.
 
-## 7. Why this will score
+## 7. Precedents
+
+Every station has a documented real-world ancestor — MOIA's presenter mode (the loop),
+CityScope Hamburg (projection + map participation), Candy Chang's sticker projects (the
+map), Autostadt's own exhibit craft (labels, unattended legibility). Full annotated list
+with links and image-search keywords: [`../moodboard.md`](../moodboard.md).
+
+## 8. Why this will score
 
 - **Critic-aligned:** dot-matrix everywhere (his named favourite), before/after treatments
   of every dataset, the VW case study front-loaded, the "after"-state made physical.

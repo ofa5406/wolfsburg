@@ -123,3 +123,5 @@ field after dark (Summaery evenings) is the maximal version if equipment allows.
   [`../diagrams/08_fit-manifest.svg`](../diagrams/08_fit-manifest.svg)
 - Shared with Alt 1: loop storyboard, card series, legibility ladder
   (`../alt-1-stations/`, `../diagrams/02|04|05_*.svg`)
+- Precedents (PARK(ing) Day, Wohnzimmer actions, Münster 1991, Before I Die…):
+  [`../moodboard.md`](../moodboard.md)
