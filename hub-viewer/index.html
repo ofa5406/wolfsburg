@@ -16,7 +16,13 @@
     display:flex;justify-content:space-between;align-items:flex-start;z-index:5;gap:16px}
   #title{font-size:15px;font-weight:700}
   #title small{display:block;font-weight:500;color:var(--muted);font-size:12px;margin-top:2px}
-  #hint{font-size:11.5px;color:var(--muted);text-align:right;line-height:1.5}
+  #btn-fullscreen{pointer-events:auto;border:1px solid var(--line);background:rgba(255,255,255,.94);
+    color:var(--ink);font-size:12px;font-weight:600;padding:8px 12px;border-radius:8px;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.06);white-space:nowrap}
+  #btn-fullscreen:hover{border-color:#999}
+  #hint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);text-align:center;
+    font-size:11.5px;color:var(--muted);line-height:1.5;z-index:5;pointer-events:none;
+    background:rgba(255,255,255,.7);padding:4px 12px;border-radius:8px;backdrop-filter:blur(4px)}
 
   /* Scene tabs */
   #tabs{position:fixed;top:54px;left:50%;transform:translateX(-50%);z-index:6;
@@ -29,19 +35,8 @@
   #tabs .tab.active{color:#fff;background:#1d2127;border-color:#1d2127}
   #tabs .sep{width:1px;background:var(--line);margin:3px 2px}
 
-  #legend{position:fixed;left:18px;bottom:18px;background:rgba(255,255,255,.94);
-    border:1px solid var(--line);border-radius:10px;padding:11px 13px;font-size:12px;
-    backdrop-filter:blur(6px);box-shadow:0 6px 24px rgba(0,0,0,.07);z-index:5;max-width:250px}
-  #legend h4{margin:0 0 8px;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);
-    display:flex;justify-content:space-between;align-items:center}
-  #legend h4 a{pointer-events:auto;cursor:pointer;color:var(--muted);font-weight:600;text-transform:none;
-    letter-spacing:0;font-size:11px;text-decoration:underline}
-  #legend .row{display:flex;align-items:center;gap:9px;margin:5px 0;cursor:pointer;user-select:none}
-  #legend .sw{width:11px;height:11px;border-radius:3px;flex:0 0 auto}
-  #legend .row.off{opacity:.38}
-  #legend .row .ct{margin-left:auto;color:var(--muted);font-variant-numeric:tabular-nums}
 
-  #panel{position:fixed;max-width:340px;background:var(--panel);border:1px solid var(--line);
+  #panel{position:fixed;left:18px;bottom:18px;top:auto;max-width:320px;background:var(--panel);border:1px solid var(--line);
     border-left-width:4px;border-radius:10px;box-shadow:0 12px 40px rgba(0,0,0,.15);padding:13px 16px;z-index:10;
     opacity:0;transform:translateY(6px);transition:opacity .1s ease,transform .1s ease;pointer-events:none}
   #panel.show{opacity:1;transform:translateY(0)}
@@ -53,7 +48,7 @@
   #controls button{border:1px solid var(--line);background:rgba(255,255,255,.94);color:var(--ink);
     font-size:12px;font-weight:600;padding:8px 12px;border-radius:8px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.06)}
   #controls button:hover{border-color:#999}
-  #btn-trees.contour,#btn-people.on{background:#1d2127;color:#fff;border-color:#1d2127}
+  #btn-trees.contour,#btn-people.on,#btn-walk.on,#btn-fly.on{background:#1d2127;color:#fff;border-color:#1d2127}
   #loading{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
     background:#f4f5f7;z-index:20;font-size:13px;color:var(--muted)}
 </style>
@@ -65,15 +60,12 @@
   <div id="title">Wolfsburg Mobility Hub — Element Kit
     <small>Parking City → Hub City · hover any element for its description</small>
   </div>
-  <div id="hint">Right-drag orbit · middle-drag pan · wheel zoom<br>Click a category to show / hide it</div>
+  <button id="btn-fullscreen" title="Toggle fullscreen">⛶ Fullscreen</button>
 </div>
 
 <div id="tabs"></div>
 
-<div id="legend">
-  <h4><span>Element categories</span><a id="toggle-all">toggle all</a></h4>
-  <div id="legend-rows"></div>
-</div>
+<div id="hint">Right-drag orbit · middle-drag pan · wheel zoom</div>
 
 <div id="panel">
   <div class="pcat" id="p-cat"></div>
@@ -82,6 +74,8 @@
 </div>
 
 <div id="controls">
+  <button id="btn-walk">Walk</button>
+  <button id="btn-fly">Fly</button>
   <button id="btn-people">People: Off</button>
   <button id="btn-trees">Trees: Solid</button>
   <button id="reset">Reset view</button>
@@ -402,6 +396,7 @@
   var activeTabIdx=0;
   function activate(idx){
     var d=tabDefs[idx]; if(!d||d.sep) return;
+    exitMode();                         // leave walk/fly when a saved view is chosen
     activeTabIdx=idx;
     if(d.kind==='persp') applyPersp(d.view); else applyOrtho(d.dir,d.up);
     tabEls.forEach(function(t,i){ if(t) t.classList.toggle('active', i===idx); });
@@ -413,30 +408,7 @@
     tabsEl.appendChild(b); tabEls.push(b);
   });
 
-  // ----- legend -----
-  var rowsEl=document.getElementById('legend-rows');
-  var order=["hub","mob","shel","env","way","soc","lit","str","opt"];
-  var present=order.filter(function(c){return byCategory[c];})
-                .concat(Object.keys(byCategory).filter(function(c){return order.indexOf(c)<0;}));
-  present.forEach(function(cat){
-    var meta=CATS[cat]||{name:cat,color:DEFAULT_CAT_COLOR}, count=byCategory[cat].meshes.length;
-    var row=document.createElement('div'); row.className='row';
-    row.innerHTML='<span class="sw" style="background:'+meta.color+'"></span><span>'+meta.name+'</span><span class="ct">'+count+'</span>';
-    row.addEventListener('click', function(){
-      var g=byCategory[cat]; g.visible=!g.visible;
-      g.meshes.forEach(function(m){m.visible=g.visible;}); g.lines.forEach(function(l){l.visible=g.visible;});
-      row.classList.toggle('off',!g.visible);
-    });
-    rowsEl.appendChild(row);
-  });
-  document.getElementById('toggle-all').addEventListener('click', function(){
-    var anyOn=present.some(function(c){return byCategory[c].visible;});
-    present.forEach(function(cat,i){
-      var g=byCategory[cat]; g.visible=!anyOn;
-      g.meshes.forEach(function(m){m.visible=g.visible;}); g.lines.forEach(function(l){l.visible=g.visible;});
-      rowsEl.children[i].classList.toggle('off',!g.visible);
-    });
-  });
+  // ----- legend removed (categories window) -----
 
   // ----- trees toggle -----
   var treesMode='solid', btnTrees=document.getElementById('btn-trees');
@@ -489,15 +461,12 @@
     } else { panel.classList.remove('show'); document.body.style.cursor='default'; }
   }
   function onMove(e){
+    if(navMode) return;                 // walk/fly: look via pointer-lock, hover via centre-ray
     mouse.x=(e.clientX/window.innerWidth)*2-1; mouse.y=-(e.clientY/window.innerHeight)*2+1;
     raycaster.setFromCamera(mouse, activeCam);
     var hits=raycaster.intersectObjects(elementMeshes,false), hit=null;
     for(var i=0;i<hits.length;i++){ if(hits[i].object.visible){ hit=hits[i].object; break; } }
-    setHover(hit);
-    var px=e.clientX+16, py=e.clientY+16;
-    if(px+350>window.innerWidth) px=e.clientX-350-16;
-    if(py+170>window.innerHeight) py=window.innerHeight-180;
-    panel.style.left=px+'px'; panel.style.top=py+'px';
+    setHover(hit);   // panel is pinned bottom-left via CSS — no cursor-follow positioning
   }
   renderer.domElement.addEventListener('pointermove', onMove);
 
@@ -509,12 +478,159 @@
     fatLineMats.forEach(function(m){ m.resolution.set(W,H); });
   });
 
-  function animate(){ requestAnimationFrame(animate); controls.update(); renderer.render(scene, activeCam); }
+  // ===== Walk / Fly navigation ================================================
+  var navMode=null;                    // null = orbit, 'walk', 'fly'
+  var navClock=new THREE.Clock();
+  var keys={}, yaw=0, pitch=0;
+  var EYE_H=1.6, STEP_H=0.5, WALK_SPEED=3.6, FLY_SPEED=10.3, LOOK_SENS=0.0022;   // 13 / 37 km/h
+  var navRay=new THREE.Raycaster();
+  var hintEl=document.getElementById('hint');
+  var btnWalk=document.getElementById('btn-walk'), btnFly=document.getElementById('btn-fly');
+
+  // collision + floor targets (built once). Precompute bounds so the first in-mode
+  // raycast doesn't pay the lazy-bounds cost (that was the "wait a few seconds" stall).
+  var obstacleMeshes=[], floorMeshes=[];
+  elementMeshes.forEach(function(m){
+    if(!m.geometry.boundingBox) m.geometry.computeBoundingBox();
+    if(!m.geometry.boundingSphere) m.geometry.computeBoundingSphere();
+    var bb=m.geometry.boundingBox;
+    if(m.userData.special || (bb.max.y-bb.min.y)>STEP_H) obstacleMeshes.push(m);
+  });
+  ctxItems.forEach(function(it){                   // floor = paved/context ground only (not all 228 elements)
+    var m=it.mesh; if(!m.geometry.boundingBox) m.geometry.computeBoundingBox();
+    if(!m.geometry.boundingSphere) m.geometry.computeBoundingSphere();
+    floorMeshes.push(m);
+  });
+
+  function floorHeightAt(x,z){
+    navRay.far=Infinity;
+    navRay.set(new THREE.Vector3(x, bmax[1]+50, z), new THREE.Vector3(0,-1,0));
+    var hits=navRay.intersectObjects(floorMeshes,false);
+    for(var i=0;i<hits.length;i++){ if(hits[i].object.visible) return hits[i].point.y; }
+    return null;
+  }
+  var _floorTick=0, _floorY=0;                      // throttle the floor raycast (~every 3rd frame) + cache
+  function groundY(x,z){ if((_floorTick++ % 3)===0){ var h=floorHeightAt(x,z); if(h!=null) _floorY=h; } return _floorY; }
+  function blockedTowards(from,dir,dist){          // horizontal obstacle probe
+    navRay.far=dist; navRay.set(from, dir.clone().normalize());
+    var hits=navRay.intersectObjects(obstacleMeshes,false);
+    for(var i=0;i<hits.length;i++){ if(hits[i].object.visible) return true; }
+    return false;
+  }
+  function orientFromCam(){ var e=new THREE.Euler().setFromQuaternion(perspCam.quaternion,'YXZ'); yaw=e.y; pitch=e.x; }
+  function applyLook(){ var lim=Math.PI/2-0.05; pitch=Math.max(-lim,Math.min(lim,pitch));
+    perspCam.quaternion.setFromEuler(new THREE.Euler(pitch,yaw,0,'YXZ')); }
+  function findView(name){ var vs=MODEL.meta.views||[]; for(var i=0;i<vs.length;i++) if(vs[i].name===name) return vs[i]; return null; }
+  function setHint(mode){
+    if(mode==='walk') hintEl.innerHTML='Walk · WASD / arrows move · Shift sprint · drag to look · click an element for info';
+    else if(mode==='fly') hintEl.innerHTML='Fly · WASD / arrows · Q / E down / up · Shift sprint · drag to look · click for info';
+    else hintEl.innerHTML='Right-drag orbit · middle-drag pan · wheel zoom';
+  }
+
+  function enterMode(mode){
+    navMode=mode; controls.enabled=false; activeCam=perspCam; controls.object=perspCam;
+    var v=findView(mode==='walk'?'eye level 1':'Perspective 2');
+    if(v){ perspCam.position.set(v.pos[0],v.pos[1],v.pos[2]); setFov(v.lens); }
+    if(mode==='walk'){ var fh=floorHeightAt(perspCam.position.x,perspCam.position.z); if(fh!=null){ perspCam.position.y=fh+EYE_H; _floorY=fh; } _floorTick=0; }
+    if(v){ perspCam.lookAt(v.target[0],v.target[1],v.target[2]); }   // face the saved view (fixes gray screen)
+    orientFromCam(); if(mode==='walk') pitch=0; applyLook(); setHover(null);
+    btnWalk.classList.toggle('on',mode==='walk'); btnFly.classList.toggle('on',mode==='fly');
+    renderer.domElement.style.cursor='grab';
+    setHint(mode);
+  }
+  function exitMode(){
+    if(!navMode) return;
+    navMode=null; keys={}; dragging=false;
+    btnWalk.classList.remove('on'); btnFly.classList.remove('on');
+    renderer.domElement.style.cursor='';
+    var d=new THREE.Vector3(); perspCam.getWorldDirection(d);
+    controls.target.copy(perspCam.position).add(d.multiplyScalar(25));
+    controls.enabled=true; controls.update(); setHint(null);
+  }
+  function toggleMode(mode){ if(navMode===mode) exitMode(); else { if(navMode) exitMode(); enterMode(mode); } }
+  btnWalk.addEventListener('click', function(){ toggleMode('walk'); });
+  btnFly.addEventListener('click', function(){ toggleMode('fly'); });
+
+  // drag to look (cursor stays visible); a click that didn't drag = pick an element
+  var dragging=false, dragMoved=0;
+  renderer.domElement.addEventListener('mousedown', function(e){
+    if(!navMode || e.button!==0) return;
+    dragging=true; dragMoved=0; renderer.domElement.style.cursor='grabbing';
+  });
+  renderer.domElement.addEventListener('mousemove', function(e){
+    if(!navMode || !dragging) return;
+    dragMoved += Math.abs(e.movementX||0)+Math.abs(e.movementY||0);
+    yaw   -= (e.movementX||0)*LOOK_SENS;
+    pitch -= (e.movementY||0)*LOOK_SENS;
+    applyLook();
+  });
+  window.addEventListener('mouseup', function(e){
+    if(!navMode || !dragging) return;
+    dragging=false; renderer.domElement.style.cursor='grab';
+    if(dragMoved<5){                                    // a click, not a drag -> pick at cursor
+      var rct=renderer.domElement.getBoundingClientRect();
+      mouse.x=((e.clientX-rct.left)/rct.width)*2-1; mouse.y=-((e.clientY-rct.top)/rct.height)*2+1;
+      navRay.far=Infinity; navRay.setFromCamera(mouse, perspCam);
+      var hits=navRay.intersectObjects(elementMeshes,false), hit=null;
+      for(var i=0;i<hits.length;i++){ if(hits[i].object.visible){ hit=hits[i].object; break; } }
+      setHover(hit);
+    }
+  });
+  window.addEventListener('keydown', function(e){
+    var k=e.key.length===1?e.key.toLowerCase():e.key; keys[k]=true;
+    if(navMode && /^(w|a|s|d|q|e|Arrow(Up|Down|Left|Right))$/.test(k)) e.preventDefault();
+  });
+  window.addEventListener('keyup', function(e){ var k=e.key.length===1?e.key.toLowerCase():e.key; keys[k]=false; });
+
+  function navStep(dt){
+    var boost=keys['Shift']?2:1;                        // Shift = sprint (x2)
+    var mf=((keys['w']||keys['ArrowUp'])?1:0)-((keys['s']||keys['ArrowDown'])?1:0);
+    var ms=((keys['d']||keys['ArrowRight'])?1:0)-((keys['a']||keys['ArrowLeft'])?1:0);
+    if(navMode==='walk'){
+      var f=new THREE.Vector3(-Math.sin(yaw),0,-Math.cos(yaw));
+      var r=new THREE.Vector3(Math.cos(yaw),0,-Math.sin(yaw));
+      var mv=new THREE.Vector3().addScaledVector(f,mf).addScaledVector(r,ms);
+      if(mv.lengthSq()>0){
+        mv.normalize().multiplyScalar(WALK_SPEED*dt*boost);
+        var probe=new THREE.Vector3(perspCam.position.x, perspCam.position.y-EYE_H+1.0, perspCam.position.z);
+        if(!blockedTowards(probe,mv,0.6)){ perspCam.position.x+=mv.x; perspCam.position.z+=mv.z; }
+      }
+      perspCam.position.y=groundY(perspCam.position.x,perspCam.position.z)+EYE_H;
+    } else {
+      var dir=new THREE.Vector3(); perspCam.getWorldDirection(dir);
+      var rr=new THREE.Vector3().crossVectors(dir,new THREE.Vector3(0,1,0)).normalize();
+      var mv=new THREE.Vector3().addScaledVector(dir,mf).addScaledVector(rr,ms);
+      mv.y += (keys['e']?1:0)-(keys['q']?1:0);
+      if(mv.lengthSq()>0){ mv.normalize().multiplyScalar(FLY_SPEED*dt*boost); perspCam.position.add(mv); }
+      var gy=groundY(perspCam.position.x,perspCam.position.z);
+      if(perspCam.position.y<gy+0.5) perspCam.position.y=gy+0.5;
+    }
+  }
+  // ----- fullscreen -----
+  var btnFS=document.getElementById('btn-fullscreen');
+  btnFS.addEventListener('click', function(){
+    if(document.fullscreenElement){ document.exitFullscreen(); }
+    else if(document.body.requestFullscreen){ document.body.requestFullscreen(); }
+    else if(document.body.webkitRequestFullscreen){ document.body.webkitRequestFullscreen(); }
+  });
+  document.addEventListener('fullscreenchange', function(){
+    btnFS.textContent = document.fullscreenElement ? '⛶ Exit' : '⛶ Fullscreen';
+  });
+
+  function animate(){
+    requestAnimationFrame(animate);
+    var dt=Math.min(navClock.getDelta(),0.05);
+    if(navMode){ navStep(dt); } else { controls.update(); }
+    renderer.render(scene, activeCam);
+  }
 
   // start on the Muted style + Perspective 1 (tab 0)
   applyStyle('muted');
   activate(0);
   document.getElementById('loading').style.display='none';
+  // warm up the nav raycast paths (build bounds + prime JIT) so Walk/Fly respond instantly
+  floorHeightAt(sc0.x, sc0.z);
+  if(obstacleMeshes.length) blockedTowards(new THREE.Vector3(sc0.x,sc0.y,sc0.z), new THREE.Vector3(1,0,0), 1);
   animate();
 })();
 </script>
