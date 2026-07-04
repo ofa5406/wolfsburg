@@ -5,6 +5,12 @@ Newest entries at the top. Add freely — this is a scratchpad, not a formal doc
 
 ---
 
+## 2026-07-04 — Hub-viewer Walk/Fly + deck folders
+
+Two "presentations" were causing confusion, so we foldered them: **`final-presentation/`** = the `<stadt.hub>` scroll deck (the site homepage — repo-root `index.html` now just redirects to it), and **`wolfsburg-workflow/`** = the separate Reveal.js workflow/intro deck (was `presentation/`; doc is now `WORKFLOW.md`). `charts/`+`videos/` stay at repo root (shared). Also gave the hub-viewer game-style **Walk/Fly** navigation (drag-to-look, WASD + Shift sprint, click-to-pick, fullscreen). Live at ofa5406.github.io/wolfsburg/. Separately, recolored the Activity Map's Urban Design section to the hub-viewer palette (pushed to annestasiia/wolfsburg-activity-map).
+
+---
+
 ## 2026-06-25 — Project name: `<stadt.hub>`
 
 We have a name for the whole project: **`<stadt.hub>`**. Keeping "Post-Car Future of Wolfsburg" as the descriptive line. Updated README, CLAUDE.md, HANDOFF.md, project/current.md; logged in decisions.md. (Historical session logs/archives left as-is.)
