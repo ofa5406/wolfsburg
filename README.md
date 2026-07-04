@@ -74,4 +74,4 @@ It is **not** the final deliverable — it's the workshop behind it. The final o
 
 *Team: 3 urban-design master's students, Bauhaus-Universität Weimar.*
 
-> 🎤 **New to this workspace?** Watch the 3-minute intro deck: **https://wolfsburg-workspace-intro.netlify.app** (source + speaker notes in [`PRESENTATION.md`](PRESENTATION.md)).
+> 🎤 **New to this workspace?** Watch the 3-minute intro deck: **https://wolfsburg-workspace-intro.netlify.app** (source + speaker notes in [`WORKFLOW.md`](WORKFLOW.md)).

@@ -28,7 +28,7 @@
 
 ## What exists now
 
-- ✅ **HTML presentation** (`wolfsburg-presentation/`) — scroll-based site with Swiss-grid layout, branded **`<stadt.hub>`** (was "Auto-Stadt"). Two masterplan scales (upper city / lower centre) with crossfade animation between hub network and catchment views. Hub data charts (heatmap, stacked bar, profile cards, area breakdown). Lightbox for enlarged plan views. Local only — not yet deployed.
+- ✅ **HTML presentation** (`final-presentation/`) — scroll-based site with Swiss-grid layout, branded **`<stadt.hub>`** (was "Auto-Stadt"). Two masterplan scales (upper city / lower centre) with crossfade animation between hub network and catchment views. Hub data charts (heatmap, stacked bar, profile cards, area breakdown). Lightbox for enlarged plan views. Embeds the hub-viewer in section 3.3. Deployed via GitHub Pages at **ofa5406.github.io/wolfsburg/** (repo root `index.html` redirects here). Note: a separate Reveal.js workflow/intro deck lives in `wolfsburg-workflow/`.
 - ✅ **Hub Viewer** (`hub-viewer/`) — standalone, offline, **embeddable** 3D viewer of one hub's element kit, exported from the Rhino model. Hover any element for a one-line description; tabs for the 4 named views + Iso; muted style with crisp edges; toggleable static people + trees. Self-contained (vendored three.js, baked `data/model-data.js`). Built to drop into a larger web tool — see `hub-viewer/README.md` + `hub-viewer/CLAUDE.md`.
 - ✅ **Rhino masterplan** (`wolfsburg_masterplan.3dm`) — road hierarchy in 5 tiers, hub points placed, catchment areas drawn, land acquisition zones marked. See `project/rhino_masterplan.md`.
 - ✅ Hub typology logic (`project/hub_typologies.md`) + Rhino kit-of-parts (`toolpalette.3dm`, 45 blocks, 3 sample scenes).
@@ -53,7 +53,7 @@ None of the seven proof deliverables are produced yet. In rough priority:
 1. **Resolve e-bike number** — presentation currently shows 641 e-bikes / 1,273 total fleet (web tool computed), but locked design decision says 131 / 763 (tutor-accepted June 11). Group needs to agree and sync all files.
 2. **Drop in missing visuals** — section 2.2 (car-land map), before/after street sections (Kleiststraße), and persona journey diagrams (section 05) are all still placeholder. Export from Rhino when ready.
 3. **Hub concept — RESOLVED 2026-06-17** (`decisions.md` + `project/hub_concept_vs_tool.md`): typology protected; S unchanged; M = near underground parking + surface typology; L = **L-Anchor** (central reuse) + **L-Gateway** (edge depot + park-and-switch interchange). Remaining items: decide if L-Gateways count toward the 6; web-tool code change. See `tasks.md`.
-4. **Deploy the presentation** to a separate GitHub repo when ready for Summaery (July 9–12). Currently local only at `wolfsburg-presentation/`.
+4. **Presentation is deployed** via GitHub Pages at ofa5406.github.io/wolfsburg/ (source in `final-presentation/`). Ready for Summaery (July 9–12).
 5. Begin the **car-land map** (highest rhetorical value — the project's main argument).
 
 **Paused thread — MOIA/MIA research (2026-06-17):** `research/10_moia-mia-precedent.md` written but not folded in. To continue: fold frame + numbers into `research/06` and `07`; spec the MIA-style simulator panel for the web tool.
