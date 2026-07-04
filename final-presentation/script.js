@@ -142,16 +142,16 @@ const frames = [
     frameId:   'upper-plan-frame',
     labelId:   'plan-state-label',
     images:    [
-      { src: 'charts/masterplan_upper.jpg',           label: 'Hub network' },
-      { src: 'charts/masterplan_upper_catchment.jpg', label: 'Catchment areas' },
+      { src: '../charts/masterplan_upper.jpg',           label: 'Hub network' },
+      { src: '../charts/masterplan_upper_catchment.jpg', label: 'Catchment areas' },
     ],
   },
   {
     frameId:   'lower-plan-frame',
     labelId:   'lower-plan-state-label',
     images:    [
-      { src: 'charts/masterplan_lower.jpg',           label: 'City centre plan' },
-      { src: 'charts/masterplan_lower_catchment.jpg', label: 'Catchment areas' },
+      { src: '../charts/masterplan_lower.jpg',           label: 'City centre plan' },
+      { src: '../charts/masterplan_lower_catchment.jpg', label: 'Catchment areas' },
     ],
   },
 ];
@@ -343,11 +343,11 @@ document.querySelectorAll('.hub-tab').forEach(tab => {
 
 // ── Before / After — auto crossfade + auto-cycle ─────
 const baPairs = [
-  { before: 'charts/ba_v1_before.png', after: 'charts/ba_v1_after.png' },
-  { before: 'charts/ba_v2_before.png', after: 'charts/ba_v2_after.png' },
-  { before: 'charts/ba_v3_before.png', after: 'charts/ba_v3_after.png' },
-  { before: 'charts/ba_v4_before.png', after: 'charts/ba_v4_after.png' },
-  { before: 'charts/ba_v5_before.png', after: 'charts/ba_v5_after.png' },
+  { before: '../charts/ba_v1_before.png', after: '../charts/ba_v1_after.png' },
+  { before: '../charts/ba_v2_before.png', after: '../charts/ba_v2_after.png' },
+  { before: '../charts/ba_v3_before.png', after: '../charts/ba_v3_after.png' },
+  { before: '../charts/ba_v4_before.png', after: '../charts/ba_v4_after.png' },
+  { before: '../charts/ba_v5_before.png', after: '../charts/ba_v5_after.png' },
 ];
 
 const baFade      = document.getElementById('ba-fade');

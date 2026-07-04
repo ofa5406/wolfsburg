@@ -1,4 +1,4 @@
-# The Wolfsburg Workspace — Presentation
+# The Wolfsburg Workspace — Workflow Deck
 
 A Reveal.js slide deck explaining the team's project system to collaborators or tutors.
 

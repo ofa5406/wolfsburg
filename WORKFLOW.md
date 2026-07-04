@@ -1,4 +1,4 @@
-# Workspace Intro — presentation
+# Wolfsburg Workflow — intro deck
 
 A short, visual deck introducing **how this workspace system and workflow works** (not the project content) — for presenting to the team.
 
@@ -8,10 +8,10 @@ A short, visual deck introducing **how this workspace system and workflow works*
 
 Open it full-screen and use → / ← (or space) to advance. Press **`S`** for speaker view, **`F`** for fullscreen, **`Esc`** for the slide overview.
 
-The source is in [`presentation/index.html`](presentation/index.html) (reveal.js + Mermaid diagrams, self-contained). To redeploy after edits:
+The source is in [`wolfsburg-workflow/index.html`](wolfsburg-workflow/index.html) (reveal.js + Mermaid diagrams, self-contained). To redeploy after edits:
 
 ```bash
-netlify deploy --dir=presentation --prod --site ade2dc5a-7c0a-4b31-bdd6-65e8f934437d
+netlify deploy --dir=wolfsburg-workflow --prod --site ade2dc5a-7c0a-4b31-bdd6-65e8f934437d
 ```
 
 ## What the deck covers
