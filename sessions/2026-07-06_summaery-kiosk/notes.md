@@ -34,6 +34,13 @@
 | `hub-viewer/index.html` | kiosk mode behind `?kiosk=1` (scene tour + postMessage); normal mode unchanged |
 | `exhibition/README.md` | pivot notice: one screen, Alt 1/2 superseded, kiosk is the exhibit |
 
+## Round 2 (same session) — Miro reconciliation
+
+- Read the team's Miro export (`exhibition/draft/`, 24 frames) and rebuilt the kiosk to its narrative: now **11 beats** — Vision → **History→Today** (b/w tiles flip to today) → **Urban Structure** (3 full-bleed activity-map analyses with landing-page captions) → **Problems** (Ecological/Social/Urban + stat strip) → **Shared·Autonomous·Electric** → Fleet (dot collapse) → Network → Streets → People (kept) → Close → Explore (hub-viewer tour).
+- **Numbers decision (İrem):** source of truth = the deployed Wolfsburg Activity Map, rounded to the nearest ten. Verified against `src/utils/capacityCalc.js` baseline (130k): **fleet 1,270** (640 e-bikes · 55 shuttles · 33 buses · 370 pods · 180 EVs), **68 hubs (6/19/43)**, **104,000 trips/day**, ~8,980 peak. Note: the tool now produces the locked hub counts (6/19/43) but the larger fleet — the old 763/68-vs-1,273/140 conflict is obsolete.
+- Captured the landing analysis maps from the local dev server (2× res, chrome cropped) → `exhibition/kiosk/assets/map-*.png`; cropped history/today photos from the Miro frames as **placeholders** (low-res — replace with originals before July 9).
+- Re-verified headless: full 11-beat run, every beat on schedule, zero errors.
+
 ## Open threads / unfinished
 
 - **Reconcile beat structure with the team's Miro board** — the narrative was drafted by Claude first; İrem will compare against the Miro layout and adjust copy/order.

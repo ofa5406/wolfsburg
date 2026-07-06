@@ -36,71 +36,145 @@
   </div>
 </section>
 
-<!-- ═══════════════ BEAT 2 · PROBLEM ═══════════════ -->
+<!-- ═══════════════ BEAT 2 · HISTORY → TODAY ═══════════════ -->
 <section class="beat" id="b2">
-  <div class="beat-tag"><span>02</span><span>(Problem)</span></div>
-  <div class="beat-body split">
-    <div class="split-left">
-      <h2 class="tw headline" id="tw-b2"></h2>
-      <div class="facts">
-        <div class="fact reveal" data-r="0">
-          <span class="fact-num">~23 h</span>
-          <span class="fact-txt">a day — how long the average car sits parked. It is not a vehicle. It is a land use.</span>
-        </div>
-        <div class="fact reveal" data-r="1">
-          <span class="fact-num">100,000</span>
-          <span class="fact-txt">trips in, out and within the centre every day. The system is sized for the 9,000-trip peak hour.</span>
-        </div>
-        <div class="fact reveal" data-r="2">
-          <span class="fact-num">8%</span>
-          <span class="fact-txt">cycling's share of trips today. Groningen manages ~60%. The street space exists — it is storing cars.</span>
-        </div>
+  <div class="beat-tag"><span>02</span><span>(History)</span></div>
+  <div class="beat-body b2-body">
+    <h2 class="tw headline" id="tw-b2"></h2>
+    <div class="tile-row">
+      <figure class="flip-tile reveal" data-r="0">
+        <img class="tile-img tile-then active" src="assets/history-assembly.png" alt="VW assembly line, 1950s">
+        <img class="tile-img tile-now" src="../../charts/problem_1.jpeg" alt="The commute today">
+        <figcaption><span class="cap-then active">1938 — a city founded for a factory</span><span class="cap-now">today — the commute</span></figcaption>
+      </figure>
+      <figure class="flip-tile reveal" data-r="1">
+        <img class="tile-img tile-then active" src="assets/history-castle.png" alt="Fallersleben castle">
+        <img class="tile-img tile-now" src="assets/today-parking-aerial.png" alt="Parking fields today">
+        <figcaption><span class="cap-then active">villages absorbed by the company town</span><span class="cap-now">today — the parking field</span></figcaption>
+      </figure>
+      <figure class="flip-tile reveal" data-r="2">
+        <img class="tile-img tile-then active" src="assets/history-workers.png" alt="Workers leaving the plant">
+        <img class="tile-img tile-now" src="assets/today-junction.png" alt="Oversized junction today">
+        <figcaption><span class="cap-then active">three shifts set the city's clock</span><span class="cap-now">today — the junction</span></figcaption>
+      </figure>
+    </div>
+    <p class="tw b2-punch" id="tw-b2b"></p>
+  </div>
+</section>
+
+<!-- ═══════════════ BEAT 3 · URBAN STRUCTURE ═══════════════ -->
+<section class="beat beat--full" id="b3">
+  <div class="map-stage" id="map-stage">
+    <img class="map-img active" src="assets/map-mobility.png" alt="Transport activity heatmap">
+    <img class="map-img" src="assets/map-livability.png" alt="Facility density">
+    <img class="map-img" src="assets/map-centrality.png" alt="Centrality analysis">
+  </div>
+  <div class="beat-tag beat-tag--onimg"><span>03</span><span>(Structure)</span></div>
+  <div class="map-head">
+    <h2 class="tw headline headline--onimg" id="tw-b3"></h2>
+  </div>
+  <div class="map-card" id="map-card">
+    <span class="map-chip" id="map-chip">01 · Transport activity</span>
+    <p class="map-cap" id="map-cap">All transport intensity converges on one dominant core — the gravitational pull of the Werk. The periphery orbits it.</p>
+    <span class="map-src">Wolfsburg Activity Map · annestasiia.github.io/wolfsburg-activity-map</span>
+  </div>
+</section>
+
+<!-- ═══════════════ BEAT 4 · PROBLEMS ═══════════════ -->
+<section class="beat beat--dark" id="b4">
+  <div class="beat-tag"><span>04</span><span>(Problems)</span></div>
+  <div class="beat-body b4-body">
+    <h2 class="tw headline" id="tw-b4"></h2>
+    <div class="prob-grid">
+      <div class="prob-col reveal" data-r="0">
+        <span class="prob-domain">Ecological</span>
+        <ul>
+          <li>constant CO₂ + NOₓ load from car traffic</li>
+          <li>large areas consumed by parking alone</li>
+          <li>fragmented green space, urban heat islands</li>
+        </ul>
+      </div>
+      <div class="prob-col reveal" data-r="1">
+        <span class="prob-domain">Social</span>
+        <ul>
+          <li>no car — no full access to city life</li>
+          <li>steep core–periphery divide</li>
+          <li>streets unsafe for children and the elderly</li>
+        </ul>
+      </div>
+      <div class="prob-col reveal" data-r="2">
+        <span class="prob-domain">Urban</span>
+        <ul>
+          <li>monofunctional zones force daily car trips</li>
+          <li>car infrastructure dominates public space</li>
+          <li>weak transit, no intermodal transfer points</li>
+        </ul>
       </div>
     </div>
-    <div class="split-right">
-      <div class="slideshow" id="ss-problem">
-        <img class="slide active" src="../../charts/problem_1.jpeg" alt="Wolfsburg built around the car">
-        <img class="slide" src="../../charts/problem_2.jpeg" alt="Parking dominates the ground">
-        <img class="slide" src="../../charts/problem_3.jpeg" alt="Car-dedicated land">
+    <div class="stat-strip reveal" data-r="3">
+      <div class="stat"><span class="stat-num">~23 h</span><span class="stat-txt">a day the average car sits parked</span></div>
+      <div class="stat"><span class="stat-num">8%</span><span class="stat-txt">cycling share today — Groningen manages ~60%</span></div>
+      <div class="stat"><span class="stat-num">104,000</span><span class="stat-txt">trips a day still have to happen</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ BEAT 5 · IDEA — SHARED · AUTONOMOUS · ELECTRIC ═══════════════ -->
+<section class="beat beat--dark" id="b5">
+  <div class="beat-tag"><span>05</span><span>(Idea)</span></div>
+  <div class="beat-body b5-body">
+    <p class="tw sae-kicker" id="tw-b5"></p>
+    <div class="sae-row">
+      <div class="sae-item">
+        <h3 class="tw sae-word" id="tw-b5a"></h3>
+        <p class="sae-sub reveal" data-r="0">Accessed, not owned — one vehicle serves many people instead of sitting idle 23 hours a day.</p>
+      </div>
+      <div class="sae-item">
+        <h3 class="tw sae-word" id="tw-b5b"></h3>
+        <p class="sae-sub reveal" data-r="1">No driver cost — frequent, on-demand service becomes viable even in the low-density periphery.</p>
+      </div>
+      <div class="sae-item">
+        <h3 class="tw sae-word" id="tw-b5c"></h3>
+        <p class="sae-sub reveal" data-r="2">Charged at the hubs, centrally managed — zero tailpipe emissions in the city.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ BEAT 3 · IDEA ═══════════════ -->
-<section class="beat beat--dark" id="b3">
-  <div class="beat-tag"><span>03</span><span>(Idea)</span></div>
-  <div class="beat-body b3-body">
-    <h2 class="tw headline" id="tw-b3"></h2>
+<!-- ═══════════════ BEAT 6 · FLEET ═══════════════ -->
+<section class="beat beat--dark" id="b6">
+  <div class="beat-tag"><span>06</span><span>(Fleet)</span></div>
+  <div class="beat-body b6-body">
+    <h2 class="tw headline" id="tw-b6"></h2>
     <canvas id="dotfield"></canvas>
     <p class="dot-caption reveal" data-r="0">
-      One shared vehicle replaces dozens of parked ones —
-      <strong>763 shared vehicles</strong> serve the whole centre.
+      <strong>1,270 shared vehicles</strong> serve the whole centre —
+      one shared vehicle does the work of dozens of parked ones.
     </p>
     <div class="fleet-row reveal" data-r="1">
-      <div class="fleet-item"><span class="fleet-num" data-count="131">0</span><span class="fleet-label">e-bikes</span></div>
+      <div class="fleet-item"><span class="fleet-num" data-count="640">0</span><span class="fleet-label">e-bikes</span></div>
       <div class="fleet-item"><span class="fleet-num" data-count="55">0</span><span class="fleet-label">shuttle pods</span></div>
       <div class="fleet-item"><span class="fleet-num" data-count="33">0</span><span class="fleet-label">autonomous buses</span></div>
-      <div class="fleet-item"><span class="fleet-num" data-count="369">0</span><span class="fleet-label">micro-pods</span></div>
-      <div class="fleet-item"><span class="fleet-num" data-count="175">0</span><span class="fleet-label">shared EVs</span></div>
+      <div class="fleet-item"><span class="fleet-num" data-count="370">0</span><span class="fleet-label">micro-pods</span></div>
+      <div class="fleet-item"><span class="fleet-num" data-count="180">0</span><span class="fleet-label">shared EVs</span></div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ BEAT 4 · NETWORK ═══════════════ -->
-<section class="beat" id="b4">
-  <div class="beat-tag"><span>04</span><span>(Network)</span></div>
+<!-- ═══════════════ BEAT 7 · NETWORK ═══════════════ -->
+<section class="beat" id="b7">
+  <div class="beat-tag"><span>07</span><span>(Network)</span></div>
   <div class="beat-body split">
     <div class="split-left">
-      <h2 class="tw headline" id="tw-b4"></h2>
+      <h2 class="tw headline" id="tw-b7"></h2>
       <div class="bignum reveal" data-r="0">
         <span class="bignum-num" data-count="68">0</span>
         <span class="bignum-label">mobility hubs instead of parking</span>
       </div>
       <div class="tiers reveal" data-r="1">
-        <div class="tier"><span class="tier-id tier-id--l">L</span><span class="tier-num" data-count="6">0</span><span class="tier-desc">Large — converted multi-storey car parks</span></div>
-        <div class="tier"><span class="tier-id tier-id--m">M</span><span class="tier-num" data-count="19">0</span><span class="tier-desc">Medium — neighbourhood transfer nodes</span></div>
-        <div class="tier"><span class="tier-id tier-id--s">S</span><span class="tier-num" data-count="43">0</span><span class="tier-desc">Small — last-mile micro-hubs</span></div>
+        <div class="tier"><span class="tier-id tier-id--l">L</span><span class="tier-num" data-count="6">0</span><span class="tier-desc">Large — city-centre anchors, full-fleet operations</span></div>
+        <div class="tier"><span class="tier-id tier-id--m">M</span><span class="tier-num" data-count="19">0</span><span class="tier-desc">Medium — intermodal transfer for the dense core</span></div>
+        <div class="tier"><span class="tier-id tier-id--s">S</span><span class="tier-num" data-count="43">0</span><span class="tier-desc">Small — last-metre nodes that close every gap</span></div>
       </div>
       <p class="net-line reveal" data-r="2">Every front door within a <span class="em em--underline on">short walk</span> of one.</p>
     </div>
@@ -114,9 +188,9 @@
   </div>
 </section>
 
-<!-- ═══════════════ BEAT 5 · STREETS ═══════════════ -->
-<section class="beat beat--full" id="b5">
-  <div class="beat-tag beat-tag--onimg"><span>05</span><span>(Streets)</span></div>
+<!-- ═══════════════ BEAT 8 · STREETS ═══════════════ -->
+<section class="beat beat--full" id="b8">
+  <div class="beat-tag beat-tag--onimg"><span>08</span><span>(Streets)</span></div>
   <div class="ba-stage" id="ba-stage">
     <img class="ba-before" id="ba-before" src="../../charts/ba_v3_before.png" alt="Street before">
     <img class="ba-after"  id="ba-after"  src="../../charts/ba_v3_after.png"  alt="Street after">
@@ -124,17 +198,17 @@
     <span class="ba-tag ba-tag--after">After</span>
   </div>
   <div class="ba-head">
-    <h2 class="tw headline headline--onimg" id="tw-b5"></h2>
+    <h2 class="tw headline headline--onimg" id="tw-b8"></h2>
     <span class="ba-street" id="ba-street">Kleiststraße</span>
   </div>
 </section>
 
-<!-- ═══════════════ BEAT 6 · PEOPLE ═══════════════ -->
-<section class="beat" id="b6">
-  <div class="beat-tag"><span>06</span><span>(People)</span></div>
+<!-- ═══════════════ BEAT 9 · PEOPLE ═══════════════ -->
+<section class="beat" id="b9">
+  <div class="beat-tag"><span>09</span><span>(People)</span></div>
   <div class="beat-body split">
     <div class="split-left">
-      <h2 class="tw headline" id="tw-b6"></h2>
+      <h2 class="tw headline" id="tw-b9"></h2>
       <div class="persona reveal" data-r="0" id="persona-card">
         <div class="persona-head">
           <span class="persona-num" id="p-num">01</span>
@@ -157,15 +231,15 @@
   </div>
 </section>
 
-<!-- ═══════════════ BEAT 7 · CLOSE ═══════════════ -->
-<section class="beat beat--dark beat--full" id="b7">
+<!-- ═══════════════ BEAT 10 · CLOSE ═══════════════ -->
+<section class="beat beat--dark beat--full" id="b10">
   <div class="close-bg kenburns-slow">
     <img src="../../charts/masterplan_hero.jpg" alt="Masterplan">
   </div>
   <div class="close-shade"></div>
-  <div class="beat-tag beat-tag--onimg"><span>07</span><span>(Vision)</span></div>
-  <div class="beat-body b7-body">
-    <h2 class="tw headline" id="tw-b7"></h2>
+  <div class="beat-tag beat-tag--onimg"><span>10</span><span>(Vision)</span></div>
+  <div class="beat-body b10-body">
+    <h2 class="tw headline" id="tw-b10"></h2>
     <p class="close-motto reveal" data-r="0">PARKING CITY <span class="arrow">→</span> HUB CITY</p>
     <p class="close-credits reveal" data-r="1">
       &lt;stadt.hub&gt; · Bauhaus-Universität Weimar · M.Sc. IUDD · SoSe 26<br>
@@ -175,10 +249,10 @@
   </div>
 </section>
 
-<!-- ═══════════════ BEAT 8 · EXPLORE ═══════════════ -->
-<section class="beat beat--full beat--hub" id="b8">
+<!-- ═══════════════ BEAT 11 · EXPLORE ═══════════════ -->
+<section class="beat beat--full beat--hub" id="b11">
   <div class="hub-head">
-    <h2 class="tw hub-title" id="tw-b8"></h2>
+    <h2 class="tw hub-title" id="tw-b11"></h2>
   </div>
   <iframe id="hub-frame" src="../../hub-viewer/index.html?kiosk=1"
           title="Hub Viewer — 3D interactive model" allow="fullscreen"></iframe>
