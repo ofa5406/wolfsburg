@@ -618,13 +618,17 @@
   });
 
   var kioskFrame=null;                 // per-frame driver installed by kiosk mode (below)
+  var hubPaused=false;                 // host can pause the render loop while off-screen
   function animate(){
+    if(hubPaused) return;              // stop scheduling: frees GPU/main thread for the host deck
     requestAnimationFrame(animate);
     var dt=Math.min(navClock.getDelta(),0.05);
     if(navMode){ navStep(dt); } else { controls.update(); }
     if(kioskFrame) kioskFrame(performance.now());
     renderer.render(scene, activeCam);
   }
+  function hubResume(){ if(hubPaused){ hubPaused=false; animate(); } }
+  function hubPause(){ hubPaused=true; }
 
   // ===== Kiosk mode (?kiosk=1) — auto-cycling scene tour for the exhibition deck =====
   // Additive: without the URL param nothing here changes the viewer's behaviour.
@@ -637,6 +641,7 @@
     var kioskViews=(MODEL.meta.views||[]).slice();     // the saved perspective scenes
     var kioskIdx=-1, kioskTimer=null, kioskActive=false;
     var lastPost=0;
+    if(window.parent!==window) hubPaused=true;   // embedded: stay idle until the deck resumes us
 
     document.getElementById('btn-fullscreen').style.display='none';  // host iframe is already full-screen
     document.getElementById('controls').style.bottom='64px';         // clear the host deck's autopilot pill
@@ -708,8 +713,10 @@
 
     window.addEventListener('message',function(e){
       var d=e.data||{};
-      if(d.type==='hub-kiosk-start'){ kpx=kpy=null; kacc=0; lastPost=0; kioskStart(); }
+      if(d.type==='hub-kiosk-start'){ hubResume(); kpx=kpy=null; kacc=0; lastPost=0; kioskStart(); }
       else if(d.type==='hub-kiosk-stop'){ kioskStop(); activate(0); }
+      else if(d.type==='hub-resume'){ hubResume(); }
+      else if(d.type==='hub-pause'){ hubPause(); }
     });
   }
 
