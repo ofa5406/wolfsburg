@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>&lt;stadt.hub&gt; — exhibition deck</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="deck.css">
+</head>
+<body>
+
+  <div class="boot" id="boot"><div class="b-mark">&lt;stadt.hub&gt;<span class="tw-caret caret-always"></span></div></div>
+
+  <div class="deck" id="deck">
+    <div class="track" id="track">
+
+      <!-- ═══════ SLIDE 1 · TEMPLATE 1 — full-frame video, text over ═══════ -->
+      <section class="slide t1 dark" id="s1" data-dark="1">
+        <div class="stage">
+          <div class="t1-media">
+            <video id="hero-a" class="active" muted playsinline preload="auto"><source src="../../videos/hero1.mp4" type="video/mp4"></video>
+            <video id="hero-b" muted playsinline preload="auto"><source src="../../videos/hero2.mp4" type="video/mp4"></video>
+            <div class="t1-scrim"></div>
+          </div>
+          <div class="t1-text">
+            <div class="t1-logo">&lt;stadt.hub&gt;<span class="tw-caret caret-always"></span></div>
+            <div class="t1-kicker" id="s1-kicker">Wolfsburg · Post-Car Future</div>
+            <h1 class="t1-head"><span class="tw" id="tw-1"></span></h1>
+            <p class="t1-sub"><span class="tw" id="tw-1sub"></span></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════ SLIDE 2 · TEMPLATE 2 — three-across square gallery ═══════ -->
+      <section class="slide t2" id="s2">
+        <div class="stage">
+          <div class="t2-head-row">
+            <div class="t2-heading">
+              <div class="t2-kicker">01 — Where it comes from</div>
+              <h2 class="t2-title"><span class="tw" id="tw-2"></span></h2>
+            </div>
+          </div>
+          <div class="t2-grid">
+            <div class="frame reveal" data-r="2" data-frame>
+              <div class="frame-idx">01</div>
+              <div class="frame-imgs">
+                <img class="active" src="../kiosk/assets/history-castle.png" alt="Fallersleben">
+                <img src="../kiosk/assets/history-aerial-bw.png" alt="Early aerial">
+              </div>
+              <button class="fr-arrow prev" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 5 8 12 15 19"/></svg></button>
+              <button class="fr-arrow next" aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 5 16 12 9 19"/></svg></button>
+              <div class="fr-dots"></div>
+              <div class="frame-cap">
+                <div class="cap-head"><span class="yr">1938</span><span class="lbl">Fallersleben</span></div>
+                <div class="cap-desc"><span class="tw"></span></div>
+              </div>
+            </div>
+            <div class="frame reveal" data-r="3" data-frame>
+              <div class="frame-idx">02</div>
+              <div class="frame-imgs">
+                <img class="active" src="../kiosk/assets/history-assembly.png" alt="Assembly line">
+                <img src="../kiosk/assets/history-workers.png" alt="Workers leaving the plant">
+              </div>
+              <button class="fr-arrow prev" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 5 8 12 15 19"/></svg></button>
+              <button class="fr-arrow next" aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 5 16 12 9 19"/></svg></button>
+              <div class="fr-dots"></div>
+              <div class="frame-cap">
+                <div class="cap-head"><span class="yr">1950s</span><span class="lbl">The line</span></div>
+                <div class="cap-desc"><span class="tw"></span></div>
+              </div>
+            </div>
+            <div class="frame reveal" data-r="4" data-frame>
+              <div class="frame-idx">03</div>
+              <div class="frame-imgs">
+                <img class="active" src="../kiosk/assets/today-parking-aerial.png" alt="Parking fields today">
+                <img src="../kiosk/assets/today-junction.png" alt="Oversized junction today">
+                <img src="../../charts/problem_1.jpeg" alt="The commute today">
+              </div>
+              <button class="fr-arrow prev" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 5 8 12 15 19"/></svg></button>
+              <button class="fr-arrow next" aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 5 16 12 9 19"/></svg></button>
+              <div class="fr-dots"></div>
+              <div class="frame-cap">
+                <div class="cap-head"><span class="yr">Today</span><span class="lbl">Parking fields</span></div>
+                <div class="cap-desc"><span class="tw"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════ SLIDE 3 · TEMPLATE 3 — text left · interactive map gallery right ═══════ -->
+      <section class="slide t3" id="s3">
+        <div class="stage">
+          <div class="t3-left">
+            <div class="t3-kicker" id="t3-kicker">02 — Reading the city</div>
+            <div class="t3-index" id="t3-index">01</div>
+            <h2 class="t3-title"><span class="tw" id="tw-3"></span></h2>
+            <p class="t3-desc"><span class="tw" id="tw-3desc"></span></p>
+            <div class="t3-meta">
+              <div class="m"><div class="k">Source</div><div class="v" id="t3-src">OpenStreetMap</div></div>
+              <div class="m"><div class="k">Method</div><div class="v" id="t3-method">Network analysis</div></div>
+            </div>
+          </div>
+          <div class="t3-right">
+            <div class="gallery" id="gallery">
+              <iframe id="map-embed" src="mapembed/index.html" title="Wolfsburg analysis maps" allow="fullscreen"></iframe>
+              <div class="g-activate" id="g-activate"><span class="ga-hint">▸ click to explore the map</span></div>
+              <div class="g-chip" id="g-chip">01 · Transport</div>
+              <button class="g-arrow prev" id="g-prev" aria-label="Previous analysis"><svg viewBox="0 0 24 24"><polyline points="15 5 8 12 15 19"/></svg></button>
+              <button class="g-arrow next" id="g-next" aria-label="Next analysis"><svg viewBox="0 0 24 24"><polyline points="9 5 16 12 9 19"/></svg></button>
+              <div class="g-dots" id="g-dots"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════ SLIDE 4 · hub viewer, template-1 shell ═══════ -->
+      <section class="slide thub dark" id="s4" data-dark="1">
+        <div class="stage">
+          <div class="hub-holder" id="hub-holder">
+            <iframe id="hub-frame" src="../../hub-viewer/index.html?kiosk=1" title="Hub Viewer — 3D interactive model" allow="fullscreen"></iframe>
+          </div>
+          <div class="hub-title" id="hub-title">
+            <div class="hub-kicker">03 — The hub, up close</div>
+            <h2 class="hub-head"><span class="tw" id="tw-4"></span></h2>
+          </div>
+          <div class="hub-veil" id="hub-veil">
+            <div class="cta" id="hub-cta">
+              <div class="ring"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16" y1="16" x2="21" y2="21"/></svg></div>
+              <div class="cta-label">Click to discover</div>
+              <div class="cta-sub">Walk through one hub yourself</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /track -->
+  </div><!-- /deck -->
+
+  <!-- persistent overlays -->
+  <div class="lframe"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
+
+  <div class="chrome">
+    <div class="c-item brand">&lt;stadt.hub&gt;<span class="tw-caret caret-always"></span></div>
+    <div class="c-item slide-counter" id="counter">01 / 04</div>
+    <div class="c-item slide-dots" id="dots"></div>
+    <button class="c-item present-btn is-present" id="present-btn"><span class="pb-icon"></span><span class="pb-label" id="pb-label">Presenting</span></button>
+    <button class="c-item deck-nav up"   id="deck-prev" aria-label="Previous slide"><svg viewBox="0 0 24 24"><polyline points="5 15 12 8 19 15"/></svg></button>
+    <button class="c-item deck-nav down" id="deck-next" aria-label="Next slide"><svg viewBox="0 0 24 24"><polyline points="5 9 12 16 19 9"/></svg></button>
+    <div class="c-item scroll-hint" id="scroll-hint">scroll ↓</div>
+  </div>
+
+  <script src="typewriter.js"></script>
+  <script src="deck.js"></script>
+</body>
+</html>

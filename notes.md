@@ -5,6 +5,19 @@ Newest entries at the top. Add freely — this is a scratchpad, not a formal doc
 
 ---
 
+## 2026-07-06 — New exhibition deck (`exhibition/deck/`)
+
+Rebuilt the Summaery exhibit as a template deck after the kiosk got scrapped. Vertical fullpage,
+near-monochrome, `<stadt.hub>` logo + always-blinking caret, all text typed. The big idea that worked:
+**embed the real Activity-Map landing map components** (offline build in `wolfsburg-activity-map/embed/`
+→ `deck/mapembed/`) so the T3 maps ARE the deployment — same tabs, pan/zoom, popups — instead of a
+redraw. Interactive embeds are click-to-activate (scroll doesn't grab them until clicked), and the
+hub-viewer render loop now pauses off-screen (that was the cause of choppy video). Shared-file edits are
+gated so the live tool is unchanged. Rebuild maps with `npx vite build --config vite.embed.config.js`.
+All local, nothing pushed yet. Details: `sessions/2026-07-06_exhibition-deck/notes.md`.
+
+---
+
 ## 2026-07-04 — Hub-viewer Walk/Fly + deck folders
 
 Two "presentations" were causing confusion, so we foldered them: **`final-presentation/`** = the `<stadt.hub>` scroll deck (the site homepage — repo-root `index.html` now just redirects to it), and **`wolfsburg-workflow/`** = the separate Reveal.js workflow/intro deck (was `presentation/`; doc is now `WORKFLOW.md`). `charts/`+`videos/` stay at repo root (shared). Also gave the hub-viewer game-style **Walk/Fly** navigation (drag-to-look, WASD + Shift sprint, click-to-pick, fullscreen). Live at ofa5406.github.io/wolfsburg/. Separately, recolored the Activity Map's Urban Design section to the hub-viewer palette (pushed to annestasiia/wolfsburg-activity-map).
