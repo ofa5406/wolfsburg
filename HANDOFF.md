@@ -2,7 +2,7 @@
 
 *This is the single "where are we right now" file. Whenever you (or Claude) start a session, read this before anything else. Whenever you end a session, update it. It is the memory that survives when a chat ends or usage resets.*
 
-*Last updated: 2026-07-06 (**Summaery pivot: one screen only.** Built the self-running exhibition kiosk — `exhibition/kiosk/` auto-scrolls the project story with typed headlines, ends in a hub-viewer camera tour (`?kiosk=1`), loops; any input hands control to the visitor, resumes when idle. Locked numbers (763/68) used throughout. Verified headless end-to-end. See `sessions/2026-07-06_summaery-kiosk/notes.md`)*
+*Last updated: 2026-07-06 (**Summaery pivot: one screen only.** Built the self-running exhibition kiosk — `exhibition/kiosk/`, 11 beats following the team's Miro narrative (History→Today, Urban Structure maps, Problems, Shared·Autonomous·Electric, fleet, network, streets, personas), ending in a hub-viewer camera tour (`?kiosk=1`), looping; any input hands control to the visitor, resumes when idle. **Numbers = Activity Map baseline rounded to tens: fleet 1,270 · 68 hubs (6/19/43) · 104,000 trips/day** — the tool now yields the locked hub counts, so the old 763-vs-1,273 conflict is only about the fleet figure. Verified headless end-to-end. See `sessions/2026-07-06_summaery-kiosk/notes.md`)*
 
 ---
 

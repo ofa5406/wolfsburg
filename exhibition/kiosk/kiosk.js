@@ -8,6 +8,11 @@
    input the tour resumes from the nearest beat. A full loop
    restart resets everything so the next visitor sees it fresh.
 
+   Numbers: Wolfsburg Activity Map baseline (computeCapacity at
+   130k population), rounded to the nearest ten —
+   fleet 1,270 (640 e-bikes · 55 shuttles · 33 buses · 370 pods ·
+   180 EVs) · 68 hubs (6 L / 19 M / 43 S) · 104,000 trips/day.
+
    Talks to the hub-viewer iframe via postMessage:
      deck → viewer : {type:'hub-kiosk-start'} | {type:'hub-kiosk-stop'}
      viewer → deck : {type:'hub-interaction'} | {type:'hub-cycle-complete'}
@@ -86,9 +91,9 @@
     var target = +el.dataset.count;
     var t0 = now();
     (function step() {
-      if (ctx && ctx.cancelled) { el.textContent = target; return; }
+      if (ctx && ctx.cancelled) { el.textContent = target.toLocaleString("en-US"); return; }
       var t = Math.min(1, (now() - t0) / ms);
-      el.textContent = Math.round(target * easeInOut(t));
+      el.textContent = Math.round(target * easeInOut(t)).toLocaleString("en-US");
       if (t < 1) requestAnimationFrame(step);
     })();
   }
@@ -96,21 +101,12 @@
     $all(sel + " [data-count]").forEach(function (el) { countUp(el, ms, ctx); });
   }
   function countsFinal(sel) {
-    $all(sel + " [data-count]").forEach(function (el) { el.textContent = el.dataset.count; });
+    $all(sel + " [data-count]").forEach(function (el) {
+      el.textContent = (+el.dataset.count).toLocaleString("en-US");
+    });
   }
   function countsZero(sel) {
     $all(sel + " [data-count]").forEach(function (el) { el.textContent = "0"; });
-  }
-
-  function slideshowStart(id, ms) {
-    var slides = $all("#" + id + " .slide");
-    if (slides.length < 2) return;
-    var i = 0;
-    ambient(function () {
-      slides[i].classList.remove("active");
-      i = (i + 1) % slides.length;
-      slides[i].classList.add("active");
-    }, ms);
   }
 
   /* ══════════════════════════════════════════════════════
@@ -123,40 +119,109 @@
       emphasize: []
     },
     b2: {
-      ops: [{ t: "Where do the cars " }, { pause: 350 }, { t: "sleep?" }],
-      emphasize: [{ phrase: "sleep?", kind: "underline" }]
+      ops: [{ t: "A city built to " }, { pause: 350 }, { t: "build cars." }],
+      emphasize: [{ phrase: "build cars", kind: "underline" }]
+    },
+    b2b: {
+      ops: [{ t: "It worked. " }, { pause: 800 }, { t: "Completely." }],
+      emphasize: [{ phrase: "Completely.", kind: "bold" }]
     },
     b3: {
-      ops: [{ t: "What if the city " }, { typo: { wrong: "shered", fix: "shared" } }, { t: " its vehicles?" }],
-      emphasize: [{ phrase: "shared", kind: "bold" }]
+      ops: [{ t: "Where does the city\nkeep its life?" }],
+      emphasize: [{ phrase: "keep its life?", kind: "underline" }]
     },
     b4: {
+      ops: [{ t: "The car takes more than it " }, { typo: { wrong: "gvies", fix: "gives" } }, { t: "." }],
+      emphasize: [{ phrase: "takes more", kind: "underline" }]
+    },
+    b5: {
+      ops: [{ t: "What if the city " }, { typo: { wrong: "shered", fix: "shared" } }, { t: " its vehicles?" }],
+      emphasize: []
+    },
+    b5a: { ops: [{ t: "Shared." }], emphasize: [] },
+    b5b: { ops: [{ t: "Autonomous." }], emphasize: [] },
+    b5c: { ops: [{ t: "Electric." }], emphasize: [] },
+    b6: {
+      ops: [{ t: "104,000 trips a day." }, { pause: 650 }, { t: "\nOne shared fleet." }],
+      emphasize: [{ phrase: "One shared fleet.", kind: "underline" }]
+    },
+    b7: {
       ops: [{ t: "How far is your nearest hub?" }],
       emphasize: [{ phrase: "nearest hub", kind: "underline" }]
     },
-    b5: {
+    b8: {
       ops: [{ t: "What does a street become\nwithout parked cars?" }],
       emphasize: [{ phrase: "become", kind: "underline" }]
     },
-    b6: {
+    b9: {
       ops: [{ t: "Who wins the street back?" }],
       emphasize: [{ phrase: "the street back", kind: "underline" }]
     },
-    b7: {
+    b10: {
       ops: [{ t: "Not fewer trips." }, { pause: 700 }, { t: "\nLess parking." }, { pause: 700 }, { t: " More city." }],
       emphasize: [{ phrase: "More city.", kind: "underline" }]
     },
-    b8: {
+    b11: {
       ops: [{ t: "Explore one hub yourself" }],
       emphasize: [{ phrase: "yourself", kind: "underline" }]
     }
   };
 
   /* ══════════════════════════════════════════════════════
-     BEAT 3 — dot-field collapse (canvas)
-     A field of hollow dots (the parked private cars) collapses
-     into 76 solid accent dots (the 763 shared vehicles, 1:10).
+     BEAT 2 — history → today tiles
   ══════════════════════════════════════════════════════ */
+  function tilesNow(on) {
+    $all("#b2 .flip-tile").forEach(function (t) { t.classList.toggle("now", on); });
+  }
+  async function tilesFlipSeq(ctx) {
+    var tiles = $all("#b2 .flip-tile");
+    for (var i = 0; i < tiles.length; i++) {
+      tiles[i].classList.add("now");
+      await sleep(650, ctx);
+    }
+  }
+
+  /* ══════════════════════════════════════════════════════
+     BEAT 3 — urban structure map cycle
+  ══════════════════════════════════════════════════════ */
+  var MAPS = [
+    {
+      chip: "01 · Transport activity",
+      cap: "All transport intensity converges on one dominant core — the gravitational pull of the Werk. The periphery orbits it."
+    },
+    {
+      chip: "02 · Facility density",
+      cap: "Civic and commercial life concentrates in Stadtmitte, Schillerteich and Laagberg. Outlying districts depend on the car for everyday needs."
+    },
+    {
+      chip: "03 · Centrality without a car",
+      cap: "Step outside the core and accessibility collapses. Without a private car, reaching the city within 15 minutes is a privilege of geography."
+    }
+  ];
+  var mapIdx = 0;
+  function mapShow(i) {
+    mapIdx = i % MAPS.length;
+    $all("#map-stage .map-img").forEach(function (el, k) {
+      el.classList.toggle("active", k === mapIdx);
+    });
+    var card = document.getElementById("map-card");
+    card.classList.add("swapping");
+    setTimeout(function () {
+      document.getElementById("map-chip").textContent = MAPS[mapIdx].chip;
+      document.getElementById("map-cap").textContent = MAPS[mapIdx].cap;
+      card.classList.remove("swapping");
+    }, 400);
+  }
+  function mapCycleStart() {
+    ambient(function () { mapShow(mapIdx + 1); }, 8000);
+  }
+
+  /* ══════════════════════════════════════════════════════
+     BEAT 6 — dot-field collapse (canvas)
+     A field of hollow dots (the parked private cars) collapses
+     into 127 solid accent dots (the 1,270 shared fleet, 1:10).
+  ══════════════════════════════════════════════════════ */
+  var FLEET_DOTS = 127;   // 1,270 vehicles, 1 dot = 10
   var dotCanvas = document.getElementById("dotfield");
   function dotLayout() {
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -172,18 +237,19 @@
       for (var c = 0; c < cols; c++)
         field.push({ x: gapX * (c + 1), y: gapY * (r + 1) });
 
-    // 76 target slots: 19 × 4 compact block, centred
-    var tCols = 19, tRows = 4, tGap = Math.min(gapX * 1.7, 26);
+    // fleet target slots: 26 × 5 compact block (last row short), centred
+    var tCols = 26, tRows = Math.ceil(FLEET_DOTS / 26), tGap = Math.min(gapX * 1.35, 22);
     var bw = tGap * (tCols - 1), bh = tGap * (tRows - 1);
     var targets = [];
-    for (var tr = 0; tr < tRows; tr++)
-      for (var tc = 0; tc < tCols; tc++)
-        targets.push({ x: w / 2 - bw / 2 + tc * tGap, y: h / 2 - bh / 2 + tr * tGap });
+    for (var k = 0; k < FLEET_DOTS; k++) {
+      var tc = k % tCols, tr = Math.floor(k / tCols);
+      targets.push({ x: w / 2 - bw / 2 + tc * tGap, y: h / 2 - bh / 2 + tr * tGap });
+    }
 
-    // choose 76 evenly spread field dots to become the fleet
+    // choose FLEET_DOTS evenly spread field dots to become the fleet
     var keep = {};
-    var stride = field.length / 76;
-    for (var k = 0; k < 76; k++) keep[Math.round(k * stride)] = k;
+    var stride = field.length / FLEET_DOTS;
+    for (var m = 0; m < FLEET_DOTS; m++) keep[Math.round(m * stride)] = m;
 
     return { g: g, w: w, h: h, field: field, targets: targets, keep: keep };
   }
@@ -203,7 +269,7 @@
       } else {
         var q = L.targets[slot];
         var x = p.x + (q.x - p.x) * e, y = p.y + (q.y - p.y) * e;
-        var rad = 2.4 + 2.6 * e;
+        var rad = 2.4 + 2.2 * e;
         g.beginPath(); g.arc(x, y, rad, 0, 6.284);
         if (e < 0.35) {
           g.strokeStyle = "rgba(245,244,239,0.85)"; g.lineWidth = 1.1; g.stroke();
@@ -232,7 +298,7 @@
   window.addEventListener("resize", function () { if (dotL) dotFinal(); });
 
   /* ══════════════════════════════════════════════════════
-     BEAT 4 — plan crossfade  ·  BEAT 5 — street wipes
+     BEAT 7 — plan crossfade  ·  BEAT 8 — street wipes
   ══════════════════════════════════════════════════════ */
   function planCycleStart() {
     var imgs = $all("#plan-frame .plan-img");
@@ -280,7 +346,7 @@
   }
 
   /* ══════════════════════════════════════════════════════
-     BEAT 6 — personas
+     BEAT 9 — personas
   ══════════════════════════════════════════════════════ */
   var PERSONAS = [
     {
@@ -407,66 +473,118 @@
       complete: function () { TW.finalize($("#tw-b1"), HL.b1); reveals("#b1", true); },
       reset: function () { TW.reset($("#tw-b1")); reveals("#b1", false); }
     },
-    { // 2 — PROBLEM
-      sel: "#b2", hold: 9000,
+    { // 2 — HISTORY → TODAY
+      sel: "#b2", hold: 5000,
       play: async function (ctx) {
-        slideshowStart("ss-problem", 5200);
         await TW.run($("#tw-b2"), HL.b2, ctx);
-        await revealSeq("#b2", ctx, 1500);
+        await revealSeq("#b2", ctx, 900);       // three b/w tiles appear
+        await sleep(2600, ctx);                  // let 1938 sink in
+        await TW.run($("#tw-b2b"), HL.b2b, ctx); // "It worked. Completely."
+        await tilesFlipSeq(ctx);                 // …and the tiles turn into today
       },
       complete: function () {
-        TW.finalize($("#tw-b2"), HL.b2); reveals("#b2", true);
-        slideshowStart("ss-problem", 5200);
+        TW.finalize($("#tw-b2"), HL.b2); TW.finalize($("#tw-b2b"), HL.b2b);
+        reveals("#b2", true); tilesNow(true);
       },
       reset: function () {
-        TW.reset($("#tw-b2")); reveals("#b2", false);
-        var s = $all("#ss-problem .slide");
-        s.forEach(function (el, i) { el.classList.toggle("active", i === 0); });
+        TW.reset($("#tw-b2")); TW.reset($("#tw-b2b"));
+        reveals("#b2", false); tilesNow(false);
       }
     },
-    { // 3 — IDEA
-      sel: "#b3", hold: 8000,
+    { // 3 — URBAN STRUCTURE
+      sel: "#b3", hold: 2000,
+      play: async function (ctx) {
+        mapShow(0);
+        await TW.run($("#tw-b3"), HL.b3, ctx);
+        for (var i = 0; i < MAPS.length; i++) {
+          if (ctx.cancelled) break;
+          if (i > 0) mapShow(i);
+          await sleep(7500, ctx);
+        }
+        mapCycleStart();
+      },
+      complete: function () {
+        TW.finalize($("#tw-b3"), HL.b3);
+        mapShow(mapIdx); mapCycleStart();
+      },
+      reset: function () { TW.reset($("#tw-b3")); mapShow(0); }
+    },
+    { // 4 — PROBLEMS
+      sel: "#b4", hold: 8000,
+      play: async function (ctx) {
+        await TW.run($("#tw-b4"), HL.b4, ctx);
+        await revealSeq("#b4", ctx, 1400);       // three domains, then the stat strip
+      },
+      complete: function () { TW.finalize($("#tw-b4"), HL.b4); reveals("#b4", true); },
+      reset: function () { TW.reset($("#tw-b4")); reveals("#b4", false); }
+    },
+    { // 5 — SHARED · AUTONOMOUS · ELECTRIC
+      sel: "#b5", hold: 7000,
+      play: async function (ctx) {
+        await TW.run($("#tw-b5"), HL.b5, ctx);
+        await sleep(600, ctx);
+        await TW.run($("#tw-b5a"), HL.b5a, ctx);
+        $all("#b5 .reveal")[0].classList.add("on");
+        await sleep(1200, ctx);
+        await TW.run($("#tw-b5b"), HL.b5b, ctx);
+        $all("#b5 .reveal")[1].classList.add("on");
+        await sleep(1200, ctx);
+        await TW.run($("#tw-b5c"), HL.b5c, ctx);
+        $all("#b5 .reveal")[2].classList.add("on");
+      },
+      complete: function () {
+        [["#tw-b5", HL.b5], ["#tw-b5a", HL.b5a], ["#tw-b5b", HL.b5b], ["#tw-b5c", HL.b5c]]
+          .forEach(function (p) { TW.finalize($(p[0]), p[1]); });
+        reveals("#b5", true);
+      },
+      reset: function () {
+        ["#tw-b5", "#tw-b5a", "#tw-b5b", "#tw-b5c"].forEach(function (s) { TW.reset($(s)); });
+        reveals("#b5", false);
+      }
+    },
+    { // 6 — FLEET (dot collapse)
+      sel: "#b6", hold: 8000,
       play: async function (ctx) {
         dotReset();
-        await TW.run($("#tw-b3"), HL.b3, ctx);
+        await TW.run($("#tw-b6"), HL.b6, ctx);
         await sleep(500, ctx);
         await dotCollapse(3000, ctx);
-        await revealSeq("#b3", ctx, 900);
-        countAll("#b3", 1400, ctx);
+        await revealSeq("#b6", ctx, 900);
+        countAll("#b6", 1400, ctx);
       },
       complete: function () {
-        TW.finalize($("#tw-b3"), HL.b3); dotFinal();
-        reveals("#b3", true); countsFinal("#b3");
+        TW.finalize($("#tw-b6"), HL.b6); dotFinal();
+        reveals("#b6", true); countsFinal("#b6");
       },
       reset: function () {
-        TW.reset($("#tw-b3")); dotReset();
-        reveals("#b3", false); countsZero("#b3");
+        TW.reset($("#tw-b6")); dotReset();
+        reveals("#b6", false); countsZero("#b6");
       }
     },
-    { // 4 — NETWORK
-      sel: "#b4", hold: 11000,
+    { // 7 — NETWORK
+      sel: "#b7", hold: 11000,
       play: async function (ctx) {
         planCycleStart();
-        await TW.run($("#tw-b4"), HL.b4, ctx);
-        await revealSeq("#b4", ctx, 1200);
-        countAll("#b4", 1600, ctx);
+        await TW.run($("#tw-b7"), HL.b7, ctx);
+        await revealSeq("#b7", ctx, 1200);
+        countAll("#b7", 1600, ctx);
       },
       complete: function () {
-        TW.finalize($("#tw-b4"), HL.b4); reveals("#b4", true);
-        countsFinal("#b4"); planCycleStart();
+        TW.finalize($("#tw-b7"), HL.b7); reveals("#b7", true);
+        countsFinal("#b7"); planCycleStart();
       },
       reset: function () {
-        TW.reset($("#tw-b4")); reveals("#b4", false); countsZero("#b4");
+        TW.reset($("#tw-b7")); reveals("#b7", false); countsZero("#b7");
         var imgs = $all("#plan-frame .plan-img");
         imgs.forEach(function (el, i) { el.classList.toggle("active", i === 0); });
         document.getElementById("plan-chip").textContent = "Hub network";
       }
     },
-    { // 5 — STREETS
-      sel: "#b5", hold: 1500,
+    { // 8 — STREETS
+      sel: "#b8", hold: 1500,
       play: async function (ctx) {
         streetShow(0, false);
-        await TW.run($("#tw-b5"), HL.b5, ctx);
+        await TW.run($("#tw-b8"), HL.b8, ctx);
         for (var i = 0; i < STREETS.length; i++) {
           if (ctx.cancelled) break;
           if (i > 0) { streetShow(i, false); await sleep(700, ctx); }
@@ -475,18 +593,18 @@
         streetCycleStart();
       },
       complete: function () {
-        TW.finalize($("#tw-b5"), HL.b5);
+        TW.finalize($("#tw-b8"), HL.b8);
         streetShow(streetIdx, true);
         streetCycleStart();
       },
-      reset: function () { TW.reset($("#tw-b5")); streetShow(0, false); }
+      reset: function () { TW.reset($("#tw-b8")); streetShow(0, false); }
     },
-    { // 6 — PEOPLE
-      sel: "#b6", hold: 1500,
+    { // 9 — PEOPLE
+      sel: "#b9", hold: 1500,
       play: async function (ctx) {
         personaSet(0);
-        await TW.run($("#tw-b6"), HL.b6, ctx);
-        await revealSeq("#b6", ctx, 600);
+        await TW.run($("#tw-b9"), HL.b9, ctx);
+        await revealSeq("#b9", ctx, 600);
         for (var i = 0; i < PERSONAS.length; i++) {
           if (ctx.cancelled) break;
           if (i > 0) { personaNextFaded(); await sleep(700, ctx); }
@@ -495,24 +613,24 @@
         personaCycleStart();
       },
       complete: function () {
-        TW.finalize($("#tw-b6"), HL.b6); reveals("#b6", true);
+        TW.finalize($("#tw-b9"), HL.b9); reveals("#b9", true);
         personaCycleStart();
       },
-      reset: function () { TW.reset($("#tw-b6")); reveals("#b6", false); personaSet(0); }
+      reset: function () { TW.reset($("#tw-b9")); reveals("#b9", false); personaSet(0); }
     },
-    { // 7 — CLOSE
-      sel: "#b7", hold: 7000,
+    { // 10 — CLOSE
+      sel: "#b10", hold: 7000,
       play: async function (ctx) {
-        await TW.run($("#tw-b7"), HL.b7, ctx);
-        await revealSeq("#b7", ctx, 1100);
+        await TW.run($("#tw-b10"), HL.b10, ctx);
+        await revealSeq("#b10", ctx, 1100);
       },
-      complete: function () { TW.finalize($("#tw-b7"), HL.b7); reveals("#b7", true); },
-      reset: function () { TW.reset($("#tw-b7")); reveals("#b7", false); }
+      complete: function () { TW.finalize($("#tw-b10"), HL.b10); reveals("#b10", true); },
+      reset: function () { TW.reset($("#tw-b10")); reveals("#b10", false); }
     },
-    { // 8 — EXPLORE (hub viewer)
-      sel: "#b8", hold: 0, alwaysReplay: true,
+    { // 11 — EXPLORE (hub viewer)
+      sel: "#b11", hold: 0, alwaysReplay: true,
       play: async function (ctx) {
-        TW.finalize($("#tw-b8"), HL.b8);
+        TW.finalize($("#tw-b11"), HL.b11);
         hubSend("hub-kiosk-start");
         // wait for the viewer's scene tour to finish (or takeover / safety cap)
         await new Promise(function (res) {
@@ -527,8 +645,8 @@
         if (ctx.cancelled) return;
         await sleep(HUB_END_WAIT_MS, ctx);              // last chance to grab it
       },
-      complete: function () { TW.finalize($("#tw-b8"), HL.b8); },
-      reset: function () { TW.reset($("#tw-b8")); }
+      complete: function () { TW.finalize($("#tw-b11"), HL.b11); },
+      reset: function () { TW.reset($("#tw-b11")); }
     }
   ];
 
@@ -622,9 +740,7 @@
     MODE = "auto";
     setPilot(true);
     px = py = null; acc = 0;
-    var i = nearestBeat();
-    if (i === BEATS.length - 1) tour(i);   // parked on the hub → replay its tour
-    else tour(i);
+    tour(nearestBeat());
   }, 1000);
 
   /* ── go ───────────────────────────────────────────────── */
