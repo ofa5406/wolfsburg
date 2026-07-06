@@ -4,6 +4,15 @@
 **Venue:** Computer pool (equipment shared with 4 other class projects)
 **Constraint:** Visitors browse **without narration** — the exhibit must explain itself.
 
+> ## ⚠️ PIVOT — 2026-07-06: one screen only
+> The pool granted the team **a single screen**. The two multi-station alternatives below
+> (Alt 1 / Alt 2) are **superseded** — kept for reference and for the shared copy they
+> contain. The exhibit is now **[`kiosk/`](kiosk/)**: a self-running browser presentation
+> that auto-scrolls through the project story (typed headlines, question-led beats,
+> locked numbers), ends inside the live 3D hub-viewer scene tour, then loops — any
+> mouse/keyboard touch pauses it and gives the visitor full control; it resumes when idle.
+> Open `kiosk/index.html` full-screen (F11 or Chrome `--kiosk`) on the exhibition PC.
+
 Two worked-out alternatives, sharing one foundation (the dot-matrix graphic system, the
 60-second loop, the card series, the locked numbers). Decide as a team, or combine them.
 This folder changes **nothing** about the live presentation at
