@@ -617,11 +617,100 @@
     btnFS.textContent = document.fullscreenElement ? '⛶ Exit' : '⛶ Fullscreen';
   });
 
+  var kioskFrame=null;                 // per-frame driver installed by kiosk mode (below)
   function animate(){
     requestAnimationFrame(animate);
     var dt=Math.min(navClock.getDelta(),0.05);
     if(navMode){ navStep(dt); } else { controls.update(); }
+    if(kioskFrame) kioskFrame(performance.now());
     renderer.render(scene, activeCam);
+  }
+
+  // ===== Kiosk mode (?kiosk=1) — auto-cycling scene tour for the exhibition deck =====
+  // Additive: without the URL param nothing here changes the viewer's behaviour.
+  // Protocol (postMessage, targetOrigin '*', shape-validated):
+  //   host → viewer : {type:'hub-kiosk-start'} | {type:'hub-kiosk-stop'}
+  //   viewer → host : {type:'hub-interaction'} | {type:'hub-cycle-complete'}
+  var KIOSK=/[?&]kiosk=1/.test(location.search);
+  if(KIOSK){
+    var KIOSK_DWELL=6000, KIOSK_TWEEN_MS=1800;
+    var kioskViews=(MODEL.meta.views||[]).slice();     // the saved perspective scenes
+    var kioskIdx=-1, kioskTimer=null, kioskActive=false;
+    var lastPost=0;
+
+    document.getElementById('btn-fullscreen').style.display='none';  // host iframe is already full-screen
+    document.getElementById('controls').style.bottom='64px';         // clear the host deck's autopilot pill
+    if(people){ people.visible=true; btnPeople.textContent='People: On'; btnPeople.classList.add('on'); }
+
+    function postToHost(type){
+      try{ if(window.parent!==window) window.parent.postMessage({type:type},'*'); }catch(err){}
+    }
+    function kEase(t){ return t<0.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2; }
+
+    function kioskTabHighlight(i){
+      tabEls.forEach(function(t,k){ if(t) t.classList.toggle('active', k===i); });
+    }
+    function tweenToView(v,done){
+      exitMode();                                      // make sure we are in orbit mode
+      activeCam=perspCam; controls.object=perspCam; perspCam.up.set(0,1,0);
+      var p0=perspCam.position.clone(), t0=controls.target.clone(), fov0=perspCam.fov;
+      var p1=new THREE.Vector3(v.pos[0],v.pos[1],v.pos[2]);
+      var t1=new THREE.Vector3(v.target[0],v.target[1],v.target[2]);
+      var fov1=2*Math.atan(12/(v.lens||50))*180/Math.PI;
+      var start=performance.now();
+      kioskFrame=function(nowMs){
+        var t=Math.min(1,(nowMs-start)/KIOSK_TWEEN_MS), e=kEase(t);
+        perspCam.position.lerpVectors(p0,p1,e);
+        controls.target.lerpVectors(t0,t1,e);
+        perspCam.fov=fov0+(fov1-fov0)*e; perspCam.updateProjectionMatrix();
+        controls.update();
+        if(t>=1){ kioskFrame=null; if(done) done(); }
+      };
+    }
+    function kioskNext(){
+      if(!kioskActive) return;
+      kioskIdx++;
+      if(kioskIdx>=kioskViews.length){
+        kioskActive=false;
+        postToHost('hub-cycle-complete');
+        return;
+      }
+      tweenToView(kioskViews[kioskIdx], function(){
+        kioskTabHighlight(kioskIdx);
+        kioskTimer=setTimeout(kioskNext, KIOSK_DWELL);
+      });
+    }
+    function kioskStart(){
+      kioskStop();
+      kioskActive=true; kioskIdx=-1;
+      kioskNext();
+    }
+    function kioskStop(){
+      kioskActive=false; kioskFrame=null;
+      if(kioskTimer){ clearTimeout(kioskTimer); kioskTimer=null; }
+    }
+
+    // any real input stops the tour and tells the deck a visitor is here
+    function kioskTouched(){
+      if(kioskActive) kioskStop();
+      var nowMs=performance.now();
+      if(nowMs-lastPost>800){ lastPost=nowMs; postToHost('hub-interaction'); }
+    }
+    var kpx=null,kpy=null,kacc=0;
+    window.addEventListener('pointermove',function(e){
+      if(kpx!==null) kacc+=Math.abs(e.clientX-kpx)+Math.abs(e.clientY-kpy);
+      kpx=e.clientX; kpy=e.clientY;
+      if(kacc>8){ kacc=0; kioskTouched(); }
+    },{passive:true});
+    ['pointerdown','wheel','keydown','touchstart'].forEach(function(ev){
+      window.addEventListener(ev,function(){ kioskTouched(); },{passive:true});
+    });
+
+    window.addEventListener('message',function(e){
+      var d=e.data||{};
+      if(d.type==='hub-kiosk-start'){ kpx=kpy=null; kacc=0; lastPost=0; kioskStart(); }
+      else if(d.type==='hub-kiosk-stop'){ kioskStop(); activate(0); }
+    });
   }
 
   // start on the Muted style + Perspective 1 (tab 0)

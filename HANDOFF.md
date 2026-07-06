@@ -2,7 +2,7 @@
 
 *This is the single "where are we right now" file. Whenever you (or Claude) start a session, read this before anything else. Whenever you end a session, update it. It is the memory that survives when a chat ends or usage resets.*
 
-*Last updated: 2026-07-04 (Hub-viewer gained game-style **Walk/Fly** navigation + fullscreen; the two decks were foldered — `final-presentation/` = the `<stadt.hub>` scroll deck served at the Pages homepage via a root redirect, and `wolfsburg-workflow/` = the workflow/intro deck; the Activity Map Urban Design section was recolored to the hub-viewer palette. All deployed. See `sessions/2026-07-04_hub-viewer-nav-deck-refactor/notes.md`)*
+*Last updated: 2026-07-06 (**Summaery pivot: one screen only.** Built the self-running exhibition kiosk — `exhibition/kiosk/` auto-scrolls the project story with typed headlines, ends in a hub-viewer camera tour (`?kiosk=1`), loops; any input hands control to the visitor, resumes when idle. Locked numbers (763/68) used throughout. Verified headless end-to-end. See `sessions/2026-07-06_summaery-kiosk/notes.md`)*
 
 ---
 
@@ -50,6 +50,7 @@ None of the seven proof deliverables are produced yet. In rough priority:
 
 ## Resume here (next actions)
 
+0. **Summaery kiosk (July 9–12) — content pass.** `exhibition/kiosk/index.html` is built and verified; review it in a real browser (F11), reconcile the beat copy/order with the team's Miro board, tune per-beat `hold` timings in `kiosk.js`, then set up the exhibition PC (Chrome `--kiosk`, screen-sleep off). Voiceover (Google AI Studio) after content sign-off.
 1. **Resolve e-bike number** — presentation currently shows 641 e-bikes / 1,273 total fleet (web tool computed), but locked design decision says 131 / 763 (tutor-accepted June 11). Group needs to agree and sync all files.
 2. **Drop in missing visuals** — section 2.2 (car-land map), before/after street sections (Kleiststraße), and persona journey diagrams (section 05) are all still placeholder. Export from Rhino when ready.
 3. **Hub concept — RESOLVED 2026-06-17** (`decisions.md` + `project/hub_concept_vs_tool.md`): typology protected; S unchanged; M = near underground parking + surface typology; L = **L-Anchor** (central reuse) + **L-Gateway** (edge depot + park-and-switch interchange). Remaining items: decide if L-Gateways count toward the 6; web-tool code change. See `tasks.md`.

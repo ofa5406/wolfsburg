@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>stadt.hub — Summaery Kiosk</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body class="autopilot">
+
+<!-- autopilot indicator -->
+<div id="pilot">
+  <span class="pilot-dot"></span>
+  <span class="pilot-label" id="pilot-label">auto tour — touch anything to take control</span>
+</div>
+
+<!-- ═══════════════ BEAT 1 · VISION ═══════════════ -->
+<section class="beat beat--dark" id="b1">
+  <video class="hero-vid active" id="hero-a" muted playsinline autoplay>
+    <source src="../../videos/hero1.mp4" type="video/mp4">
+  </video>
+  <video class="hero-vid" id="hero-b" muted playsinline>
+    <source src="../../videos/hero2.mp4" type="video/mp4">
+  </video>
+  <div class="hero-shade"></div>
+
+  <div class="beat-tag"><span>01</span><span>(Vision)</span></div>
+  <div class="beat-body b1-body">
+    <p class="kicker reveal" data-r="0">Wolfsburg · a post-car future · Summaery 2026</p>
+    <h1 class="tw display" id="tw-b1"></h1>
+    <p class="hero-sub reveal" data-r="1">PARKING CITY <span class="arrow">→</span> HUB CITY</p>
+    <p class="hero-credits reveal" data-r="2">
+      Urban Design Studio — Wolfsburg Future Mobility · Bauhaus-Universität Weimar<br>
+      Ömer Faruk Aslan · Anastasiia Mulyndina · Başak Pınar
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════ BEAT 2 · PROBLEM ═══════════════ -->
+<section class="beat" id="b2">
+  <div class="beat-tag"><span>02</span><span>(Problem)</span></div>
+  <div class="beat-body split">
+    <div class="split-left">
+      <h2 class="tw headline" id="tw-b2"></h2>
+      <div class="facts">
+        <div class="fact reveal" data-r="0">
+          <span class="fact-num">~23 h</span>
+          <span class="fact-txt">a day — how long the average car sits parked. It is not a vehicle. It is a land use.</span>
+        </div>
+        <div class="fact reveal" data-r="1">
+          <span class="fact-num">100,000</span>
+          <span class="fact-txt">trips in, out and within the centre every day. The system is sized for the 9,000-trip peak hour.</span>
+        </div>
+        <div class="fact reveal" data-r="2">
+          <span class="fact-num">8%</span>
+          <span class="fact-txt">cycling's share of trips today. Groningen manages ~60%. The street space exists — it is storing cars.</span>
+        </div>
+      </div>
+    </div>
+    <div class="split-right">
+      <div class="slideshow" id="ss-problem">
+        <img class="slide active" src="../../charts/problem_1.jpeg" alt="Wolfsburg built around the car">
+        <img class="slide" src="../../charts/problem_2.jpeg" alt="Parking dominates the ground">
+        <img class="slide" src="../../charts/problem_3.jpeg" alt="Car-dedicated land">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ BEAT 3 · IDEA ═══════════════ -->
+<section class="beat beat--dark" id="b3">
+  <div class="beat-tag"><span>03</span><span>(Idea)</span></div>
+  <div class="beat-body b3-body">
+    <h2 class="tw headline" id="tw-b3"></h2>
+    <canvas id="dotfield"></canvas>
+    <p class="dot-caption reveal" data-r="0">
+      One shared vehicle replaces dozens of parked ones —
+      <strong>763 shared vehicles</strong> serve the whole centre.
+    </p>
+    <div class="fleet-row reveal" data-r="1">
+      <div class="fleet-item"><span class="fleet-num" data-count="131">0</span><span class="fleet-label">e-bikes</span></div>
+      <div class="fleet-item"><span class="fleet-num" data-count="55">0</span><span class="fleet-label">shuttle pods</span></div>
+      <div class="fleet-item"><span class="fleet-num" data-count="33">0</span><span class="fleet-label">autonomous buses</span></div>
+      <div class="fleet-item"><span class="fleet-num" data-count="369">0</span><span class="fleet-label">micro-pods</span></div>
+      <div class="fleet-item"><span class="fleet-num" data-count="175">0</span><span class="fleet-label">shared EVs</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ BEAT 4 · NETWORK ═══════════════ -->
+<section class="beat" id="b4">
+  <div class="beat-tag"><span>04</span><span>(Network)</span></div>
+  <div class="beat-body split">
+    <div class="split-left">
+      <h2 class="tw headline" id="tw-b4"></h2>
+      <div class="bignum reveal" data-r="0">
+        <span class="bignum-num" data-count="68">0</span>
+        <span class="bignum-label">mobility hubs instead of parking</span>
+      </div>
+      <div class="tiers reveal" data-r="1">
+        <div class="tier"><span class="tier-id tier-id--l">L</span><span class="tier-num" data-count="6">0</span><span class="tier-desc">Large — converted multi-storey car parks</span></div>
+        <div class="tier"><span class="tier-id tier-id--m">M</span><span class="tier-num" data-count="19">0</span><span class="tier-desc">Medium — neighbourhood transfer nodes</span></div>
+        <div class="tier"><span class="tier-id tier-id--s">S</span><span class="tier-num" data-count="43">0</span><span class="tier-desc">Small — last-mile micro-hubs</span></div>
+      </div>
+      <p class="net-line reveal" data-r="2">Every front door within a <span class="em em--underline on">short walk</span> of one.</p>
+    </div>
+    <div class="split-right">
+      <div class="plan-frame kenburns" id="plan-frame">
+        <img class="plan-img active" src="../../charts/masterplan_upper.jpg" alt="Hub network — city scale">
+        <img class="plan-img" src="../../charts/masterplan_upper_catchment.jpg" alt="Hub walking catchments">
+        <span class="plan-chip" id="plan-chip">Hub network</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ BEAT 5 · STREETS ═══════════════ -->
+<section class="beat beat--full" id="b5">
+  <div class="beat-tag beat-tag--onimg"><span>05</span><span>(Streets)</span></div>
+  <div class="ba-stage" id="ba-stage">
+    <img class="ba-before" id="ba-before" src="../../charts/ba_v3_before.png" alt="Street before">
+    <img class="ba-after"  id="ba-after"  src="../../charts/ba_v3_after.png"  alt="Street after">
+    <span class="ba-tag ba-tag--before">Before</span>
+    <span class="ba-tag ba-tag--after">After</span>
+  </div>
+  <div class="ba-head">
+    <h2 class="tw headline headline--onimg" id="tw-b5"></h2>
+    <span class="ba-street" id="ba-street">Kleiststraße</span>
+  </div>
+</section>
+
+<!-- ═══════════════ BEAT 6 · PEOPLE ═══════════════ -->
+<section class="beat" id="b6">
+  <div class="beat-tag"><span>06</span><span>(People)</span></div>
+  <div class="beat-body split">
+    <div class="split-left">
+      <h2 class="tw headline" id="tw-b6"></h2>
+      <div class="persona reveal" data-r="0" id="persona-card">
+        <div class="persona-head">
+          <span class="persona-num" id="p-num">01</span>
+          <div>
+            <div class="persona-name" id="p-name">Thomas, 44</div>
+            <div class="persona-role" id="p-role">Engineer at the VW plant</div>
+          </div>
+        </div>
+        <p class="persona-line persona-line--before"><span class="pl-tag">Before</span><span id="p-before">Thirty minutes in traffic every morning. A new car every three years.</span></p>
+        <p class="persona-line persona-line--after"><span class="pl-tag pl-tag--after">After</span><span id="p-after">An autonomous bus from the L-hub to the factory gate in 18 minutes. He helps build the fleet — and rides it.</span></p>
+        <div class="persona-dots" id="persona-dots"></div>
+      </div>
+    </div>
+    <div class="split-right">
+      <div class="portrait" id="portrait">
+        <img class="pt-img pt-before active" id="pt-before" src="../../charts/thomas_before.png" alt="Before">
+        <img class="pt-img pt-after" id="pt-after" src="../../charts/thomas_after.png" alt="After">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ BEAT 7 · CLOSE ═══════════════ -->
+<section class="beat beat--dark beat--full" id="b7">
+  <div class="close-bg kenburns-slow">
+    <img src="../../charts/masterplan_hero.jpg" alt="Masterplan">
+  </div>
+  <div class="close-shade"></div>
+  <div class="beat-tag beat-tag--onimg"><span>07</span><span>(Vision)</span></div>
+  <div class="beat-body b7-body">
+    <h2 class="tw headline" id="tw-b7"></h2>
+    <p class="close-motto reveal" data-r="0">PARKING CITY <span class="arrow">→</span> HUB CITY</p>
+    <p class="close-credits reveal" data-r="1">
+      &lt;stadt.hub&gt; · Bauhaus-Universität Weimar · M.Sc. IUDD · SoSe 26<br>
+      Ömer Faruk Aslan · Anastasiia Mulyndina · Başak Pınar<br>
+      <span class="close-url">ofa5406.github.io/wolfsburg</span>
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════ BEAT 8 · EXPLORE ═══════════════ -->
+<section class="beat beat--full beat--hub" id="b8">
+  <div class="hub-head">
+    <h2 class="tw hub-title" id="tw-b8"></h2>
+  </div>
+  <iframe id="hub-frame" src="../../hub-viewer/index.html?kiosk=1"
+          title="Hub Viewer — 3D interactive model" allow="fullscreen"></iframe>
+  <div class="hub-caption" id="hub-caption">
+    <span class="hub-caption-live"><span class="live-dot"></span>This model is live</span>
+    <span class="hub-caption-txt">Move the mouse to take control · right-drag to orbit · <strong>Walk / Fly</strong> buttons to move at street level · hover any element for its description</span>
+  </div>
+</section>
+
+<script src="typewriter.js"></script>
+<script src="kiosk.js"></script>
+</body>
+</html>
