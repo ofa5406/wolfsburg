@@ -73,11 +73,17 @@ auto-advance, iframe section bridge, click-to-activate arming, gallery fit at 19
 - Content/copy still Claude-drafted — reconcile with the team's Miro narrative; voiceover after sign-off.
 - The map embed rebuild is **not automatic** — re-run the vite embed build after any change to the 3
   sections / `ExportControl` / `embed/main.jsx`, then re-prune.
-- Nothing here is committed/pushed yet (deck is local; hub-viewer + activity-map edits are local).
+- **Committed + pushed** (end of session): `ofa5406/wolfsburg` `main` `bb46ed2` (deck + hub-viewer +
+  session memory), `annestasiia/wolfsburg-activity-map` `master` `264cd3f` (embed + gated overrides,
+  rebased on the teammate's re-center). Both redeploy on push; activity-map edits are gated so the live
+  tool is unchanged.
+- **Not done:** align the embed's fitted center to the teammate's new `[10.7769, 52.4056]` (embed still
+  uses the old `[10.7865, 52.4227]`, zoom 10.55 — fits fine, just not the team's exact midpoint).
 
 ## Next session — start here
 
 1. `python -m http.server` at the wolfsburg root → open `exhibition/deck/index.html` (F11); live review.
 2. Reconcile beat copy + per-image captions with the team's Miro board; swap in real (hi-res) history images.
-3. Decide commit/push story: deck (where?), the activity-map embed changes (PR to `master`), hub-viewer edit.
-4. If needed: vendor maplibre glyphs for offline labels; set hub-viewer tour dwell to 5 s (currently 6 s).
+3. (Optional) align embed center to `[10.7769, 52.4056]`, rebuild embed, push. Vendor maplibre glyphs for
+   offline labels; set hub-viewer tour dwell to 5 s (currently 6 s).
+   *(Commit/push already done this session — see Open threads.)*
