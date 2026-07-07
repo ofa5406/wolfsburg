@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>&lt;stadt.hub&gt; brain</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230E0E0E'/%3E%3Ccircle cx='8' cy='8' r='4' fill='%23E8500A'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="brain.css">
+</head>
+<body>
+  <div id="graph"></div>
+
+  <!-- L-frames -->
+  <div class="lframe lf-tl"></div>
+  <div class="lframe lf-br"></div>
+
+  <!-- chrome -->
+  <header id="chrome-top">
+    <div id="wordmark">&lt;stadt.hub&gt;&nbsp;brain<span id="caret"></span></div>
+    <div id="searchbox">
+      <input id="search" type="text" placeholder="search the brain" autocomplete="off" spellcheck="false">
+      <div id="results"></div>
+    </div>
+  </header>
+
+  <footer id="chrome-bottom">
+    <div id="chips"></div>
+    <div id="stats"></div>
+  </footer>
+
+  <!-- detail panel -->
+  <aside id="panel" class="hidden">
+    <button id="panel-close" title="close">&times;</button>
+    <div id="panel-chips"></div>
+    <h1 id="panel-title"></h1>
+    <div id="panel-body"></div>
+    <div id="panel-connections"></div>
+    <div id="panel-sources"></div>
+  </aside>
+
+  <div id="fps" class="hidden"></div>
+  <div id="hint">click a node &middot; drag to orbit &middot; scroll to zoom</div>
+
+  <script src="vendor/three.min.js"></script>
+  <script src="vendor/three-spritetext.min.js"></script>
+  <script src="vendor/3d-force-graph.min.js"></script>
+  <script src="vendor/marked.min.js"></script>
+  <script src="data/graph.js"></script>
+  <script src="brain.js"></script>
+</body>
+</html>
