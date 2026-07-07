@@ -1,0 +1,66 @@
+{
+  "collapse-filter": false,
+  "search": "",
+  "showTags": true,
+  "showAttachments": true,
+  "hideUnresolved": false,
+  "showOrphans": true,
+  "colorGroups": [
+    {
+      "query": "tag:#risk",
+      "color": {
+        "a": 1,
+        "rgb": 16734003
+      }
+    },
+    {
+      "query": "tag:#decision",
+      "color": {
+        "a": 1,
+        "rgb": 3329330
+      }
+    },
+    {
+      "query": "tag:#tool",
+      "color": {
+        "a": 1,
+        "rgb": 2003199
+      }
+    },
+    {
+      "query": "tag:#feedback",
+      "color": {
+        "a": 1,
+        "rgb": 16753920
+      }
+    },
+    {
+      "query": "tag:#hub-tier",
+      "color": {
+        "a": 1,
+        "rgb": 4286945
+      }
+    },
+    {
+      "query": "tag:#hub-element",
+      "color": {
+        "a": 1,
+        "rgb": 12540415
+      }
+    },
+    {
+      "query": "tag:#hub-category",
+      "color": {
+        "a": 1,
+        "rgb": 9659306
+      }
+    },
+    {
+      "query": "tag:#hub-zone",
+      "color": {
+        "a": 1,
+        "rgb": 6737151
+      }
+    }
+  ]
+}
