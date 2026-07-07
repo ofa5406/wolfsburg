@@ -1,7 +1,7 @@
 ---
 title: Rad Network Algorithm
 type: tool
-category: tool
+category: data
 confidence: high
 source:
   - web-tool/status.md

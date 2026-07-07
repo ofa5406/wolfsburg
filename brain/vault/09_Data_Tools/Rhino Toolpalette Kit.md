@@ -1,7 +1,7 @@
 ---
 title: Rhino Toolpalette Kit
 type: tool
-category: tool
+category: data
 confidence: high
 source:
   - project/rhino_toolpalette.md

@@ -1,7 +1,7 @@
 ---
 title: MATSim
 type: tool
-category: tool
+category: data
 confidence: high
 source:
   - research/10_moia-mia-precedent.md

@@ -1,7 +1,7 @@
 ---
 title: MiD 2017 Travel Survey
 type: dataset
-category: tool
+category: data
 confidence: high
 source:
   - web-tool/status.md

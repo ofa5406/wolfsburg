@@ -1,7 +1,7 @@
 ---
 title: Modal Distribution Baseline
 type: dataset
-category: tool
+category: data
 confidence: high
 source:
   - web-tool/status.md
