@@ -28,6 +28,7 @@
   var lastInput = performance.now();
   var ambients = [];
   var hubCycleResolve = null;
+  var brainCycleResolve = null;
   var wheelLock = false;
 
   function now() { return performance.now(); }
@@ -41,6 +42,10 @@
   var hubHolder = document.getElementById("hub-holder");
   var hubVeil = document.getElementById("hub-veil");
   var hubTitle = document.getElementById("hub-title");
+  var brainFrame = document.getElementById("brain-frame");
+  var brainHolder = document.getElementById("brain-holder");
+  var brainVeil = document.getElementById("brain-veil");
+  var brainTitle = document.getElementById("brain-title");
   var gallery = document.getElementById("gallery");
   var gActivate = document.getElementById("g-activate");
   var presentBtn = document.getElementById("present-btn");
@@ -76,7 +81,9 @@
     s2: { ops: [{ t: "Built to " }, { typo: { wrong: "buidl", fix: "build" } }, { t: " cars." }],
           emphasize: [{ phrase: "build", kind: "underline" }] },
     s4: { ops: [{ t: "Step " }, { typo: { wrong: "insdie", fix: "inside" } }, { t: " one hub." }],
-          emphasize: [{ phrase: "inside", kind: "underline" }] }
+          emphasize: [{ phrase: "inside", kind: "underline" }] },
+    s5: { ops: [{ t: "Every idea, " }, { typo: { wrong: "conected", fix: "connected" } }, { t: "." }],
+          emphasize: [{ phrase: "connected", kind: "underline" }] }
   };
 
   /* ── template-3 analyses (deployment-exact wording) ────── */
@@ -205,10 +212,22 @@
   function activateHub() { hubHolder.classList.add("activated"); hubVeil.classList.remove("show", "blur"); hubSend("hub-kiosk-stop"); onInput(); }
   hubVeil.addEventListener("click", activateHub);
 
+  /* ══════════════════════════════════════════════════════
+     SLIDE 5 — project brain bridge + click-to-activate
+     (mirrors the hub helpers with brain-* message types)
+  ══════════════════════════════════════════════════════ */
+  function brainSend(type) { try { brainFrame.contentWindow.postMessage({ type: type }, "*"); } catch (e) {} }
+  function armBrain() { brainHolder.classList.remove("activated"); brainVeil.classList.remove("blur"); brainVeil.classList.add("show"); }
+  function brainCTA() { brainHolder.classList.remove("activated"); brainVeil.classList.add("show", "blur"); }
+  function brainClear() { brainHolder.classList.remove("activated"); brainVeil.classList.remove("show", "blur"); }
+  function activateBrain() { brainHolder.classList.add("activated"); brainVeil.classList.remove("show", "blur"); brainSend("brain-kiosk-stop"); onInput(); }
+  brainVeil.addEventListener("click", activateBrain);
+
   window.addEventListener("message", function (e) {
     var d = e.data || {};
     if (d.type === "embed-interaction" || d.type === "hub-interaction") onInput();
     else if (d.type === "hub-cycle-complete") { if (hubCycleResolve) { hubCycleResolve(); hubCycleResolve = null; } }
+    else if (d.type === "brain-cycle-complete") { if (brainCycleResolve) { brainCycleResolve(); brainCycleResolve = null; } }
   });
 
   /* ══════════════════════════════════════════════════════
@@ -274,6 +293,30 @@
       },
       complete: function () { TW.finalize($("#tw-4"), HL.s4); hubTitle.classList.add("faded"); armHub(); },
       reset: function () { TW.reset($("#tw-4")); hubTitle.classList.remove("faded"); hubClear(); }
+    },
+    { el: $("#s5"), dark: true,
+      play: async function (ctx) {
+        brainClear(); brainTitle.classList.remove("faded");
+        await sleep(400, ctx);
+        await TW.run($("#tw-5"), HL.s5, ctx);
+        await sleep(1100, ctx);
+        brainTitle.classList.add("faded");
+        brainSend("brain-kiosk-start");
+        await new Promise(function (res) {
+          brainCycleResolve = res;
+          var t0 = now();
+          (function guard() {
+            if (!brainCycleResolve) return;
+            if (ctx.cancelled || now() - t0 > 120000) { brainCycleResolve = null; res(); return; }
+            setTimeout(guard, 400);
+          })();
+        });
+        if (ctx.cancelled) return;
+        brainCTA();
+        await sleep(HUB_RESTART_MS, ctx);
+      },
+      complete: function () { TW.finalize($("#tw-5"), HL.s5); brainTitle.classList.add("faded"); armBrain(); },
+      reset: function () { TW.reset($("#tw-5")); brainTitle.classList.remove("faded"); brainClear(); }
     }
   ];
   var N = SLIDES.length;
@@ -305,6 +348,8 @@
     idx = i; setTrack(i); updateChrome(i);
     if (i === 3) { hubSend("hub-resume"); }
     else { hubSend("hub-pause"); hubClear(); }        // pause off-screen GPU loop
+    if (i === 4) { brainSend("brain-resume"); }
+    else { brainSend("brain-pause"); brainClear(); }  // pause off-screen brain rAF
     if (i === 2) armMap(); else gallery.classList.remove("activated");
   }
 
@@ -329,6 +374,7 @@
   function loopRestart() {
     gen++;
     hubSend("hub-kiosk-stop"); hubClear();
+    brainSend("brain-kiosk-stop"); brainClear();
     clearAmbients();
     SLIDES.forEach(function (s) { s.reset(); });
     framesReset();
