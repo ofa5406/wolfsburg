@@ -1,0 +1,39 @@
+---
+title: "Groningen Precedent"
+type: "fundamental-concept"
+status: "generated"
+confidence: "medium"
+source_path:
+  - "D:\vibe_lab\wolfsburg\sources\precedents.md"
+  - "D:\vibe_lab\wolfsburg\research\README.md"
+  - "D:\vibe_lab\wolfsburg\research\06_arguments-evidence.md"
+  - "D:\vibe_lab\wolfsburg\research\07_weak-points-actions.md"
+tags:
+  - "concept"
+  - "urban-strategy"
+---
+
+# Groningen Precedent
+
+## Definition
+
+The Dutch filtered-permeability reference used to justify Wolfsburg's zone structure.
+
+## Why It Matters Here
+
+It grounds the project in a proven mobility transformation model.
+
+## Do Not Confuse With
+
+A precedent is not a copy-paste plan. It provides transferable principles.
+
+## Graph Links
+
+- [[Groningen Filtered Permeability]]
+- [[Five-Zone Model]]
+- [[Filtered Permeability]]
+- [[Modal Shift]]
+
+## Source Logic
+
+This note is a conceptual synthesis of the source paths in the frontmatter. Treat direct claims as source-traced; treat cross-note framing as vault interpretation.

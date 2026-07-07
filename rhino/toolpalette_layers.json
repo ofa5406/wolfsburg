@@ -1,0 +1,13 @@
+[
+  { "name": "Default",     "color": [0, 0, 0],       "plot_color": [0, 0, 0],       "plot_weight": 0.0, "linetype": "Continuous", "visible": true,  "locked": false },
+  { "name": "01_Pavement", "color": [197, 138, 110], "plot_color": [197, 138, 110], "plot_weight": 0.0, "linetype": "Continuous", "visible": true,  "locked": false },
+  { "name": "02_Concrete", "color": [168, 168, 162], "plot_color": [168, 168, 162], "plot_weight": 0.0, "linetype": "Continuous", "visible": true,  "locked": false },
+  { "name": "03_Metal",    "color": [122, 142, 165], "plot_color": [122, 142, 165], "plot_weight": 0.0, "linetype": "Continuous", "visible": true,  "locked": false },
+  { "name": "04_Wood",     "color": [156, 116, 74],  "plot_color": [156, 116, 74],  "plot_weight": 0.0, "linetype": "Continuous", "visible": true,  "locked": false },
+  { "name": "05_Glass",    "color": [168, 208, 219], "plot_color": [168, 208, 219], "plot_weight": 0.0, "linetype": "Continuous", "visible": true,  "locked": false },
+  { "name": "06_Plastic",  "color": [216, 178, 92],  "plot_color": [216, 178, 92],  "plot_weight": 0.0, "linetype": "Continuous", "visible": true,  "locked": false },
+  { "name": "07_Greenery", "color": [112, 158, 92],  "plot_color": [112, 158, 92],  "plot_weight": 0.0, "linetype": "Continuous", "visible": true,  "locked": false },
+  { "name": "08_Lighting", "color": [244, 224, 150], "plot_color": [244, 224, 150], "plot_weight": 0.0, "linetype": "Continuous", "visible": true,  "locked": false },
+  { "name": "09_Context",  "color": [208, 208, 208], "plot_color": [208, 208, 208], "plot_weight": 0.0, "linetype": "Continuous", "visible": true,  "locked": false },
+  { "name": "10_Labels",   "color": [92, 92, 92],    "plot_color": [92, 92, 92],    "plot_weight": 0.0, "linetype": "Continuous", "visible": false, "locked": false }
+]
