@@ -1,7 +1,7 @@
 ---
 title: Gertrude
 type: persona
-category: persona
+category: people
 confidence: high
 source:
   - exhibition/kiosk/kiosk.js

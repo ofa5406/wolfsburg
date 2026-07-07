@@ -1,7 +1,7 @@
 ---
 title: Exhibition Deck
 type: tool
-category: tool
+category: data
 confidence: high
 source:
   - exhibition/deck/

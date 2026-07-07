@@ -1,7 +1,7 @@
 ---
 title: Mobility Mode
 type: tool
-category: tool
+category: data
 confidence: high
 source:
   - web-tool/status.md

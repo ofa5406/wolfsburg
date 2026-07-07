@@ -1,7 +1,7 @@
 ---
 title: Anna
 type: persona
-category: persona
+category: people
 confidence: high
 source:
   - project/current.md

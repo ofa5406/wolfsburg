@@ -1,7 +1,7 @@
 ---
 title: Wolfsburg Activity Map
 type: tool
-category: tool
+category: data
 confidence: high
 source:
   - web-tool/status.md

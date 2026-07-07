@@ -1,7 +1,7 @@
 ---
 title: Project Brain
 type: tool
-category: tool
+category: data
 confidence: high
 source:
   - brain/README.md

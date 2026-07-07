@@ -1,7 +1,7 @@
 ---
 title: Session Memory System
 type: tool
-category: tool
+category: data
 confidence: high
 source:
   - CLAUDE.md

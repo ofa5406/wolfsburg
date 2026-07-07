@@ -1,7 +1,7 @@
 ---
 title: Hub Viewer
 type: tool
-category: tool
+category: data
 confidence: high
 source:
   - hub-viewer/README.md

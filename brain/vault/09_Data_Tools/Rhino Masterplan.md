@@ -1,7 +1,7 @@
 ---
 title: Rhino Masterplan
 type: tool
-category: tool
+category: data
 confidence: high
 source:
   - project/rhino_masterplan.md

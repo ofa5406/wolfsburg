@@ -1,7 +1,7 @@
 ---
 title: Rhino MCP Bridge
 type: tool
-category: tool
+category: data
 confidence: high
 source:
   - rhino/README.md
