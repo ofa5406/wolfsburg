@@ -18,6 +18,10 @@
   --on-dark:  #F3F2EC;
   --on-dark-dim: rgba(243,242,236,0.62);
 
+  --accent:   #E8500A;              /* single accent, validated light+dark */
+  --accent-soft: rgba(232,80,10,0.12);
+  --hl:       rgba(255,208,0,0.55); /* yellow key-line highlight */
+
   --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
   --t-kicker: 0.72rem;
@@ -334,8 +338,161 @@ body.discover .t3 .ga-hint { opacity: 1; }
 .boot.gone { opacity: 0; pointer-events: none; }
 .boot .b-mark { color: var(--on-dark); font-size: var(--t-kicker); letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700; }
 
+/* ═══════════════════════════════════════════════════════════
+   SHARED — bracketed titles, ghost numbers, highlight, bullets
+═══════════════════════════════════════════════════════════ */
+.brk { font-size: var(--t-h); font-weight: 800; letter-spacing: -0.02em; line-height: 0.95; }
+.brk .b { color: var(--ink-25); font-weight: 700; }
+body.on-dark .brk .b { color: rgba(243,242,236,0.3); }
+.brk-sm { font-size: var(--t-h-sm); font-weight: 800; letter-spacing: -0.015em; line-height: 1.0; }
+.brk-sm .b { color: var(--ink-25); }
+.hl { background: linear-gradient(transparent 58%, var(--hl) 58%); padding: 0 0.06em; }
+.ghost {
+  position: absolute; right: var(--pad); top: 6%;
+  font-size: clamp(7rem, 20vw, 18rem); font-weight: 800; line-height: 0.8;
+  color: var(--ink); opacity: 0.05; pointer-events: none; z-index: 0;
+  font-variant-numeric: tabular-nums;
+}
+body.on-dark .ghost { color: var(--on-dark); opacity: 0.06; }
+.kick { font-size: var(--t-kicker); font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-45); }
+body.on-dark .kick { color: var(--on-dark-dim); }
+
+.blist { list-style: none; }
+.blist li { position: relative; padding: 0.4em 0 0.4em 1.25em; font-size: var(--t-body); line-height: 1.42; color: var(--ink-70); }
+.blist li::before { content: ''; position: absolute; left: 0; top: 0.72em; width: 6px; height: 6px; background: var(--accent); }
+.blist li b, .blist li strong { color: var(--ink); font-weight: 700; }
+body.on-dark .blist li { color: var(--on-dark-dim); }
+body.on-dark .blist li b { color: var(--on-dark); }
+
+/* ═══════════════════════════════════════════════════════════
+   TEMPLATE 2.1 — Today: two reads + connected landscape strip
+═══════════════════════════════════════════════════════════ */
+.t21 .stage { flex-direction: column; gap: clamp(16px, 2.6vh, 34px); }
+.t21-head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--content-gap); }
+.t21-reads { display: flex; gap: clamp(20px, 3vw, 54px); max-width: 60%; }
+.t21-read { max-width: 15em; }
+.t21-read .r-n { font-size: var(--t-kicker); font-weight: 700; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 8px; }
+.t21-read .r-t { font-size: var(--t-body); font-weight: 600; line-height: 1.35; }
+.t21-flow { flex: 1; display: flex; align-items: stretch; gap: clamp(6px, 0.8vw, 14px); min-height: 0; }
+.t21-cell { position: relative; display: flex; flex-direction: column; min-width: 0; }
+.t21-cell.wide { flex: 1.5; } .t21-cell.narrow { flex: 1; }
+.t21-cell .c-img { flex: 1; width: 100%; min-height: 0; object-fit: cover; border: 1px solid var(--line-soft); filter: grayscale(0.35) contrast(1.02); }
+.t21-cell .c-cap { margin-top: 8px; font-size: var(--t-cap); color: var(--ink-70); line-height: 1.3; min-height: 2.4em; }
+.t21-arrow { align-self: center; flex: 0 0 auto; color: var(--accent); font-size: 1.5rem; font-weight: 800; opacity: 0; transition: opacity 0.6s var(--ease); }
+.t21-arrow.on { opacity: 1; }
+
+/* ═══════════════════════════════════════════════════════════
+   TEMPLATE 2.2 — Potential: bracket title + 4 grouped columns
+═══════════════════════════════════════════════════════════ */
+.t22 .stage { gap: var(--content-gap); align-items: stretch; }
+.t22-left { flex: 0 0 26%; display: flex; flex-direction: column; justify-content: center; }
+.t22-left .t22-lead { margin-top: 22px; font-size: var(--t-body); color: var(--ink-70); line-height: 1.5; max-width: 15em; }
+.t22-groups { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 2vw, 34px) clamp(26px, 3vw, 56px); align-content: center; }
+.t22-group h4 { font-size: var(--t-cap); font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; padding-bottom: 8px; margin-bottom: 8px; border-bottom: 2px solid var(--accent); }
+.t22-group .blist li { font-size: var(--t-cap); padding: 0.28em 0 0.28em 1.1em; }
+.t22-group .blist li::before { top: 0.62em; width: 5px; height: 5px; }
+
+/* ═══════════════════════════════════════════════════════════
+   T-STAT — big-number outcome blocks
+═══════════════════════════════════════════════════════════ */
+.tstat .stage { flex-direction: column; justify-content: center; gap: clamp(26px, 5vh, 64px); }
+.tstat-head { max-width: 26em; }
+.tstat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 4vw, 78px); }
+.tstat-block .n { font-size: clamp(2.8rem, 6.5vw, 5.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums; }
+.tstat-block .l { margin-top: 12px; font-size: var(--t-lead); font-weight: 600; line-height: 1.15; }
+.tstat-block .s { margin-top: 8px; font-size: var(--t-cap); color: var(--ink-70); line-height: 1.4; max-width: 17em; }
+.tstat-todo { display: inline-block; margin-top: 4px; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); border: 1px dashed var(--accent); padding: 3px 8px; }
+
+/* ═══════════════════════════════════════════════════════════
+   T-DIAGRAM — S/M/L scale axis  &  L→M→S hierarchy
+═══════════════════════════════════════════════════════════ */
+.tdiag .stage { flex-direction: column; gap: clamp(18px, 3vh, 40px); }
+.tdiag-head { max-width: 34em; }
+/* S / M / L scale */
+.sml { flex: 1; position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 3vw, 60px); align-content: center; }
+.sml-axis { position: absolute; left: 4%; right: 4%; top: 30%; height: 1.5px; background: var(--ink-25); }
+.sml-scale { position: absolute; left: 4%; right: 4%; top: calc(30% - 22px); display: flex; justify-content: space-between; font-size: var(--t-kicker); text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-45); }
+.sml-node { position: relative; padding-top: calc(30% + 4px); }
+.sml-node::before { content: ''; position: absolute; left: 0; top: 30%; width: 13px; height: 13px; border-radius: 50%; background: var(--ink); transform: translateY(-50%); }
+.sml-id { font-size: clamp(1.9rem, 4vw, 3.4rem); font-weight: 800; letter-spacing: -0.01em; }
+.sml-def { margin-top: 12px; font-size: var(--t-body); color: var(--ink-70); line-height: 1.4; max-width: 15em; }
+.sml-src { margin-top: 12px; font-size: var(--t-cap); color: var(--ink-45); line-height: 1.35; max-width: 15em; }
+/* L→M→S hierarchy */
+.hier { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: clamp(10px, 1.6vh, 20px); }
+.hier-row { display: grid; grid-template-columns: 92px 1fr; gap: clamp(16px, 2vw, 34px); align-items: center; padding-bottom: clamp(10px, 1.6vh, 20px); border-bottom: 1px solid var(--line-soft); }
+.hier-row:last-child { border-bottom: none; }
+.hier-id { font-size: clamp(1.4rem, 2.6vw, 2.3rem); font-weight: 800; }
+.hier-id .r { display: block; font-size: var(--t-kicker); font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin-top: 2px; }
+.hier-txt { font-size: var(--t-body); line-height: 1.4; color: var(--ink-70); }
+.hier-txt b { color: var(--ink); font-weight: 700; }
+
+/* ═══════════════════════════════════════════════════════════
+   T-TYPO — S/M/L typology sheet: media + text
+═══════════════════════════════════════════════════════════ */
+.ttypo .stage { gap: var(--content-gap); align-items: stretch; }
+.ttypo-media { flex: 1 1 54%; position: relative; overflow: hidden; border: var(--frame-w) solid var(--ink); background: var(--paper-2); }
+.ttypo-media img, .ttypo-media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ttypo-badge { position: absolute; top: 12px; left: 12px; z-index: 3; font-size: var(--t-kicker); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: var(--ink); color: var(--paper); padding: 6px 11px; }
+.ttypo-text { flex: 1 1 38%; min-width: 0; display: flex; flex-direction: column; justify-content: center; max-width: 26em; }
+.ttypo-tier { font-size: clamp(2.4rem, 5vw, 4.4rem); font-weight: 800; line-height: 0.92; letter-spacing: -0.02em; }
+.ttypo-tier small { display: block; font-size: var(--t-lead); font-weight: 600; color: var(--ink-70); letter-spacing: 0; margin-top: 6px; }
+.ttypo-meta { display: flex; gap: 26px; margin: 20px 0; padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.ttypo-meta .m .k { font-size: var(--t-kicker); text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-45); margin-bottom: 4px; }
+.ttypo-meta .m .v { font-size: var(--t-cap); font-weight: 700; }
+.ttypo-state { font-size: var(--t-lead); font-weight: 300; line-height: 1.35; margin-bottom: 18px; }
+.ttypo-key { display: flex; flex-wrap: wrap; gap: 7px; }
+.chip { font-size: var(--t-cap); color: var(--ink-70); border: 1px solid var(--line); padding: 5px 10px; white-space: nowrap; }
+
+/* ═══════════════════════════════════════════════════════════
+   T-PLAN — large static plan + side text
+═══════════════════════════════════════════════════════════ */
+.tplan .stage { gap: var(--content-gap); align-items: stretch; }
+.tplan-holder { flex: 1 1 60%; position: relative; overflow: hidden; border: var(--frame-w) solid var(--ink); background: var(--paper); }
+.tplan-holder img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.tplan-holder img.cover { object-fit: cover; }
+.tplan-chip { position: absolute; top: 12px; left: 12px; z-index: 3; font-size: var(--t-kicker); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: var(--ink); color: var(--paper); padding: 6px 11px; }
+.tplan-text { flex: 1 1 30%; min-width: 0; display: flex; flex-direction: column; justify-content: center; max-width: 25em; }
+.tplan-text .t3-desc { font-size: var(--t-body); font-weight: 300; line-height: 1.5; color: var(--ink-70); }
+
+/* ═══════════════════════════════════════════════════════════
+   T-STATEMENT — big centred manifesto on paper
+═══════════════════════════════════════════════════════════ */
+.tstate .stage { align-items: center; justify-content: center; }
+.tstate-inner { max-width: 20em; text-align: center; }
+.tstate-big { font-size: clamp(1.7rem, 3.4vw, 3rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; }
+.tstate-list { margin-top: clamp(24px, 4vh, 50px); display: grid; grid-template-columns: 1fr 1fr; gap: 10px clamp(24px, 3vw, 50px); text-align: left; max-width: 42em; margin-left: auto; margin-right: auto; }
+.tstate-list .p { position: relative; padding-left: 26px; font-size: var(--t-cap); color: var(--ink-70); line-height: 1.4; }
+.tstate-list .p b { color: var(--ink); font-weight: 700; }
+.tstate-list .p .num { position: absolute; left: 0; top: 0; font-weight: 800; color: var(--accent); font-size: var(--t-cap); }
+
+/* ═══════════════════════════════════════════════════════════
+   T-STAGE-COLUMN — vertical centred content (strategy / SAE reuse)
+═══════════════════════════════════════════════════════════ */
+.tcol .stage { flex-direction: column; justify-content: center; gap: clamp(18px, 3vh, 40px); }
+.tcol-head { max-width: 30em; }
+.sae-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 3vw, 56px); }
+.sae-3 .w { font-size: clamp(2rem, 4.4vw, 4rem); font-weight: 800; letter-spacing: -0.02em; color: var(--accent); }
+.sae-3 .d { margin-top: 12px; font-size: var(--t-body); line-height: 1.5; color: var(--ink-70); }
+body.on-dark .sae-3 .d { color: var(--on-dark-dim); }
+
+/* ═══════════════════════════════════════════════════════════
+   Before / after wipe (outcomes — the space returned)
+═══════════════════════════════════════════════════════════ */
+.tba .ba-stage { position: absolute; inset: 0; }
+.tba .ba-before, .tba .ba-after { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.tba .ba-after { clip-path: inset(0 100% 0 0); transition: clip-path 1.6s cubic-bezier(.65,0,.25,1); }
+.tba .ba-stage.wiped .ba-after { clip-path: inset(0 0 0 0); }
+.tba .ba-tag { position: absolute; bottom: calc(var(--frame-inset) + var(--content-gap)); z-index: 4; font-size: var(--t-kicker); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; background: rgba(14,14,14,0.6); color: var(--on-dark); padding: 6px 12px; transition: opacity 0.6s; }
+.tba .ba-tag--before { left: calc(var(--frame-inset) + var(--content-gap)); }
+.tba .ba-tag--after { right: calc(var(--frame-inset) + var(--content-gap)); opacity: 0.35; }
+.tba .ba-stage.wiped .ba-tag--before { opacity: 0.35; }
+.tba .ba-stage.wiped .ba-tag--after { opacity: 1; }
+
 @media (max-width: 900px) {
   .t3 .stage { flex-direction: column; }
   .t3 .gallery { max-width: 100%; height: auto; width: 100%; }
   .t2 .t2-grid { grid-template-columns: 1fr; }
+  .t22 .stage, .ttypo .stage, .tplan .stage { flex-direction: column; }
+  .t22-groups, .sae-3, .tstat-row, .sml { grid-template-columns: 1fr; }
+  .t21-reads { max-width: 100%; }
 }

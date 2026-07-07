@@ -1,17 +1,20 @@
 /* ─────────────────────────────────────────────────────────────
-   deck.js — <stadt.hub> exhibition deck engine.
+   deck.js — <stadt.hub> exhibition engine.
 
    Vertical fullpage deck (one slide / 100vh; one wheel/key/swipe =
    one page, eased + snapped). Auto-plays on load and loops; the
    Present button toggles the auto-run and RESUMES FROM THE CURRENT
-   slide. Any input hands control to the visitor (Discover); 15 s
-   idle resumes Presenting from the same slide, 30 s restarts from the
-   top on the hub slide.
+   slide. Any input hands control to the visitor (Discover); idle
+   resumes Presenting from the same slide; on the live tool slides a
+   longer idle restarts the whole loop fresh.
 
-   All prose is typed live. Interactive embeds (the maps + the hub
-   viewer) are CLICK-TO-ACTIVATE: until clicked they ignore scroll so
-   the wheel drives the page; the hub's render loop is paused unless
-   its slide is on screen (smooth video + transitions).
+   All prose is typed live. Interactive embeds (the maps, the hub
+   viewer, the brain graph) are CLICK-TO-ACTIVATE: until clicked they
+   ignore scroll so the wheel drives the page; their render loops are
+   paused unless their slide is on screen (smooth video + transitions).
+
+   Slides carry a `kind` ('map' | 'hub' | 'brain') so the engine finds
+   the interactive ones by role, not by a hardcoded index.
 ─────────────────────────────────────────────────────────────── */
 (function () {
   "use strict";
@@ -72,6 +75,21 @@
   }
   function bodySpec(text, emph) { return { ops: [{ t: text }], emphasize: emph || [], speed: BODY_SPEED }; }
 
+  /* ── counter animation (outcome numbers) ───────────────── */
+  function fmtNum(n) { return n.toLocaleString("en-US"); }
+  function animateCount(el, ctx) {
+    var target = +el.dataset.count, dur = 1150, t0 = now();
+    (function tick() {
+      if (ctx && ctx.cancelled) { el.textContent = fmtNum(target); return; }
+      var p = Math.min(1, (now() - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmtNum(Math.round(target * e));
+      if (p < 1) requestAnimationFrame(tick); else el.textContent = fmtNum(target);
+    })();
+  }
+  function countAll(sel, ctx) { $all(sel + " [data-count]").forEach(function (el) { animateCount(el, ctx); }); }
+  function countInstant(sel) { $all(sel + " [data-count]").forEach(function (el) { el.textContent = fmtNum(+el.dataset.count); }); }
+  function countReset(sel) { $all(sel + " [data-count]").forEach(function (el) { el.textContent = "0"; }); }
+
   /* ── headlines + body copy ─────────────────────────────── */
   var HL = {
     s1: { ops: [{ t: "A city that " }, { pause: 260 }, { typo: { wrong: "stoped", fix: "stopped" } }, { t: " parking." }],
@@ -84,6 +102,22 @@
           emphasize: [{ phrase: "inside", kind: "underline" }] },
     s5: { ops: [{ t: "Every idea, " }, { typo: { wrong: "conected", fix: "connected" } }, { t: "." }],
           emphasize: [{ phrase: "connected", kind: "underline" }] }
+  };
+  var HL9 = { ops: [{ t: "Fewer cars is the mechanism. " }, { pause: 380 }, { t: "Space is the goal." }],
+              emphasize: [{ phrase: "Space", kind: "underline" }] };
+
+  /* typed body lines for the new pages */
+  var TXT = {
+    tw7:  bodySpec("Future of mobility as a service."),
+    tw10: { ops: [{ t: "Stadt.hub replaces what the car was hiding — " }, { pause: 320 }, { t: "space, access, a city for people first." }],
+            emphasize: [{ phrase: "space, access", kind: "bold" }], speed: BODY_SPEED },
+    tw11: bodySpec("Replace the private car without breaking the city."),
+    tw14: { ops: [{ t: "A hub is " }, { typo: { wrong: "nto", fix: "not" } }, { t: " a bus shelter." }],
+            emphasize: [{ phrase: "not", kind: "underline" }] },
+    tw18: bodySpec("68 hubs — 6 large, 19 medium, 43 small — so every door sits a short walk from one."),
+    tw19: bodySpec("Five zones, filtered permeability. Cars pulled to the edge; Porschestraße handed back to people."),
+    tw20: bodySpec("The centre goes largely car-free — not by banning mobility, but by replacing the private car."),
+    tw21: bodySpec("The L → M → S hierarchy drawn onto the city: bus between anchors, pod into districts, e-bike to the door.")
   };
 
   /* ── template-3 analyses (deployment-exact wording) ────── */
@@ -162,7 +196,7 @@
   function framesReset() { frameCtrls.forEach(function (c) { c.reset(); }); }
 
   /* ══════════════════════════════════════════════════════
-     SLIDE 3 — analysis gallery over the embedded real maps
+     URBAN STRUCTURE — analysis gallery over the embedded maps
   ══════════════════════════════════════════════════════ */
   var gPos = 0;
   var gChip = document.getElementById("g-chip");
@@ -203,7 +237,7 @@
   gActivate.addEventListener("click", activateMap);
 
   /* ══════════════════════════════════════════════════════
-     SLIDE 4 — hub viewer bridge + click-to-activate
+     HUB viewer bridge + click-to-activate
   ══════════════════════════════════════════════════════ */
   function hubSend(type) { try { hubFrame.contentWindow.postMessage({ type: type }, "*"); } catch (e) {} }
   function armHub() { hubHolder.classList.remove("activated"); hubVeil.classList.remove("blur"); hubVeil.classList.add("show"); }
@@ -213,8 +247,7 @@
   hubVeil.addEventListener("click", activateHub);
 
   /* ══════════════════════════════════════════════════════
-     SLIDE 5 — project brain bridge + click-to-activate
-     (mirrors the hub helpers with brain-* message types)
+     BRAIN bridge + click-to-activate (mirrors hub, brain-* types)
   ══════════════════════════════════════════════════════ */
   function brainSend(type) { try { brainFrame.contentWindow.postMessage({ type: type }, "*"); } catch (e) {} }
   function armBrain() { brainHolder.classList.remove("activated"); brainVeil.classList.remove("blur"); brainVeil.classList.add("show"); }
@@ -231,9 +264,55 @@
   });
 
   /* ══════════════════════════════════════════════════════
-     THE SLIDES
+     generic text slide (type + reveal, optional counters)
+  ══════════════════════════════════════════════════════ */
+  function txtSlide(id, opts) {
+    opts = opts || {};
+    var sel = "#" + id;
+    return {
+      el: $(sel), dark: !!opts.dark, kind: opts.kind || null,
+      play: async function (ctx) {
+        if (opts.revealFirst) {
+          await revealSeq(sel, ctx, opts.step || 380);
+          if (opts.tw) { await sleep(140, ctx); await TW.run($("#" + opts.tw.id), opts.tw.spec, ctx); }
+        } else {
+          if (opts.tw) { await TW.run($("#" + opts.tw.id), opts.tw.spec, ctx); await sleep(180, ctx); }
+          await revealSeq(sel, ctx, opts.step || 380);
+        }
+        if (opts.count) countAll(sel, ctx);
+        await sleep(opts.hold || 3200, ctx);
+      },
+      complete: function () {
+        if (opts.tw) TW.finalize($("#" + opts.tw.id), opts.tw.spec);
+        reveals(sel, true);
+        if (opts.count) countInstant(sel);
+      },
+      reset: function () {
+        if (opts.tw) TW.reset($("#" + opts.tw.id));
+        reveals(sel, false);
+        if (opts.count) countReset(sel);
+      }
+    };
+  }
+
+  /* wait for an embed's saved-view tour (or takeover / safety cap) */
+  function waitCycle(ctx, getResolve, setResolve) {
+    return new Promise(function (res) {
+      setResolve(res);
+      var t0 = now();
+      (function guard() {
+        if (!getResolve()) return;
+        if (ctx.cancelled || now() - t0 > 120000) { setResolve(null); res(); return; }
+        setTimeout(guard, 400);
+      })();
+    });
+  }
+
+  /* ══════════════════════════════════════════════════════
+     THE SLIDES  (DOM order s1 … s24)
   ══════════════════════════════════════════════════════ */
   var SLIDES = [
+    /* 1.1 landing */
     { el: $("#s1"), dark: true,
       play: async function (ctx) {
         $("#s1-kicker").classList.add("on");
@@ -241,36 +320,87 @@
         await TW.run($("#tw-1"), HL.s1, ctx);
         await sleep(280, ctx);
         await TW.run($("#tw-1sub"), HL.s1sub, ctx);
-        await sleep(3600, ctx);
+        await sleep(3400, ctx);
       },
       complete: function () { $("#s1-kicker").classList.add("on"); TW.finalize($("#tw-1"), HL.s1); TW.finalize($("#tw-1sub"), HL.s1sub); },
       reset: function () { $("#s1-kicker").classList.remove("on"); TW.reset($("#tw-1")); TW.reset($("#tw-1sub")); }
     },
+    /* 1.2 history */
     { el: $("#s2"), dark: false,
       play: async function (ctx) {
         await TW.run($("#tw-2"), HL.s2, ctx);
         await revealSeq("#s2", ctx, 460);
         for (var i = 0; i < frameCtrls.length; i++) { if (ctx.cancelled) break; frameCtrls[i].finalizeFirst(); await sleep(120, ctx); }
         framesAuto();
-        await sleep(5200, ctx);
+        await sleep(5000, ctx);
       },
       complete: function () { TW.finalize($("#tw-2"), HL.s2); reveals("#s2", true); framesReset(); framesAuto(); },
       reset: function () { TW.reset($("#tw-2")); reveals("#s2", false); framesReset(); }
     },
-    { el: $("#s3"), dark: false,
+    /* 1.3 today */
+    txtSlide("s3", { step: 300, hold: 3400 }),
+    /* 2.1 urban structure — live maps */
+    { el: $("#s4"), dark: false, kind: "map",
       play: async function (ctx) {
         armMap();
         for (var i = 0; i < A.length; i++) {
           if (ctx.cancelled) break;
           gPos = i; mapPost(i);
           await galleryText(i, true, ctx);
-          await sleep(6400, ctx);
+          await sleep(6200, ctx);
         }
       },
       complete: function () { mapPost(gPos); galleryText(gPos, false); armMap(); },
       reset: function () { }
     },
-    { el: $("#s4"), dark: true,
+    /* 3.1 problems */
+    txtSlide("s5", { step: 360, hold: 3400 }),
+    /* 3.2 potential */
+    txtSlide("s6", { step: 320, hold: 3600 }),
+    /* 4.1 vision */
+    txtSlide("s7", { dark: true, tw: { id: "tw-7", spec: TXT.tw7 }, step: 440, hold: 3600 }),
+    /* 4.2 outcomes — numbers */
+    txtSlide("s8", { step: 440, hold: 4000, count: true }),
+    /* 4.3 outcomes — the space returned (before/after wipe) */
+    { el: $("#s9"), dark: true,
+      play: async function (ctx) {
+        var st = $("#ba9"); st.classList.remove("wiped");
+        $("#s9-kicker").classList.add("on");
+        await sleep(500, ctx);
+        await TW.run($("#tw-9"), HL9, ctx);
+        await sleep(700, ctx);
+        st.classList.add("wiped");
+        await sleep(3400, ctx);
+      },
+      complete: function () { $("#s9-kicker").classList.add("on"); TW.finalize($("#tw-9"), HL9); $("#ba9").classList.add("wiped"); },
+      reset: function () { $("#s9-kicker").classList.remove("on"); TW.reset($("#tw-9")); $("#ba9").classList.remove("wiped"); }
+    },
+    /* 4.4 manifesto */
+    txtSlide("s10", { tw: { id: "tw-10", spec: TXT.tw10 }, step: 300, hold: 4200 }),
+    /* 5.1 strategy */
+    txtSlide("s11", { tw: { id: "tw-11", spec: TXT.tw11 }, step: 440, hold: 3600 }),
+    /* 5.2 hub system — S/M/L */
+    txtSlide("s12", { step: 520, hold: 3800 }),
+    /* 5.3 connections */
+    txtSlide("s13", { step: 360, hold: 3800 }),
+    /* 6.1 typology principles */
+    txtSlide("s14", { tw: { id: "tw-14", spec: TXT.tw14 }, step: 440, hold: 3400 }),
+    /* 6.2 S-hub */
+    txtSlide("s15", { step: 420, hold: 3400 }),
+    /* 6.3 M-hub */
+    txtSlide("s16", { step: 420, hold: 3400 }),
+    /* 6.4 L-hub */
+    txtSlide("s17", { step: 420, hold: 3600 }),
+    /* 7.1 locations */
+    txtSlide("s18", { revealFirst: true, tw: { id: "tw-18", spec: TXT.tw18 }, hold: 3800 }),
+    /* 7.2 strategy masterplan */
+    txtSlide("s19", { revealFirst: true, tw: { id: "tw-19", spec: TXT.tw19 }, hold: 3800 }),
+    /* 7.3 masterplan */
+    txtSlide("s20", { revealFirst: true, tw: { id: "tw-20", spec: TXT.tw20 }, hold: 3800 }),
+    /* 7.4 networks */
+    txtSlide("s21", { revealFirst: true, tw: { id: "tw-21", spec: TXT.tw21 }, hold: 3800 }),
+    /* 8.1 hub viewer */
+    { el: $("#s22"), dark: true, kind: "hub",
       play: async function (ctx) {
         hubClear(); hubTitle.classList.remove("faded");
         await sleep(400, ctx);
@@ -278,23 +408,16 @@
         await sleep(1100, ctx);
         hubTitle.classList.add("faded");
         hubSend("hub-kiosk-start");
-        await new Promise(function (res) {
-          hubCycleResolve = res;
-          var t0 = now();
-          (function guard() {
-            if (!hubCycleResolve) return;
-            if (ctx.cancelled || now() - t0 > 120000) { hubCycleResolve = null; res(); return; }
-            setTimeout(guard, 400);
-          })();
-        });
+        await waitCycle(ctx, function () { return hubCycleResolve; }, function (v) { hubCycleResolve = v; });
         if (ctx.cancelled) return;
         hubCTA();
-        await sleep(HUB_RESTART_MS, ctx);
+        await sleep(1600, ctx);
       },
       complete: function () { TW.finalize($("#tw-4"), HL.s4); hubTitle.classList.add("faded"); armHub(); },
       reset: function () { TW.reset($("#tw-4")); hubTitle.classList.remove("faded"); hubClear(); }
     },
-    { el: $("#s5"), dark: true,
+    /* 8.2 brain */
+    { el: $("#s23"), dark: true, kind: "brain",
       play: async function (ctx) {
         brainClear(); brainTitle.classList.remove("faded");
         await sleep(400, ctx);
@@ -302,24 +425,24 @@
         await sleep(1100, ctx);
         brainTitle.classList.add("faded");
         brainSend("brain-kiosk-start");
-        await new Promise(function (res) {
-          brainCycleResolve = res;
-          var t0 = now();
-          (function guard() {
-            if (!brainCycleResolve) return;
-            if (ctx.cancelled || now() - t0 > 120000) { brainCycleResolve = null; res(); return; }
-            setTimeout(guard, 400);
-          })();
-        });
+        await waitCycle(ctx, function () { return brainCycleResolve; }, function (v) { brainCycleResolve = v; });
         if (ctx.cancelled) return;
         brainCTA();
-        await sleep(HUB_RESTART_MS, ctx);
+        await sleep(1600, ctx);
       },
       complete: function () { TW.finalize($("#tw-5"), HL.s5); brainTitle.classList.add("faded"); armBrain(); },
       reset: function () { TW.reset($("#tw-5")); brainTitle.classList.remove("faded"); brainClear(); }
+    },
+    /* 8.3 close */
+    { el: $("#s24"), dark: true,
+      play: async function (ctx) { await sleep(5200, ctx); },
+      complete: function () { }, reset: function () { }
     }
   ];
   var N = SLIDES.length;
+  var MAP_I = SLIDES.findIndex(function (s) { return s.kind === "map"; });
+  var HUB_I = SLIDES.findIndex(function (s) { return s.kind === "hub"; });
+  var BRAIN_I = SLIDES.findIndex(function (s) { return s.kind === "brain"; });
 
   /* ══════════════════════════════════════════════════════
      CHROME + TRACK
@@ -346,11 +469,9 @@
   }
   function place(i) {
     idx = i; setTrack(i); updateChrome(i);
-    if (i === 3) { hubSend("hub-resume"); }
-    else { hubSend("hub-pause"); hubClear(); }        // pause off-screen GPU loop
-    if (i === 4) { brainSend("brain-resume"); }
-    else { brainSend("brain-pause"); brainClear(); }  // pause off-screen brain rAF
-    if (i === 2) armMap(); else gallery.classList.remove("activated");
+    if (i === HUB_I) { hubSend("hub-resume"); } else { hubSend("hub-pause"); hubClear(); }
+    if (i === BRAIN_I) { brainSend("brain-resume"); } else { brainSend("brain-pause"); brainClear(); }
+    if (i === MAP_I) armMap(); else if (gallery) gallery.classList.remove("activated");
   }
 
   /* ══════════════════════════════════════════════════════
@@ -436,9 +557,10 @@
 
   setInterval(function () {
     if (MODE !== "discover") return;
-    var limit = (idx === 3) ? HUB_RESTART_MS : IDLE_RESUME_MS;
+    var onLiveTool = (idx === HUB_I || idx === BRAIN_I);
+    var limit = onLiveTool ? HUB_RESTART_MS : IDLE_RESUME_MS;
     if (now() - lastInput < limit) return;
-    if (idx === 3) loopRestart();
+    if (onLiveTool) loopRestart();
     else { setModeUI(true); present(idx); }
   }, 1000);
 
