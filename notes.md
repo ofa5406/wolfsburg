@@ -5,6 +5,20 @@ Newest entries at the top. Add freely — this is a scratchpad, not a formal doc
 
 ---
 
+## 2026-07-07 — Full 24-page exhibition presentation built + deployed
+
+Refined + completed the outline (`exhibition/PRESENTATION-OUTLINE.md`), then grew
+`exhibition/deck/` from 5 slides into the whole self-running Summaery pitch-talk (§1 opening
+→ §8 tools/close). Added 7 new CSS template variants and rebuilt `deck.js` as a 24-slide
+engine (generic `txtSlide` builder + counters; map/hub/brain now keyed by slide `kind`, not
+a hardcoded index). **Made the deck the live homepage** (root redirect). Headless-verified
+(24 slides, 0 errors), pushed `ca34c09`, live at ofa5406.github.io/wolfsburg/. Two things
+still open: the **fleet number** (763 vs 1,300 — §4.2 shows 763 + a visible TODO) and the
+**S-hub** placeholder image. Next is a full-loop pacing pass. Details:
+`sessions/2026-07-07_kiosk-presentation/notes.md`.
+
+---
+
 ## 2026-07-06 — New exhibition deck (`exhibition/deck/`)
 
 Rebuilt the Summaery exhibit as a template deck after the kiosk got scrapped. Vertical fullpage,
