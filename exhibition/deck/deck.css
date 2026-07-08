@@ -523,9 +523,11 @@ body.on-dark .blist li b { color: var(--on-dark); }
 ═══════════════════════════════════════════════════════════ */
 .tdiag .stage { flex-direction: column; gap: clamp(18px, 3vh, 40px); }
 .tdiag-head { max-width: 34em; }
+#s12 .tdiag-head { max-width: none; }
+#s12 .tdiag-head h2 { white-space: nowrap; }
 /* S / M / L scale */
 .sml { flex: 1; position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 3vw, 60px); align-content: center; }
-.sml-axis { position: absolute; left: 4%; right: 4%; top: 30%; height: 1.5px; background: var(--ink-25); }
+.sml-axis { position: absolute; left: 0; right: 4%; top: 30%; height: 1.5px; background: var(--ink-25); }
 .sml-scale { position: absolute; left: 4%; right: 4%; top: calc(30% - 22px); display: flex; justify-content: space-between; font-size: var(--t-kicker); text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-45); }
 .sml-node { position: relative; padding-top: calc(30% + 4px); }
 .sml-node::before { content: ''; position: absolute; left: 0; top: 30%; width: 13px; height: 13px; border-radius: 50%; background: var(--ink); transform: translateY(-50%); }
@@ -595,7 +597,7 @@ body.on-dark .blist li b { color: var(--on-dark); }
 /* ═══════════════════════════════════════════════════════════
    T-STAGE-COLUMN — vertical centred content (strategy / SAE reuse)
 ═══════════════════════════════════════════════════════════ */
-.tcol .stage { flex-direction: column; justify-content: center; gap: clamp(18px, 3vh, 40px); }
+.tcol .stage { flex-direction: column; justify-content: center; gap: clamp(32px, 6vh, 72px); }
 .tcol-head { max-width: 30em; }
 .sae-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 3vw, 56px); }
 .sae-3 .w { font-size: clamp(2rem, 4.4vw, 4rem); font-weight: 800; letter-spacing: -0.02em; color: var(--accent); }
