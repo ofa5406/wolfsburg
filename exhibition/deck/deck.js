@@ -234,6 +234,60 @@
   gActivate.addEventListener("click", activateMap);
 
   /* ══════════════════════════════════════════════════════
+     PROBLEMS — switching word column (3.1)
+  ══════════════════════════════════════════════════════ */
+  var PROBLEM_COUNT = $all("#s5 .tprob-word").length;
+  function problemsSet(i) {
+    $all("#s5 .tprob-word").forEach(function (el) { el.classList.toggle("active", +el.dataset.i === i); });
+    $all("#s5 .tprob-list").forEach(function (el) { el.classList.toggle("active", +el.dataset.i === i); });
+  }
+  $all("#s5 .tprob-word").forEach(function (el) {
+    el.addEventListener("click", function () { onInput(); problemsSet(+el.dataset.i); });
+  });
+
+  /* ══════════════════════════════════════════════════════
+     HUB PLACEMENT — static analysis cycle (5.4)
+  ══════════════════════════════════════════════════════ */
+  var HUBPLACE = [
+    { chip: "01 · Hub Placement", title: "Hub placement",
+      desc: "A three-tier shared mobility network enabling seamless mode-chaining across the city — e-bike, autonomous shuttle, and shared pod — without a private vehicle." },
+    { chip: "02 · Network Hubs", title: "Network hubs",
+      desc: "By introducing the hub network, the city gains the opportunity to become progressively more connected — beginning with districts closest to the centre, and gradually extending mobility coverage to more remote settlements as the network expands." },
+    { chip: "03 · Facility Network", title: "Facility network",
+      desc: "The facility network analysis shows that proposed hub locations substantially improve non-motorised access to urban amenities across all districts. Areas where current walking and cycling accessibility scores are lowest — peripheral residential districts — benefit most from hub-mediated connectivity. Hub placement transforms mobility gaps into connected catchments, enabling residents to reach everyday destinations without a private vehicle." },
+    { chip: "04 · External Flows", title: "External flows",
+      desc: "Integrating external commuter flows into the hub network is critical for reducing the volume of private vehicles entering the city. By positioning Hub L nodes at the main entry points, the system creates a seamless transition from regional transport to the internal shared mobility network — making it practical for Einpendler to leave their cars outside the city boundary and complete their journey by shared mobility means." }
+  ];
+  var HP_INDEX = ["01", "02", "03", "04"];
+  var hp3Index = document.getElementById("hp3-index");
+  var hpChip = document.getElementById("hp-chip");
+  var hpDots = document.getElementById("hp-dots");
+  var hpLegend = document.getElementById("hp-legend");
+  var hpImgs = $all("#hp-gallery .hp-img");
+  (function buildHpDots() {
+    if (!hpDots) return;
+    HUBPLACE.forEach(function (_, i) { var b = document.createElement("b"); if (i === 0) b.classList.add("on"); hpDots.appendChild(b); });
+    $all("#hp-dots b").forEach(function (b, i) { b.addEventListener("click", function (e) { e.stopPropagation(); onInput(); hpText(i, false); }); });
+  })();
+  function hpSpec(h) { return { ops: [{ t: h.title }], emphasize: [] }; }
+  function hpShow(i) {
+    hpImgs.forEach(function (im, k) { im.classList.toggle("active", k === i); });
+    if (hp3Index) hp3Index.textContent = HP_INDEX[i];
+    if (hpChip) hpChip.textContent = HUBPLACE[i].chip;
+    $all("#hp-dots b").forEach(function (b, k) { b.classList.toggle("on", k === i); });
+    if (hpLegend) hpLegend.classList.toggle("show", i === 0);
+  }
+  async function hpText(i, typeIt, ctx) {
+    hpShow(i);
+    if (typeIt && ctx) {
+      await TW.run($("#tw-13h"), hpSpec(HUBPLACE[i]), ctx);
+      await TW.run($("#tw-13hdesc"), bodySpec(HUBPLACE[i].desc), ctx);
+    } else {
+      TW.finalize($("#tw-13h"), hpSpec(HUBPLACE[i])); TW.finalize($("#tw-13hdesc"), bodySpec(HUBPLACE[i].desc));
+    }
+  }
+
+  /* ══════════════════════════════════════════════════════
      HUB viewer bridge + click-to-activate
   ══════════════════════════════════════════════════════ */
   function hubSend(type) { try { hubFrame.contentWindow.postMessage({ type: type }, "*"); } catch (e) {} }
@@ -435,10 +489,20 @@
       complete: function () { mapPost(gPos); galleryText(gPos, false); armMap(); },
       reset: function () { }
     },
-    /* 3.1 problems */
-    txtSlide("s5", { step: 360, hold: 3400 }),
-    /* 3.2 potential */
-    txtSlide("s6", { step: 320, hold: 3600 }),
+    /* 3.1 problems — switching word column */
+    { el: $("#s5"), dark: false,
+      play: async function (ctx) {
+        for (var i = 0; i < PROBLEM_COUNT; i++) {
+          if (ctx.cancelled) break;
+          problemsSet(i);
+          await sleep(4000, ctx);
+        }
+      },
+      complete: function () { problemsSet(PROBLEM_COUNT - 1); },
+      reset: function () { problemsSet(0); }
+    },
+    /* 3.2 potential — title + staggered word cascade */
+    txtSlide("s6", { step: 100, hold: 3800 }),
     /* 4.1 vision — integrated · accessible · social (T2 gallery) */
     txtSlide("s7", { step: 420, hold: 3600 }),
     /* 4.2 outcomes — numbers + full-bleed dot-matrix */
@@ -473,6 +537,18 @@
     txtSlide("s12", { step: 520, hold: 3800 }),
     /* 5.3 connections */
     txtSlide("s13", { step: 360, hold: 3800 }),
+    /* 5.4 hub placement — static analysis cycle */
+    { el: $("#s13h"), dark: false,
+      play: async function (ctx) {
+        for (var i = 0; i < HUBPLACE.length; i++) {
+          if (ctx.cancelled) break;
+          await hpText(i, true, ctx);
+          await sleep(5000, ctx);
+        }
+      },
+      complete: function () { hpText(0, false); },
+      reset: function () { hpShow(0); }
+    },
     /* 6.1 typology — hub system (interactive plans) */
     txtSlide("s14", { step: 460, hold: 3800 }),
     /* 6.2 S-hub */
@@ -554,7 +630,7 @@
   function setTrack(i) { track.style.setProperty("--i", i); }
   /* section index shown top-right (X.Y scheme, DOM order s1 … s24) */
   var SLIDE_INDEX = ["1.1", "1.2", "1.3", "2.1", "3.1", "3.2", "4.1", "4.2", "4.3", "4.4",
-    "5.1", "5.2", "5.3", "6.1", "6.2", "6.3", "6.4", "7.1", "7.2", "7.3", "7.4", "8.1", "8.2", "8.3"];
+    "5.1", "5.2", "5.3", "5.4", "6.1", "6.2", "6.3", "6.4", "7.1", "7.2", "7.3", "7.4", "8.1", "8.2", "8.3"];
   var slideIndexEl = document.getElementById("slide-index");
   function updateChrome(i) {
     counter.textContent = pad(i + 1) + " / " + pad(N);
