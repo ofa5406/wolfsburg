@@ -362,6 +362,8 @@
               <iframe id="hp-map-embed" src="hpmapembed/index.html" title="Hub Placement · Three-Tier Network" allow="fullscreen"></iframe>
               <div class="g-activate" id="hp-activate"><span class="ga-hint">▸ click to explore the map</span></div>
               <div class="g-chip" id="hp-chip">01 · Hub Placement</div>
+              <button class="g-arrow prev" id="hp-prev" aria-label="Previous analysis"><svg viewBox="0 0 24 24"><polyline points="15 5 8 12 15 19"/></svg></button>
+              <button class="g-arrow next" id="hp-next" aria-label="Next analysis"><svg viewBox="0 0 24 24"><polyline points="9 5 16 12 9 19"/></svg></button>
               <div class="g-dots" id="hp-dots"></div>
             </div>
           </div>
@@ -459,45 +461,22 @@
         </div>
       </section>
 
-      <!-- ═══════ 6.5 · FLEET DISTRIBUTION — T-FLEET (live map, full-width) ═══════ -->
-      <section class="slide tfleet" id="s17f">
+      <!-- ═══════ 6.5 · FLEET DISTRIBUTION — T3 (live map, static Axonometry) ═══════ -->
+      <section class="slide t3" id="s17f">
         <div class="stage">
-          <div class="tfleet-head">
-            <h2 class="brk-sm"><span class="b">&lt;</span>FLEET DISTRIBUTION<span class="b">&gt;</span></h2>
+          <div class="t3-left">
+            <div class="t3-index" id="fleet-index">01</div>
+            <h2 class="t3-title"><span class="tw" id="tw-17f"></span></h2>
             <p class="s-hook"><span class="tw" data-hook="what does each hub actually hold?"></span></p>
+            <p class="t3-desc"><span class="tw" id="tw-17fdesc"></span></p>
+            <ul class="fc-mix" id="fleet-mix-list"></ul>
+            <div class="fc-total"><span>Total fleet (tier)</span><b id="fleet-total-val"></b></div>
           </div>
-          <div class="tfleet-map" id="tfleet-map">
-            <iframe id="fleet-map-embed" src="fleetembed/index.html" title="Fleet · Axonometry" allow="fullscreen"></iframe>
-            <div class="g-activate" id="fleet-activate"><span class="ga-hint">▸ click to explore the map</span></div>
-            <div class="g-chip">Fleet &middot; Axonometry</div>
-          </div>
-          <div class="tfleet-cards">
-            <div class="fleet-card reveal" data-r="0">
-              <div class="fc-head"><i style="background:#1A1A1A"></i><span class="fc-tier">Hub L</span><span class="fc-desc">Large interchange &middot; multi-level parking garage</span></div>
-              <ul class="fc-mix">
-                <li><i style="background:#E67E22"></i><span>Car-Share EV</span><b>175</b></li>
-                <li><i style="background:#2C3E50"></i><span>Auto Bus</span><b>33</b></li>
-                <li><i style="background:#8E44AD"></i><span>Auto Shuttle</span><b>28</b></li>
-                <li><i style="background:#2980B9"></i><span>Auto Pod</span><b>111</b></li>
-              </ul>
-              <div class="fc-total"><span>Total fleet (tier)</span><b>&asymp; 347</b></div>
-            </div>
-            <div class="fleet-card reveal" data-r="1">
-              <div class="fc-head"><i style="background:#2D6A4F"></i><span class="fc-tier">Hub M</span><span class="fc-desc">District hub &middot; underground parking</span></div>
-              <ul class="fc-mix">
-                <li><i style="background:#8E44AD"></i><span>Auto Shuttle</span><b>28</b></li>
-                <li><i style="background:#2980B9"></i><span>Auto Pod</span><b>185</b></li>
-                <li><i style="background:#27AE60"></i><span>E-Bike</span><b>193</b></li>
-              </ul>
-              <div class="fc-total"><span>Total fleet (tier)</span><b>&asymp; 406</b></div>
-            </div>
-            <div class="fleet-card reveal" data-r="2">
-              <div class="fc-head"><i style="background:#95B8A0"></i><span class="fc-tier">Hub S</span><span class="fc-desc">Micro-hub &middot; on-street docking point</span></div>
-              <ul class="fc-mix">
-                <li><i style="background:#27AE60"></i><span>E-Bike</span><b>449</b></li>
-                <li><i style="background:#2980B9"></i><span>Auto Pod</span><b>74</b></li>
-              </ul>
-              <div class="fc-total"><span>Total fleet (tier)</span><b>&asymp; 523</b></div>
+          <div class="t3-right">
+            <div class="gallery" id="fleet-gallery">
+              <iframe id="fleet-map-embed" src="fleetembed/index.html" title="Fleet · Axonometry" allow="fullscreen"></iframe>
+              <div class="g-activate" id="fleet-activate"><span class="ga-hint">▸ click to explore the map</span></div>
+              <div class="g-chip">Fleet &middot; Axonometry</div>
             </div>
           </div>
         </div>

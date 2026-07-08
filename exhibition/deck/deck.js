@@ -287,6 +287,10 @@
     HUBPLACE.forEach(function (_, i) { var b = document.createElement("b"); if (i === 0) b.classList.add("on"); hpDots.appendChild(b); });
     $all("#hp-dots b").forEach(function (b, i) { b.addEventListener("click", function (e) { e.stopPropagation(); onInput(); hpText(i, false); }); });
   })();
+  var hpPrev = document.getElementById("hp-prev");
+  var hpNext = document.getElementById("hp-next");
+  hpPrev && hpPrev.addEventListener("click", function (e) { e.stopPropagation(); onInput(); hpText(((hpPos - 1) % HUBPLACE.length + HUBPLACE.length) % HUBPLACE.length, false); });
+  hpNext && hpNext.addEventListener("click", function (e) { e.stopPropagation(); onInput(); hpText((hpPos + 1) % HUBPLACE.length, false); });
   function hpPost(i) { try { hpFrame.contentWindow.postMessage({ type: "deck-set-section", index: i }, "*"); } catch (e) {} }
   hpFrame && hpFrame.addEventListener("load", function () { hpPost(hpPos); });
   function hpSpec(h) { return { ops: [{ t: h.title }], emphasize: [] }; }
@@ -312,14 +316,45 @@
   hpActivate && hpActivate.addEventListener("click", activateHpMap);
 
   /* ══════════════════════════════════════════════════════
-     FLEET DISTRIBUTION — live map, real tool (Fleet · Axonometry)
-     click-to-activate only; the embed drives its own slow spin
+     FLEET DISTRIBUTION — T3 (5.4): left text cycles Hub L/M/S
+     every 3s, right is the real Fleet · Axonometry map (static)
   ══════════════════════════════════════════════════════ */
-  var fleetMap = document.getElementById("tfleet-map");
+  var FLEET_TIERS = [
+    { index: "01", tier: "Hub L", desc: "Large interchange · multi-level parking garage", total: 347,
+      mix: [ { label: "Car-Share EV", color: "#E67E22", total: 175 }, { label: "Auto Bus", color: "#2C3E50", total: 33 },
+             { label: "Auto Shuttle", color: "#8E44AD", total: 28 }, { label: "Auto Pod", color: "#2980B9", total: 111 } ] },
+    { index: "02", tier: "Hub M", desc: "District hub · underground parking", total: 406,
+      mix: [ { label: "Auto Shuttle", color: "#8E44AD", total: 28 }, { label: "Auto Pod", color: "#2980B9", total: 185 },
+             { label: "E-Bike", color: "#27AE60", total: 193 } ] },
+    { index: "03", tier: "Hub S", desc: "Micro-hub · on-street docking point", total: 523,
+      mix: [ { label: "E-Bike", color: "#27AE60", total: 449 }, { label: "Auto Pod", color: "#2980B9", total: 74 } ] }
+  ];
+  var fleetIndexEl = document.getElementById("fleet-index");
+  var fleetMixList = document.getElementById("fleet-mix-list");
+  var fleetTotalVal = document.getElementById("fleet-total-val");
+  var fleetGallery = document.getElementById("fleet-gallery");
   var fleetActivate = document.getElementById("fleet-activate");
-  function armFleetMap() { fleetMap && fleetMap.classList.remove("activated"); }
-  function activateFleetMap() { fleetMap && fleetMap.classList.add("activated"); onInput(); }
+  function armFleetMap() { fleetGallery && fleetGallery.classList.remove("activated"); }
+  function activateFleetMap() { fleetGallery && fleetGallery.classList.add("activated"); onInput(); }
   fleetActivate && fleetActivate.addEventListener("click", activateFleetMap);
+  function fleetSpec(t) { return { ops: [{ t: t.tier }], emphasize: [] }; }
+  function fleetShow(i) {
+    var t = FLEET_TIERS[i];
+    if (fleetIndexEl) fleetIndexEl.textContent = t.index;
+    if (fleetMixList) fleetMixList.innerHTML = t.mix.map(function (m) {
+      return '<li><i style="background:' + m.color + '"></i><span>' + m.label + '</span><b>' + m.total + '</b></li>';
+    }).join("");
+    if (fleetTotalVal) fleetTotalVal.textContent = "≈ " + t.total;
+  }
+  async function fleetText(i, typeIt, ctx) {
+    var t = FLEET_TIERS[i]; fleetShow(i);
+    if (typeIt && ctx) {
+      await TW.run($("#tw-17f"), fleetSpec(t), ctx);
+      await TW.run($("#tw-17fdesc"), bodySpec(t.desc), ctx);
+    } else {
+      TW.finalize($("#tw-17f"), fleetSpec(t)); TW.finalize($("#tw-17fdesc"), bodySpec(t.desc));
+    }
+  }
 
   /* ══════════════════════════════════════════════════════
      HUB viewer bridge + click-to-activate
@@ -599,15 +634,18 @@
     txtSlide("s16", { step: 420, hold: 3400 }),
     /* 6.4 L-hub */
     txtSlide("s17", { step: 420, hold: 3600 }),
-    /* 6.5 fleet distribution — live map (self-spinning), hub profile cards */
+    /* 6.5 fleet distribution — text cycles Hub L/M/S every 3s, static Axonometry map */
     { el: $("#s17f"), dark: false, kind: "fleet",
       play: async function (ctx) {
         armFleetMap();
-        await revealSeq("#s17f", ctx, 260);
-        await sleep(4200, ctx);
+        for (var i = 0; i < FLEET_TIERS.length; i++) {
+          if (ctx.cancelled) break;
+          await fleetText(i, true, ctx);
+          await sleep(3000, ctx);
+        }
       },
-      complete: function () { reveals("#s17f", true); armFleetMap(); },
-      reset: function () { reveals("#s17f", false); }
+      complete: function () { fleetText(0, false); armFleetMap(); },
+      reset: function () { fleetShow(0); }
     },
     /* 7.1 locations */
     txtSlide("s18", { revealFirst: true, tw: { id: "tw-18", spec: TXT.tw18 }, hold: 3800 }),
@@ -704,7 +742,7 @@
     if (i === BRAIN_I) { brainSend("brain-resume"); } else { brainSend("brain-pause"); brainClear(); }
     if (i === MAP_I) armMap(); else if (gallery) gallery.classList.remove("activated");
     if (i === HP_I) armHpMap(); else if (hpGallery) hpGallery.classList.remove("activated");
-    if (i === FLEET_I) armFleetMap(); else if (fleetMap) fleetMap.classList.remove("activated");
+    if (i === FLEET_I) armFleetMap(); else if (fleetGallery) fleetGallery.classList.remove("activated");
     hubScenesReset();
   }
 
