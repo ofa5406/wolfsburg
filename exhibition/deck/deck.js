@@ -546,7 +546,7 @@
     },
     /* 4.1 vision — integrated · accessible · social (T2 gallery) */
     txtSlide("s7", { step: 420, hold: 3600 }),
-    /* 4.2 outcomes — numbers + full-bleed dot-matrix */
+    /* 4.2 accessible — numbers + full-bleed dot-matrix */
     { el: $("#s8"), dark: false,
       play: async function (ctx) {
         await revealSeq("#s8", ctx, 360);
@@ -611,12 +611,10 @@
     },
     /* 7.1 locations */
     txtSlide("s18", { revealFirst: true, tw: { id: "tw-18", spec: TXT.tw18 }, hold: 3800 }),
-    /* 7.2 strategy masterplan */
-    txtSlide("s19", { revealFirst: true, tw: { id: "tw-19", spec: TXT.tw19 }, hold: 3800 }),
+    /* 7.2 network sequence — gif loop */
+    txtSlide("s-xf", { revealFirst: true, hold: 10000 }),
     /* 7.3 masterplan */
     txtSlide("s20", { revealFirst: true, tw: { id: "tw-20", spec: TXT.tw20 }, hold: 3800 }),
-    /* 7.4 networks */
-    txtSlide("s21", { revealFirst: true, tw: { id: "tw-21", spec: TXT.tw21 }, hold: 3800 }),
     /* 8.1 hub viewer */
     { el: $("#s22"), dark: true, kind: "hub",
       play: async function (ctx) {
@@ -684,7 +682,7 @@
   function setTrack(i) { track.style.setProperty("--i", i); }
   /* section index shown top-right (X.Y scheme, DOM order s1 … s24) */
   var SLIDE_INDEX = ["1.1", "1.2", "1.3", "2.1", "3.1", "3.2", "4.1", "4.2", "4.3", "4.4",
-    "5.1", "5.2", "5.3", "5.4", "6.1", "6.2", "6.3", "6.4", "6.5", "7.1", "7.2", "7.3", "7.4", "8.1", "8.2", "8.3"];
+    "5.1", "5.2", "5.3", "5.4", "6.1", "6.2", "6.3", "6.4", "6.5", "7.1", "7.2", "7.3", "8.1", "8.2", "8.3"];
   var slideIndexEl = document.getElementById("slide-index");
   function updateChrome(i) {
     counter.textContent = pad(i + 1) + " / " + pad(N);
