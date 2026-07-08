@@ -96,8 +96,6 @@
           emphasize: [{ phrase: "stopped parking", kind: "bold" }] },
     s1sub: bodySpec("Built around the car, reimagined around mobility hubs, and the public life that parking took away.",
           [{ phrase: "mobility hubs", kind: "bold" }]),
-    s2: { ops: [{ t: "Built to " }, { typo: { wrong: "buidl", fix: "build" } }, { t: " cars." }],
-          emphasize: [{ phrase: "build", kind: "underline" }] },
     s4: { ops: [{ t: "Step " }, { typo: { wrong: "insdie", fix: "inside" } }, { t: " one hub." }],
           emphasize: [{ phrase: "inside", kind: "underline" }] },
     s5: { ops: [{ t: "Every idea, " }, { typo: { wrong: "conected", fix: "connected" } }, { t: "." }],
@@ -152,47 +150,33 @@
   /* ══════════════════════════════════════════════════════
      SLIDE 2 — per-image history frames (each image its own text)
   ══════════════════════════════════════════════════════ */
-  var FRAME_CONTENT = [
-    [ { year: "1938", label: "Fallersleben", desc: "Founded beside Fallersleben castle to house the new people's-car factory." },
-      { year: "1938", label: "From the fields", desc: "Laid out from scratch on open farmland, a city planned around a plant." } ],
-    [ { year: "1950s", label: "The line", desc: "The Beetle leaves the line by the million; the town grows with the works." },
-      { year: "1950s", label: "Shift change", desc: "Daily life times itself to the factory gate and the drive home." } ],
-    [ { year: "Today", label: "Parking fields", desc: "Surface lots and multi-storey garages hold the city's stationary cars." },
-      { year: "Today", label: "Wide roads", desc: "Oversized junctions and carriageways cut the neighbourhoods apart." },
-      { year: "Today", label: "The commute", desc: "Rush hour still means one person, one car, one queue." } ]
-  ];
   var frameCtrls = [];
   (function buildFrames() {
-    $all("#s2 [data-frame]").forEach(function (frame, fi) {
+    $all("#s2 [data-frame]").forEach(function (frame) {
       var imgs = Array.prototype.slice.call(frame.querySelectorAll(".frame-imgs img"));
-      var content = FRAME_CONTENT[fi] || [];
       var dotsHost = frame.querySelector(".fr-dots");
-      var yrEl = frame.querySelector(".yr"), lblEl = frame.querySelector(".lbl");
-      var descEl = frame.querySelector(".cap-desc .tw");
       imgs.forEach(function (_, k) { var d = document.createElement("b"); if (k === 0) d.classList.add("on"); dotsHost.appendChild(d); });
       var dots = Array.prototype.slice.call(dotsHost.querySelectorAll("b"));
       var cur = 0;
-      function show(k, typeIt) {
+      function show(k) {
+        if (!imgs.length) return;
         k = ((k % imgs.length) + imgs.length) % imgs.length;
         imgs[cur].classList.remove("active"); dots[cur] && dots[cur].classList.remove("on");
         cur = k;
         imgs[cur].classList.add("active"); dots[cur] && dots[cur].classList.add("on");
-        var c = content[cur] || {};
-        if (yrEl) yrEl.textContent = c.year || "";
-        if (lblEl) lblEl.textContent = c.label || "";
-        if (descEl) { if (typeIt === false) TW.finalize(descEl, bodySpec(c.desc || "")); else TW.run(descEl, bodySpec(c.desc || ""), null); }
       }
-      frame.querySelector(".fr-arrow.prev").addEventListener("click", function (e) { e.stopPropagation(); onInput(); show(cur - 1, true); });
-      frame.querySelector(".fr-arrow.next").addEventListener("click", function (e) { e.stopPropagation(); onInput(); show(cur + 1, true); });
-      dots.forEach(function (b, k) { b.addEventListener("click", function (e) { e.stopPropagation(); onInput(); show(k, true); }); });
+      frame.querySelector(".fr-arrow.prev").addEventListener("click", function (e) { e.stopPropagation(); onInput(); show(cur - 1); });
+      frame.querySelector(".fr-arrow.next").addEventListener("click", function (e) { e.stopPropagation(); onInput(); show(cur + 1); });
+      dots.forEach(function (b, k) { b.addEventListener("click", function (e) { e.stopPropagation(); onInput(); show(k); }); });
       frameCtrls.push({
-        auto: function (ms) { ambient(function () { show(cur + 1, true); }, ms); },
-        reset: function () { cur = 0; show(0, false); },
-        finalizeFirst: function () { show(0, false); }
+        auto: function (ms) { ambient(function () { show(cur + 1); }, ms); },
+        reset: function () { cur = 0; show(0); },
+        finalizeFirst: function () { show(0); }
       });
     });
   })();
-  function framesAuto() { frameCtrls.forEach(function (c, i) { c.auto(4200 + i * 600); }); }
+  /* history galleries auto-loop, ~1.5 s per image (slight offset so they don't flip in sync) */
+  function framesAuto() { frameCtrls.forEach(function (c, i) { c.auto(1500 + i * 180); }); }
   function framesReset() { frameCtrls.forEach(function (c) { c.reset(); }); }
 
   /* ══════════════════════════════════════════════════════
@@ -473,14 +457,12 @@
     /* 1.2 history */
     { el: $("#s2"), dark: false,
       play: async function (ctx) {
-        await TW.run($("#tw-2"), HL.s2, ctx);
         await revealSeq("#s2", ctx, 460);
-        for (var i = 0; i < frameCtrls.length; i++) { if (ctx.cancelled) break; frameCtrls[i].finalizeFirst(); await sleep(120, ctx); }
         framesAuto();
         await sleep(5000, ctx);
       },
-      complete: function () { TW.finalize($("#tw-2"), HL.s2); reveals("#s2", true); framesReset(); framesAuto(); },
-      reset: function () { TW.reset($("#tw-2")); reveals("#s2", false); framesReset(); }
+      complete: function () { reveals("#s2", true); framesReset(); framesAuto(); },
+      reset: function () { reveals("#s2", false); framesReset(); }
     },
     /* 1.3 today */
     txtSlide("s3", { step: 300, hold: 3400 }),
