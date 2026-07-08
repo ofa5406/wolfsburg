@@ -342,10 +342,7 @@ body.discover .t3 .ga-hint { opacity: 1; }
 .t3 .g-dots b { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-25); transition: all 0.3s var(--ease); cursor: pointer; }
 .t3 .g-dots b.on { background: var(--ink); width: 18px; border-radius: 3px; }
 
-/* ── Hub Placement (5.4) — static analysis cycle inside the T3 gallery frame ── */
-.hp-gallery { position: relative; }
-.hp-gallery .hp-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s var(--ease); filter: grayscale(0.15) contrast(1.02); }
-.hp-gallery .hp-img.active { opacity: 1; }
+/* ── Hub Placement (5.4) — legend under the text, first view only ── */
 .hp-legend { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); opacity: 0; transition: opacity 0.5s var(--ease); }
 .hp-legend.show { opacity: 1; }
 .hp-legend-row { display: flex; align-items: center; gap: 9px; font-size: var(--t-cap); color: var(--ink-70); margin-top: 6px; }

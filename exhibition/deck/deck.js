@@ -246,7 +246,7 @@
   });
 
   /* ══════════════════════════════════════════════════════
-     HUB PLACEMENT — static analysis cycle (5.4)
+     HUB PLACEMENT — live map, real tool component (5.4)
   ══════════════════════════════════════════════════════ */
   var HUBPLACE = [
     { chip: "01 · Hub Placement", title: "Hub placement",
@@ -259,19 +259,24 @@
       desc: "Integrating external commuter flows into the hub network is critical for reducing the volume of private vehicles entering the city. By positioning Hub L nodes at the main entry points, the system creates a seamless transition from regional transport to the internal shared mobility network — making it practical for Einpendler to leave their cars outside the city boundary and complete their journey by shared mobility means." }
   ];
   var HP_INDEX = ["01", "02", "03", "04"];
+  var hpPos = 0;
+  var hpFrame = document.getElementById("hp-map-embed");
+  var hpGallery = document.getElementById("hp-gallery");
+  var hpActivate = document.getElementById("hp-activate");
   var hp3Index = document.getElementById("hp3-index");
   var hpChip = document.getElementById("hp-chip");
   var hpDots = document.getElementById("hp-dots");
   var hpLegend = document.getElementById("hp-legend");
-  var hpImgs = $all("#hp-gallery .hp-img");
   (function buildHpDots() {
     if (!hpDots) return;
     HUBPLACE.forEach(function (_, i) { var b = document.createElement("b"); if (i === 0) b.classList.add("on"); hpDots.appendChild(b); });
     $all("#hp-dots b").forEach(function (b, i) { b.addEventListener("click", function (e) { e.stopPropagation(); onInput(); hpText(i, false); }); });
   })();
+  function hpPost(i) { try { hpFrame.contentWindow.postMessage({ type: "deck-set-section", index: i }, "*"); } catch (e) {} }
+  hpFrame && hpFrame.addEventListener("load", function () { hpPost(hpPos); });
   function hpSpec(h) { return { ops: [{ t: h.title }], emphasize: [] }; }
   function hpShow(i) {
-    hpImgs.forEach(function (im, k) { im.classList.toggle("active", k === i); });
+    hpPos = i; hpPost(i);
     if (hp3Index) hp3Index.textContent = HP_INDEX[i];
     if (hpChip) hpChip.textContent = HUBPLACE[i].chip;
     $all("#hp-dots b").forEach(function (b, k) { b.classList.toggle("on", k === i); });
@@ -286,6 +291,10 @@
       TW.finalize($("#tw-13h"), hpSpec(HUBPLACE[i])); TW.finalize($("#tw-13hdesc"), bodySpec(HUBPLACE[i].desc));
     }
   }
+  /* click-to-activate — until clicked, scroll drives the page, not the map */
+  function armHpMap() { hpGallery && hpGallery.classList.remove("activated"); }
+  function activateHpMap() { hpGallery && hpGallery.classList.add("activated"); onInput(); }
+  hpActivate && hpActivate.addEventListener("click", activateHpMap);
 
   /* ══════════════════════════════════════════════════════
      HUB viewer bridge + click-to-activate
@@ -537,9 +546,10 @@
     txtSlide("s12", { step: 520, hold: 3800 }),
     /* 5.3 connections */
     txtSlide("s13", { step: 360, hold: 3800 }),
-    /* 5.4 hub placement — static analysis cycle */
-    { el: $("#s13h"), dark: false,
+    /* 5.4 hub placement — live map, real tool component */
+    { el: $("#s13h"), dark: false, kind: "hp",
       play: async function (ctx) {
+        armHpMap();
         for (var i = 0; i < HUBPLACE.length; i++) {
           if (ctx.cancelled) break;
           await hpText(i, true, ctx);
@@ -607,6 +617,7 @@
   ];
   var N = SLIDES.length;
   var MAP_I = SLIDES.findIndex(function (s) { return s.kind === "map"; });
+  var HP_I = SLIDES.findIndex(function (s) { return s.kind === "hp"; });
   var HUB_I = SLIDES.findIndex(function (s) { return s.kind === "hub"; });
   var BRAIN_I = SLIDES.findIndex(function (s) { return s.kind === "brain"; });
 
@@ -651,6 +662,7 @@
     if (i === HUB_I) { hubSend("hub-resume"); } else { hubSend("hub-pause"); hubClear(); }
     if (i === BRAIN_I) { brainSend("brain-resume"); } else { brainSend("brain-pause"); brainClear(); }
     if (i === MAP_I) armMap(); else if (gallery) gallery.classList.remove("activated");
+    if (i === HP_I) armHpMap(); else if (hpGallery) hpGallery.classList.remove("activated");
     hubScenesReset();
   }
 

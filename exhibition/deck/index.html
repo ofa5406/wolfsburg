@@ -344,7 +344,7 @@
         </div>
       </section>
 
-      <!-- ═══════ 5.4 · HUB PLACEMENT — T3 (static analysis cycle) ═══════ -->
+      <!-- ═══════ 5.4 · HUB PLACEMENT — T3 (live map, real tool component) ═══════ -->
       <section class="slide t3" id="s13h">
         <div class="stage">
           <div class="t3-left">
@@ -354,18 +354,15 @@
             <p class="t3-desc"><span class="tw" id="tw-13hdesc"></span></p>
             <div class="hp-legend" id="hp-legend">
               <div class="kick" style="margin-bottom:10px;">Hub tiers</div>
-              <div class="hp-legend-row"><i style="background:var(--accent)"></i><span>S &middot; last-mile node</span></div>
-              <div class="hp-legend-row"><i style="background:var(--ink-70)"></i><span>M &middot; district hub</span></div>
-              <div class="hp-legend-row"><i style="background:var(--ink)"></i><span>L &middot; city anchor</span></div>
+              <div class="hp-legend-row"><i style="background:#3EA055"></i><span>S &middot; last-mile node</span></div>
+              <div class="hp-legend-row"><i style="background:#01796F"></i><span>M &middot; district hub</span></div>
+              <div class="hp-legend-row"><i style="background:#111111"></i><span>L &middot; city anchor</span></div>
             </div>
           </div>
           <div class="t3-right">
-            <div class="gallery hp-gallery" id="hp-gallery">
-              <img class="hp-img active" src="assets/diagrams/placeholder-grid.svg" alt="Hub placement">
-              <img class="hp-img" src="assets/diagrams/placeholder-grid.svg" alt="Network hubs">
-              <img class="hp-img" src="assets/diagrams/placeholder-grid.svg" alt="Facility network">
-              <img class="hp-img" src="assets/diagrams/placeholder-grid.svg" alt="External flows">
-              <div class="ph-badge"><span>PLACEHOLDER</span></div>
+            <div class="gallery" id="hp-gallery">
+              <iframe id="hp-map-embed" src="hpmapembed/index.html" title="Hub Placement · Three-Tier Network" allow="fullscreen"></iframe>
+              <div class="g-activate" id="hp-activate"><span class="ga-hint">▸ click to explore the map</span></div>
               <div class="g-chip" id="hp-chip">01 · Hub Placement</div>
               <div class="g-dots" id="hp-dots"></div>
             </div>
