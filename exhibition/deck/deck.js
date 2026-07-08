@@ -473,8 +473,8 @@
     txtSlide("s12", { step: 520, hold: 3800 }),
     /* 5.3 connections */
     txtSlide("s13", { step: 360, hold: 3800 }),
-    /* 6.1 typology — hub system (interactive plans) */
-    txtSlide("s14", { step: 460, hold: 3800 }),
+    /* 6.1 typology — axon diagrams + category palette */
+    txtSlide("s14", { step: 200, hold: 3800 }),
     /* 6.2 S-hub */
     txtSlide("s15", { step: 420, hold: 3400 }),
     /* 6.3 M-hub */
@@ -570,6 +570,31 @@
   function typeHook(i, ctx) { var el = hookTw(i); if (el) TW.run(el, hookSpec(el), ctx); }
   function finalizeHook(i) { var el = hookTw(i); if (el) TW.finalize(el, hookSpec(el)); }
 
+  /* ── before/after sliders (hub pages): wipe before→after on enter, drag to compare ── */
+  var baSliders = $all(".hp-ba");
+  function baSplit(el, pct) { el.style.setProperty("--split", Math.max(0, Math.min(100, pct)) + "%"); }
+  function baReset(el) { if (el) baSplit(el, 0); }
+  function baFinalize(el) { if (el) baSplit(el, 100); }
+  function baPlay(el, ctx) {
+    if (!el) return;
+    var t0 = now(), dur = 1600;
+    (function tick() {
+      if (ctx && ctx.cancelled) { baSplit(el, 100); return; }
+      var p = Math.min(1, (now() - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      baSplit(el, e * 100);
+      if (p < 1) requestAnimationFrame(tick);
+    })();
+  }
+  function slideBA(i) { return SLIDES[i] && SLIDES[i].el ? SLIDES[i].el.querySelector(".hp-ba") : null; }
+  baSliders.forEach(function (el) {
+    var dragging = false;
+    function setFromX(x) { var r = el.getBoundingClientRect(); baSplit(el, ((x - r.left) / r.width) * 100); }
+    el.addEventListener("pointerdown", function (e) { dragging = true; el.classList.add("activated"); setFromX(e.clientX); try { el.setPointerCapture(e.pointerId); } catch (_) {} });
+    el.addEventListener("pointermove", function (e) { if (dragging) setFromX(e.clientX); });
+    el.addEventListener("pointerup", function () { dragging = false; });
+    el.addEventListener("pointercancel", function () { dragging = false; });
+  });
+
   function place(i) {
     idx = i; setTrack(i); updateChrome(i);
     if (i === HUB_I) { hubSend("hub-resume"); } else { hubSend("hub-pause"); hubClear(); }
@@ -588,10 +613,10 @@
       clearAmbients();
       place(i);
       SLIDES[i].reset();
-      resetHook(i);
+      resetHook(i); baReset(slideBA(i));
       await sleep(i === startIdx ? 350 : PAGE_MS, ctx);
       if (ctx.cancelled) return;
-      typeHook(i, ctx);
+      typeHook(i, ctx); baPlay(slideBA(i), ctx);
       await SLIDES[i].play(ctx);
       if (ctx.cancelled) return;
     }
@@ -604,6 +629,7 @@
     brainSend("brain-kiosk-stop"); brainClear();
     clearAmbients();
     SLIDES.forEach(function (s, i) { s.reset(); resetHook(i); });
+    baSliders.forEach(baReset);
     framesReset();
     setModeUI(true);
     place(0);
@@ -613,7 +639,7 @@
   /* ══════════════════════════════════════════════════════
      DISCOVER + NAV
   ══════════════════════════════════════════════════════ */
-  function completeCurrent() { clearAmbients(); SLIDES[idx].reset(); SLIDES[idx].complete(); finalizeHook(idx); }
+  function completeCurrent() { clearAmbients(); SLIDES[idx].reset(); SLIDES[idx].complete(); finalizeHook(idx); baFinalize(slideBA(idx)); }
   function onInput() {
     lastInput = now();
     if (MODE === "present") { MODE = "discover"; gen++; setModeUI(false); completeCurrent(); }
@@ -622,7 +648,7 @@
     if (n < 0 || n >= N || n === idx || wheelLock) return;
     wheelLock = true; setTimeout(function () { wheelLock = false; }, WHEEL_COOLDOWN);
     place(n);
-    clearAmbients(); SLIDES[n].reset(); SLIDES[n].complete(); finalizeHook(n);
+    clearAmbients(); SLIDES[n].reset(); SLIDES[n].complete(); finalizeHook(n); baFinalize(slideBA(n));
   }
   function navGesture(dir) {
     var target = idx + dir;

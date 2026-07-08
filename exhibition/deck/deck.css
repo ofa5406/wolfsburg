@@ -545,24 +545,42 @@ body.discover .hs-hint { opacity: 1; }
 .thubsys-col { display: flex; flex-direction: column; min-height: 0; }
 .thubsys-col .hp-tier2 { font-size: clamp(1.15rem, 1.9vw, 1.7rem); font-weight: 800; letter-spacing: -0.01em; margin-bottom: 8px; }
 .thubsys-col .hp-tier2 .hp-sub { font-size: var(--t-cap); font-weight: 600; color: var(--ink-70); margin-left: 8px; letter-spacing: 0; }
-.thubsys-col .hubscene-holder { flex: 1; min-height: 0; border: var(--frame-w) solid var(--ink); }
-.thubsys-col .hp-mini { height: clamp(84px, 11vh, 140px); flex: 0 0 auto; position: relative; overflow: hidden; margin-top: 10px; border: 1px solid var(--line); }
-.thubsys-col .hp-mini img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.2) contrast(1.02); }
+/* 6.1 diagrams sit frameless on the page (no box / window) */
+.thubsys-col .hubscene-holder { flex: 1; min-height: 0; background: transparent; }
+.thubsys-col .hubscene-holder iframe { background: transparent; }
 .thubsys-col .hp-note { flex: 0 0 auto; margin-top: 10px; font-size: var(--t-body); font-weight: 300; color: var(--ink-70); line-height: 1.42; }
 
-/* T-HUBPAGE — pages 15/16/17: diagrams left, big render right */
+/* 6.1 category palette — kit-of-parts icons, upper-right, frameless, animate in */
+.tsys-palette { position: absolute; top: clamp(52px, 7.5vh, 92px); right: 0; z-index: 4;
+  display: flex; flex-wrap: wrap; justify-content: flex-end; align-content: flex-start;
+  gap: clamp(9px, 1vw, 16px); max-width: 44%; pointer-events: none; }
+.tp-ico { width: clamp(30px, 2.4vw, 40px); height: clamp(30px, 2.4vw, 40px); flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; }
+.tp-ico svg { width: 100%; height: 100%; }
+
+/* T-HUBPAGE — pages 15/16/17: 2×2 quad panel (left) + before/after slider (right) */
 .thubpage .stage { gap: var(--content-gap); align-items: stretch; }
-.hp-left { flex: 0 0 38%; min-width: 0; display: flex; flex-direction: column; }
+.hp-left { flex: 0 0 42%; min-width: 0; display: flex; flex-direction: column; }
 .hp-tier { font-size: clamp(1.7rem, 3.2vw, 2.8rem); font-weight: 800; line-height: 0.95; letter-spacing: -0.02em; }
 .hp-tier small { display: block; font-size: var(--t-lead); font-weight: 600; color: var(--ink-70); margin-top: 4px; }
 .hp-meta { display: flex; gap: 24px; margin: 14px 0; padding: 12px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .hp-meta .m .k { font-size: var(--t-kicker); text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-45); margin-bottom: 4px; }
 .hp-meta .m .v { font-size: var(--t-cap); font-weight: 700; }
-.hp-scene { flex: 1; min-height: 0; margin-top: 2px; border: var(--frame-w) solid var(--ink); }
-.hp-desc { margin-top: 12px; font-size: var(--t-body); font-weight: 300; color: var(--ink-70); line-height: 1.48; }
-.hp-right { flex: 1; position: relative; overflow: hidden; border: var(--frame-w) solid var(--ink); background: var(--paper-2); }
-.hp-right img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.hp-tag { position: absolute; bottom: 12px; right: 12px; z-index: 3; background: rgba(14,14,14,0.62); color: var(--on-dark); font-size: var(--t-kicker); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 6px 12px; }
+/* the interactive quad — frameless on the page */
+.hp-panel { flex: 1; min-height: 0; margin-top: 12px; background: transparent; }
+.hp-panel.hubscene-holder { background: transparent; }
+.hp-panel.hubscene-holder iframe { background: transparent; }
+
+/* before / after slider (right column) */
+.hp-ba { flex: 1; position: relative; overflow: hidden; border: var(--frame-w) solid var(--ink); background: var(--paper-2); --split: 0%; }
+.hp-ba img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; user-select: none; -webkit-user-drag: none; }
+.hp-ba .ba-after { clip-path: inset(0 calc(100% - var(--split)) 0 0); }
+.hp-ba .ba-divider { position: absolute; top: 0; bottom: 0; left: var(--split); width: 2px; transform: translateX(-1px); background: rgba(255,255,255,0.92); box-shadow: 0 0 0 1px rgba(14,14,14,0.28); z-index: 3; pointer-events: none; }
+.hp-ba .ba-divider::after { content: '‹ ›'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.94); box-shadow: 0 1px 6px rgba(0,0,0,0.32); color: var(--ink); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; letter-spacing: -1px; }
+.hp-ba.activated { cursor: ew-resize; }
+.hp-ba .ba-tag { position: absolute; bottom: 12px; z-index: 4; font-size: var(--t-kicker); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; background: rgba(14,14,14,0.62); color: var(--on-dark); padding: 6px 12px; }
+/* the wipe reveals AFTER from the left, so After sits left, Before right */
+.hp-ba .ba-tag--after { left: 12px; }
+.hp-ba .ba-tag--before { right: 12px; }
 
 @media (max-width: 900px) {
   .thubsys-grid { grid-template-columns: 1fr; }
