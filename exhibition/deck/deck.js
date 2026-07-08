@@ -248,7 +248,7 @@
      HUB PLACEMENT — live map, real tool component (5.4)
   ══════════════════════════════════════════════════════ */
   var HUBPLACE = [
-    { chip: "01 · Hub Placement", title: "Hub placement",
+    { chip: "01 · Hub Network", title: "Hub network",
       desc: "A three-tier shared mobility network enabling seamless mode-chaining across the city — e-bike, autonomous shuttle, and shared pod — without a private vehicle." },
     { chip: "02 · Network Hubs", title: "Network hubs",
       desc: "By introducing the hub network, the city gains the opportunity to become progressively more connected — beginning with districts closest to the centre, and gradually extending mobility coverage to more remote settlements as the network expands." },
