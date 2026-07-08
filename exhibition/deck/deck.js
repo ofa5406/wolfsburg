@@ -254,7 +254,7 @@
     $all("#s5 .tprob-list").forEach(function (el) { el.classList.toggle("active", +el.dataset.i === i); });
   }
   function problemsAuto() {
-    ambient(function () { problemsSet((problemCur + 1) % PROBLEM_COUNT); }, 4000);
+    ambient(function () { problemsSet((problemCur + 1) % PROBLEM_COUNT); }, 2000);
   }
   $all("#s5 .tprob-word").forEach(function (el) {
     el.addEventListener("click", function () { onInput(); problemsSet(+el.dataset.i); });
@@ -346,8 +346,17 @@
     }).join("");
     if (fleetTotalVal) fleetTotalVal.textContent = "≈ " + t.total;
   }
+  var fleetCur = 0;
+  function fleetAuto() {
+    ambient(function () {
+      fleetCur = (fleetCur + 1) % FLEET_TIERS.length;
+      fleetShow(fleetCur);
+      TW.finalize($("#tw-17f"), fleetSpec(FLEET_TIERS[fleetCur]));
+      TW.finalize($("#tw-17fdesc"), bodySpec(FLEET_TIERS[fleetCur].desc));
+    }, 2000);
+  }
   async function fleetText(i, typeIt, ctx) {
-    var t = FLEET_TIERS[i]; fleetShow(i);
+    var t = FLEET_TIERS[i]; fleetCur = i; fleetShow(i);
     if (typeIt && ctx) {
       await TW.run($("#tw-17f"), fleetSpec(t), ctx);
       await TW.run($("#tw-17fdesc"), bodySpec(t.desc), ctx);
@@ -563,7 +572,7 @@
       play: async function (ctx) {
         problemsSet(0);
         problemsAuto();
-        await sleep(PROBLEM_COUNT * 4000 + 200, ctx);
+        await sleep(PROBLEM_COUNT * 2000 + 200, ctx);
       },
       complete: function () { problemsSet(0); problemsAuto(); },
       reset: function () { problemsSet(0); }
@@ -634,17 +643,15 @@
     txtSlide("s16", { step: 420, hold: 3400 }),
     /* 6.4 L-hub */
     txtSlide("s17", { step: 420, hold: 3600 }),
-    /* 6.5 fleet distribution — text cycles Hub L/M/S every 3s, static Axonometry map */
+    /* 6.5 fleet distribution — text loops Hub L/M/S every 2s, static Axonometry map */
     { el: $("#s17f"), dark: false, kind: "fleet",
       play: async function (ctx) {
         armFleetMap();
-        for (var i = 0; i < FLEET_TIERS.length; i++) {
-          if (ctx.cancelled) break;
-          await fleetText(i, true, ctx);
-          await sleep(3000, ctx);
-        }
+        await fleetText(0, true, ctx);
+        fleetAuto();
+        await sleep(FLEET_TIERS.length * 2000 + 200, ctx);
       },
-      complete: function () { fleetText(0, false); armFleetMap(); },
+      complete: function () { fleetText(0, false); fleetAuto(); armFleetMap(); },
       reset: function () { fleetShow(0); }
     },
     /* 7.1 locations */
