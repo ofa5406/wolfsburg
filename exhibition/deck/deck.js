@@ -73,6 +73,15 @@
     var els = $all(sel + " .reveal").sort(function (a, b) { return (+a.dataset.r || 0) - (+b.dataset.r || 0); });
     for (var i = 0; i < els.length; i++) { if (ctx.cancelled) { els[i].classList.add("on"); continue; } els[i].classList.add("on"); await sleep(step || 650, ctx); }
   }
+  function shuffle(arr) {
+    arr = arr.slice();
+    for (var i = arr.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = arr[i]; arr[i] = arr[j]; arr[j] = t; }
+    return arr;
+  }
+  async function revealShuffled(sel, ctx, step) {
+    var els = shuffle($all(sel + " .reveal"));
+    for (var i = 0; i < els.length; i++) { if (ctx.cancelled) { els[i].classList.add("on"); continue; } els[i].classList.add("on"); await sleep(step || 100, ctx); }
+  }
   function bodySpec(text, emph) { return { ops: [{ t: text }], emphasize: emph || [], speed: BODY_SPEED }; }
 
   /* ── counter animation (outcome numbers) ───────────────── */
@@ -101,7 +110,8 @@
     s4: { ops: [{ t: "Step " }, { typo: { wrong: "insdie", fix: "inside" } }, { t: " one hub." }],
           emphasize: [{ phrase: "inside", kind: "underline" }] },
     s5: { ops: [{ t: "Every idea, " }, { typo: { wrong: "conected", fix: "connected" } }, { t: "." }],
-          emphasize: [{ phrase: "connected", kind: "underline" }] }
+          emphasize: [{ phrase: "connected", kind: "underline" }] },
+    s6title: { ops: [{ t: "Built for Yesterday, Ready for Tomorrow" }], emphasize: [] }
   };
   var HL9 = { ops: [{ t: "Fewer cars is the mechanism. " }, { pause: 380 }, { t: "Space is the goal." }],
               emphasize: [{ phrase: "Space", kind: "underline" }] };
@@ -237,9 +247,14 @@
      PROBLEMS — switching word column (3.1)
   ══════════════════════════════════════════════════════ */
   var PROBLEM_COUNT = $all("#s5 .tprob-word").length;
+  var problemCur = 0;
   function problemsSet(i) {
+    problemCur = i;
     $all("#s5 .tprob-word").forEach(function (el) { el.classList.toggle("active", +el.dataset.i === i); });
     $all("#s5 .tprob-list").forEach(function (el) { el.classList.toggle("active", +el.dataset.i === i); });
+  }
+  function problemsAuto() {
+    ambient(function () { problemsSet((problemCur + 1) % PROBLEM_COUNT); }, 4000);
   }
   $all("#s5 .tprob-word").forEach(function (el) {
     el.addEventListener("click", function () { onInput(); problemsSet(+el.dataset.i); });
@@ -295,6 +310,16 @@
   function armHpMap() { hpGallery && hpGallery.classList.remove("activated"); }
   function activateHpMap() { hpGallery && hpGallery.classList.add("activated"); onInput(); }
   hpActivate && hpActivate.addEventListener("click", activateHpMap);
+
+  /* ══════════════════════════════════════════════════════
+     FLEET DISTRIBUTION — live map, real tool (Fleet · Axonometry)
+     click-to-activate only; the embed drives its own slow spin
+  ══════════════════════════════════════════════════════ */
+  var fleetMap = document.getElementById("tfleet-map");
+  var fleetActivate = document.getElementById("fleet-activate");
+  function armFleetMap() { fleetMap && fleetMap.classList.remove("activated"); }
+  function activateFleetMap() { fleetMap && fleetMap.classList.add("activated"); onInput(); }
+  fleetActivate && fleetActivate.addEventListener("click", activateFleetMap);
 
   /* ══════════════════════════════════════════════════════
      HUB viewer bridge + click-to-activate
@@ -498,20 +523,27 @@
       complete: function () { mapPost(gPos); galleryText(gPos, false); armMap(); },
       reset: function () { }
     },
-    /* 3.1 problems — switching word column */
+    /* 3.1 problems — switching word column, loops continuously while on-slide */
     { el: $("#s5"), dark: false,
       play: async function (ctx) {
-        for (var i = 0; i < PROBLEM_COUNT; i++) {
-          if (ctx.cancelled) break;
-          problemsSet(i);
-          await sleep(4000, ctx);
-        }
+        problemsSet(0);
+        problemsAuto();
+        await sleep(PROBLEM_COUNT * 4000 + 200, ctx);
       },
-      complete: function () { problemsSet(PROBLEM_COUNT - 1); },
+      complete: function () { problemsSet(0); problemsAuto(); },
       reset: function () { problemsSet(0); }
     },
-    /* 3.2 potential — title + staggered word cascade */
-    txtSlide("s6", { step: 100, hold: 3800 }),
+    /* 3.2 potential — typed title, then words in shuffled 0.1s cascade */
+    { el: $("#s6"), dark: false,
+      play: async function (ctx) {
+        await TW.run($("#tw-6title"), HL.s6title, ctx);
+        await sleep(220, ctx);
+        await revealShuffled("#s6 .twords-cloud", ctx, 100);
+        await sleep(3400, ctx);
+      },
+      complete: function () { TW.finalize($("#tw-6title"), HL.s6title); reveals("#s6 .twords-cloud", true); },
+      reset: function () { TW.reset($("#tw-6title")); reveals("#s6 .twords-cloud", false); }
+    },
     /* 4.1 vision — integrated · accessible · social (T2 gallery) */
     txtSlide("s7", { step: 420, hold: 3600 }),
     /* 4.2 outcomes — numbers + full-bleed dot-matrix */
@@ -567,6 +599,16 @@
     txtSlide("s16", { step: 420, hold: 3400 }),
     /* 6.4 L-hub */
     txtSlide("s17", { step: 420, hold: 3600 }),
+    /* 6.5 fleet distribution — live map (self-spinning), hub profile cards */
+    { el: $("#s17f"), dark: false, kind: "fleet",
+      play: async function (ctx) {
+        armFleetMap();
+        await revealSeq("#s17f", ctx, 260);
+        await sleep(4200, ctx);
+      },
+      complete: function () { reveals("#s17f", true); armFleetMap(); },
+      reset: function () { reveals("#s17f", false); }
+    },
     /* 7.1 locations */
     txtSlide("s18", { revealFirst: true, tw: { id: "tw-18", spec: TXT.tw18 }, hold: 3800 }),
     /* 7.2 strategy masterplan */
@@ -618,6 +660,7 @@
   var N = SLIDES.length;
   var MAP_I = SLIDES.findIndex(function (s) { return s.kind === "map"; });
   var HP_I = SLIDES.findIndex(function (s) { return s.kind === "hp"; });
+  var FLEET_I = SLIDES.findIndex(function (s) { return s.kind === "fleet"; });
   var HUB_I = SLIDES.findIndex(function (s) { return s.kind === "hub"; });
   var BRAIN_I = SLIDES.findIndex(function (s) { return s.kind === "brain"; });
 
@@ -641,7 +684,7 @@
   function setTrack(i) { track.style.setProperty("--i", i); }
   /* section index shown top-right (X.Y scheme, DOM order s1 … s24) */
   var SLIDE_INDEX = ["1.1", "1.2", "1.3", "2.1", "3.1", "3.2", "4.1", "4.2", "4.3", "4.4",
-    "5.1", "5.2", "5.3", "5.4", "6.1", "6.2", "6.3", "6.4", "7.1", "7.2", "7.3", "7.4", "8.1", "8.2", "8.3"];
+    "5.1", "5.2", "5.3", "5.4", "6.1", "6.2", "6.3", "6.4", "6.5", "7.1", "7.2", "7.3", "7.4", "8.1", "8.2", "8.3"];
   var slideIndexEl = document.getElementById("slide-index");
   function updateChrome(i) {
     counter.textContent = pad(i + 1) + " / " + pad(N);
@@ -663,6 +706,7 @@
     if (i === BRAIN_I) { brainSend("brain-resume"); } else { brainSend("brain-pause"); brainClear(); }
     if (i === MAP_I) armMap(); else if (gallery) gallery.classList.remove("activated");
     if (i === HP_I) armHpMap(); else if (hpGallery) hpGallery.classList.remove("activated");
+    if (i === FLEET_I) armFleetMap(); else if (fleetMap) fleetMap.classList.remove("activated");
     hubScenesReset();
   }
 
