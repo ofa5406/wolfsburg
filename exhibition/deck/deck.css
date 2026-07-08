@@ -118,14 +118,28 @@ body.on-dark .brand { color: var(--on-dark); }
 .tw-caret.caret-always { animation: blink 1.05s steps(1) infinite !important; opacity: 1; margin-left: 3px; }
 .brand .tw-caret { height: 0.95em; }
 
-/* section index — top-right, on the title line, paired with the h1 (e.g. 3.1) */
-.slide-index {
-  top: calc(var(--frame-inset) + var(--content-gap) - 6px); right: calc(var(--frame-inset) + var(--content-gap));
+/* ── title + index header band — nested inside the top L-brackets ──
+   Both sit in the band the top L's define (top: frame-inset, height: frame-arm),
+   vertically centred in the arm. line-height:1 makes the text box = 1em, so the
+   top/bottom breathing space = (frame-arm − 1em)/2; the same value is used as the
+   left/right inset from the L, giving the title/index an equal margin to the corner.
+   Title is left-flush to the left L; index is right-flush to the right L; same size. */
+.slide-title, .slide-index {
+  top: var(--frame-inset); height: var(--frame-arm);
+  display: flex; align-items: center;
   font-size: var(--t-idx); font-weight: 700; letter-spacing: -0.01em;
-  color: var(--ink); font-variant-numeric: tabular-nums; line-height: 1;
-  transition: color 0.6s var(--ease);
+  line-height: 1; color: var(--ink); font-variant-numeric: tabular-nums;
+  transition: color 0.6s var(--ease); white-space: nowrap;
 }
-body.on-dark .slide-index { color: var(--on-dark); }
+.slide-title { left: var(--frame-inset);  padding-left:  calc((var(--frame-arm) - 1em) / 2); }
+.slide-index { right: var(--frame-inset); padding-right: calc((var(--frame-arm) - 1em) / 2); justify-content: flex-end; }
+.slide-title .bk { color: var(--ink-45); font-weight: 700; }
+body.on-dark .slide-title, body.on-dark .slide-index { color: var(--on-dark); }
+body.on-dark .slide-title .bk { color: var(--on-dark-dim); }
+
+/* generic left-aligned subhook (context line under a hook) + hub-page lead tagline */
+.s-subhook { font-size: var(--t-lead); font-weight: 400; line-height: 1.25; color: var(--ink-70); margin-top: 4px; }
+.hp-lead { font-size: var(--t-lead); font-weight: 600; letter-spacing: -0.01em; color: var(--ink); margin-bottom: 12px; }
 
 /* running counter N / 24 — bottom-right, clear of the up/down nav stack */
 .slide-counter {

@@ -710,10 +710,18 @@
   /* section index shown top-right (X.Y scheme, DOM order s1 … s24) */
   var SLIDE_INDEX = ["1.1", "1.2", "1.3", "2.1", "3.1", "3.2", "4.1", "4.2", "4.3", "4.4",
     "5.1", "5.2", "5.3", "5.4", "6.1", "6.2", "6.3", "6.4", "6.5", "7.1", "7.2", "7.3", "8.1", "8.2", "8.3"];
+  /* section titles — shown as chrome nested in the top-left L (1.1 has none) */
+  var SLIDE_NAMES = ["", "HISTORY", "TODAY", "URBAN STRUCTURE", "PROBLEMS", "POTENTIALS",
+    "VISION", "OUTCOMES", "GOAL", "IDEA", "STRATEGY", "HUB SYSTEM", "HUB CONNECTIONS",
+    "HUB NETWORK", "HUB TYPOLOGIES", "S-HUB", "M-HUB", "L-HUB", "HUB FLEET",
+    "PLACEMENT", "CONNECTION", "MASTERPLAN", "DISCOVER", "DATA", "PRESENTING"];
+  function titleHTML(name) { return name ? '<span class="bk">‹</span>' + name + '<span class="bk">›</span>' : ""; }
   var slideIndexEl = document.getElementById("slide-index");
+  var slideTitleEl = document.getElementById("slide-title");
   function updateChrome(i) {
     counter.textContent = pad(i + 1) + " / " + pad(N);
     if (slideIndexEl) slideIndexEl.textContent = SLIDE_INDEX[i] || "";
+    if (slideTitleEl) slideTitleEl.innerHTML = titleHTML(SLIDE_NAMES[i] || "");
     $all("#dots b").forEach(function (b, k) { b.classList.toggle("on", k === i); });
     document.body.classList.toggle("on-dark", !!SLIDES[i].dark);
   }
