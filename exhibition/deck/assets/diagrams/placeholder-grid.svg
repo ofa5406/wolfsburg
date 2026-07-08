@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#0E0E0E" stroke-opacity="0.10" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="400" height="400" fill="#ECEBE4"/>
+  <rect width="400" height="400" fill="url(#g)"/>
+  <g stroke="#0E0E0E" stroke-opacity="0.20" fill="none" stroke-width="1.6">
+    <path d="M120 150 L280 120 L250 280 L130 250 Z"/>
+    <path d="M120 150 L250 280"/>
+    <path d="M280 120 L130 250"/>
+  </g>
+  <g fill="#ECEBE4" stroke="#0E0E0E" stroke-opacity="0.30" stroke-width="1.6">
+    <circle cx="120" cy="150" r="12"/>
+    <circle cx="280" cy="120" r="12"/>
+    <circle cx="250" cy="280" r="12"/>
+    <circle cx="130" cy="250" r="12"/>
+  </g>
+</svg>

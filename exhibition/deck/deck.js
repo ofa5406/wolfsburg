@@ -94,7 +94,7 @@
   var HL = {
     s1: { ops: [{ t: "A city that " }, { pause: 260 }, { typo: { wrong: "stoped", fix: "stopped" } }, { t: " parking." }],
           emphasize: [{ phrase: "stopped parking", kind: "bold" }] },
-    s1sub: bodySpec("Built around the car, reimagined around mobility hubs — and the public life that parking took away.",
+    s1sub: bodySpec("Built around the car, reimagined around mobility hubs, and the public life that parking took away.",
           [{ phrase: "mobility hubs", kind: "bold" }]),
     s2: { ops: [{ t: "Built to " }, { typo: { wrong: "buidl", fix: "build" } }, { t: " cars." }],
           emphasize: [{ phrase: "build", kind: "underline" }] },
@@ -109,30 +109,30 @@
   /* typed body lines for the new pages */
   var TXT = {
     tw7:  bodySpec("Future of mobility as a service."),
-    tw10: { ops: [{ t: "Stadt.hub replaces what the car was hiding — " }, { pause: 320 }, { t: "space, access, a city for people first." }],
+    tw10: { ops: [{ t: "Stadt.hub replaces what the car was hiding, " }, { pause: 320 }, { t: "space, access, a city for people first." }],
             emphasize: [{ phrase: "space, access", kind: "bold" }], speed: BODY_SPEED },
     tw11: bodySpec("Replace the private car without breaking the city."),
     tw14: { ops: [{ t: "A hub is " }, { typo: { wrong: "nto", fix: "not" } }, { t: " a bus shelter." }],
             emphasize: [{ phrase: "not", kind: "underline" }] },
-    tw18: bodySpec("68 hubs — 6 large, 19 medium, 43 small — so every door sits a short walk from one."),
+    tw18: bodySpec("68 hubs (6 large, 19 medium, 43 small), so every door sits a short walk from one."),
     tw19: bodySpec("Five zones, filtered permeability. Cars pulled to the edge; Porschestraße handed back to people."),
-    tw20: bodySpec("The centre goes largely car-free — not by banning mobility, but by replacing the private car."),
+    tw20: bodySpec("The centre goes largely car-free, not by banning mobility, but by replacing the private car."),
     tw21: bodySpec("The L → M → S hierarchy drawn onto the city: bus between anchors, pod into districts, e-bike to the door.")
   };
 
   /* ── template-3 analyses (deployment-exact wording) ────── */
   var A = [
-    { index: "01", chip: "01 · Transport", kicker: "01 — Transport Analysis · OpenStreetMap",
+    { index: "01", chip: "01 · Transport",
       title: "Mobility Infrastructure",
-      desc: "Every road, bus line and cycle path in Wolfsburg, straight from OpenStreetMap. Switch tabs to read the network by mode — activity, car, public transport, cycling.",
+      desc: "Every road, bus line and cycle path in Wolfsburg, straight from OpenStreetMap. Switch tabs to read the network by mode: activity, car, public transport, cycling.",
       source: "OpenStreetMap", method: "Infrastructure extract" },
-    { index: "02", chip: "02 · Livability", kicker: "02 — Livability Analysis · OSM + Open Data",
+    { index: "02", chip: "02 · Livability",
       title: "Livability & Facilities",
       desc: "Schools, shops, culture and care scored against land use and daily activity. Everyday life clusters in a few districts; the rest depend on a car to reach it.",
       source: "OSM + Open Data", method: "Facility density" },
-    { index: "03", chip: "03 · Centrality", kicker: "03 — Accessibility · Network Analysis",
+    { index: "03", chip: "03 · Centrality",
       title: "Centralities",
-      desc: "A 15-minute reach score for every point in the city — walking, cycling, transit or all modes. Green is well-connected, red is isolated; access collapses outside the core.",
+      desc: "A 15-minute reach score for every point in the city, by walking, cycling, transit or all modes. Green is well-connected, red is isolated; access collapses outside the core.",
       source: "Network analysis", method: "Isochrone / centrality" }
   ];
   function t3Spec(a) { return { ops: [{ t: a.title }], emphasize: [] }; }
@@ -154,7 +154,7 @@
   ══════════════════════════════════════════════════════ */
   var FRAME_CONTENT = [
     [ { year: "1938", label: "Fallersleben", desc: "Founded beside Fallersleben castle to house the new people's-car factory." },
-      { year: "1938", label: "From the fields", desc: "Laid out from scratch on open farmland — a city planned around a plant." } ],
+      { year: "1938", label: "From the fields", desc: "Laid out from scratch on open farmland, a city planned around a plant." } ],
     [ { year: "1950s", label: "The line", desc: "The Beetle leaves the line by the million; the town grows with the works." },
       { year: "1950s", label: "Shift change", desc: "Daily life times itself to the factory gate and the drive home." } ],
     [ { year: "Today", label: "Parking fields", desc: "Surface lots and multi-storey garages hold the city's stationary cars." },
@@ -201,10 +201,7 @@
   var gPos = 0;
   var gChip = document.getElementById("g-chip");
   var gDots = document.getElementById("g-dots");
-  var t3kicker = document.getElementById("t3-kicker");
   var t3index = document.getElementById("t3-index");
-  var t3src = document.getElementById("t3-src");
-  var t3method = document.getElementById("t3-method");
 
   (function buildGDots() {
     A.forEach(function (_, i) { var b = document.createElement("b"); if (i === 0) b.classList.add("on"); gDots.appendChild(b); });
@@ -216,8 +213,8 @@
 
   function galleryHeader(i) {
     var a = A[i];
-    t3kicker.textContent = a.kicker; t3index.textContent = a.index;
-    gChip.textContent = a.chip; t3src.textContent = a.source; t3method.textContent = a.method;
+    t3index.textContent = a.index;
+    gChip.textContent = a.chip;
     $all("#g-dots b").forEach(function (b, k) { b.classList.toggle("on", k === i); });
   }
   async function galleryText(i, typeIt, ctx) {
@@ -255,6 +252,17 @@
   function brainClear() { brainHolder.classList.remove("activated"); brainVeil.classList.remove("show", "blur"); }
   function activateBrain() { brainHolder.classList.add("activated"); brainVeil.classList.remove("show", "blur"); brainSend("brain-kiosk-stop"); onInput(); }
   brainVeil.addEventListener("click", activateBrain);
+
+  /* ══════════════════════════════════════════════════════
+     Interactive hub-scene embeds (pages 14–17): click to activate
+     (lightweight SVG — no pause needed, just gate scroll capture)
+  ══════════════════════════════════════════════════════ */
+  var hubScenes = $all(".hubscene-holder");
+  hubScenes.forEach(function (h) {
+    var ov = h.querySelector(".hs-activate");
+    if (ov) ov.addEventListener("click", function () { h.classList.add("activated"); onInput(); });
+  });
+  function hubScenesReset() { hubScenes.forEach(function (h) { h.classList.remove("activated"); }); }
 
   window.addEventListener("message", function (e) {
     var d = e.data || {};
@@ -309,6 +317,80 @@
   }
 
   /* ══════════════════════════════════════════════════════
+     Page 8 — full-bleed dot-matrix (private cars vs shared fleet)
+     Values from the deployment (#dot-matrix): 49,648 cars vs 1,300
+     fleet, each dot = 10 vehicles. Dots sweep in left → right.
+  ══════════════════════════════════════════════════════ */
+  var dm = (function () {
+    var canvas = document.getElementById("dm-canvas");
+    var band = document.getElementById("dotband");
+    if (!canvas || !band) return { play: function () {}, complete: function () {}, reset: function () {} };
+    var g = canvas.getContext("2d");
+    var CARS = 49648, UNIT = 30, INK = "#0E0E0E", CAR_COLOR = "#E63946";
+    /* shared fleet coloured by mode (W.A.M MODE_META), biggest first */
+    var FLEET_MODES = [
+      { n: 640, c: "#27AE60" }, { n: 370, c: "#2980B9" }, { n: 180, c: "#E67E22" },
+      { n: 55, c: "#8E44AD" }, { n: 33, c: "#2C3E50" }
+    ];
+    var carN = Math.ceil(CARS / UNIT);
+    var fleetColors = [];
+    FLEET_MODES.forEach(function (m) { var d = Math.ceil(m.n / UNIT); for (var i = 0; i < d; i++) fleetColors.push(m.c); });
+    var L = null, raf = 0;
+
+    function layout() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var W = canvas.clientWidth, H = canvas.clientHeight;
+      if (!W || !H) return;
+      canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+      g.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var padX = 2, labelH = 16, rowGap = 22;
+      var innerW = W - padX * 2;
+      var carsZoneH = (H - labelH * 2 - rowGap) * 0.66;
+      var cell = Math.max(6, Math.floor(Math.sqrt(carsZoneH * innerW / carN)));
+      var cols = Math.max(1, Math.floor(innerW / cell));
+      var carRows = Math.ceil(carN / cols);
+      while (carRows * cell > carsZoneH && cell > 6) { cell--; cols = Math.max(1, Math.floor(innerW / cell)); carRows = Math.ceil(carN / cols); }
+      var carsTop = labelH;
+      var fleetTop = carsTop + carRows * cell + rowGap + labelH;
+      L = { W: W, H: H, padX: padX, cell: cell, cols: cols, r: Math.max(2, cell * 0.40),
+            carsTop: carsTop, fleetTop: fleetTop };
+    }
+    function xy(top, i) {
+      var col = i % L.cols, row = Math.floor(i / L.cols);
+      return { x: L.padX + col * L.cell + L.cell / 2, y: top + row * L.cell + L.cell / 2 };
+    }
+    function draw(frac) {
+      if (!L) return;
+      g.clearRect(0, 0, L.W, L.H);
+      g.font = "700 11px 'Helvetica Neue', Helvetica, Arial, sans-serif";
+      g.fillStyle = INK;
+      g.fillText("49,648 PRIVATE CARS", L.padX, L.carsTop - 5);
+      g.fillText("1,300 SHARED FLEET  ·  BY TYPE", L.padX, L.fleetTop - 5);
+      var frontX = L.padX + frac * (L.W - L.padX * 2);
+      var i, p;
+      g.fillStyle = CAR_COLOR;
+      for (i = 0; i < carN; i++) { p = xy(L.carsTop, i); if (p.x > frontX) break; g.beginPath(); g.arc(p.x, p.y, L.r, 0, 6.2832); g.fill(); }
+      for (i = 0; i < fleetColors.length; i++) { p = xy(L.fleetTop, i); if (p.x > frontX) break; g.fillStyle = fleetColors[i]; g.beginPath(); g.arc(p.x, p.y, L.r, 0, 6.2832); g.fill(); }
+    }
+    function stop() { if (raf) { cancelAnimationFrame(raf); raf = 0; } }
+    window.addEventListener("resize", function () { if (band.classList.contains("on")) { layout(); draw(1); } });
+    return {
+      play: function (ctx) {
+        stop(); band.classList.add("on"); layout();
+        var t0 = now(), dur = 1700;
+        (function tick() {
+          if (ctx && ctx.cancelled) { draw(1); return; }
+          var p = Math.min(1, (now() - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+          draw(e);
+          if (p < 1) raf = requestAnimationFrame(tick); else raf = 0;
+        })();
+      },
+      complete: function () { stop(); band.classList.add("on"); layout(); draw(1); },
+      reset: function () { stop(); band.classList.remove("on"); if (L) g.clearRect(0, 0, L.W, L.H); }
+    };
+  })();
+
+  /* ══════════════════════════════════════════════════════
      THE SLIDES  (DOM order s1 … s24)
   ══════════════════════════════════════════════════════ */
   var SLIDES = [
@@ -357,23 +439,31 @@
     txtSlide("s5", { step: 360, hold: 3400 }),
     /* 3.2 potential */
     txtSlide("s6", { step: 320, hold: 3600 }),
-    /* 4.1 vision */
-    txtSlide("s7", { dark: true, tw: { id: "tw-7", spec: TXT.tw7 }, step: 440, hold: 3600 }),
-    /* 4.2 outcomes — numbers */
-    txtSlide("s8", { step: 440, hold: 4000, count: true }),
+    /* 4.1 vision — integrated · accessible · social (T2 gallery) */
+    txtSlide("s7", { step: 420, hold: 3600 }),
+    /* 4.2 outcomes — numbers + full-bleed dot-matrix */
+    { el: $("#s8"), dark: false,
+      play: async function (ctx) {
+        await revealSeq("#s8", ctx, 360);
+        countAll("#s8", ctx);
+        dm.play(ctx);
+        await sleep(4400, ctx);
+      },
+      complete: function () { reveals("#s8", true); countInstant("#s8"); dm.complete(); },
+      reset: function () { reveals("#s8", false); countReset("#s8"); dm.reset(); }
+    },
     /* 4.3 outcomes — the space returned (before/after wipe) */
     { el: $("#s9"), dark: true,
       play: async function (ctx) {
         var st = $("#ba9"); st.classList.remove("wiped");
-        $("#s9-kicker").classList.add("on");
         await sleep(500, ctx);
         await TW.run($("#tw-9"), HL9, ctx);
         await sleep(700, ctx);
         st.classList.add("wiped");
         await sleep(3400, ctx);
       },
-      complete: function () { $("#s9-kicker").classList.add("on"); TW.finalize($("#tw-9"), HL9); $("#ba9").classList.add("wiped"); },
-      reset: function () { $("#s9-kicker").classList.remove("on"); TW.reset($("#tw-9")); $("#ba9").classList.remove("wiped"); }
+      complete: function () { TW.finalize($("#tw-9"), HL9); $("#ba9").classList.add("wiped"); },
+      reset: function () { TW.reset($("#tw-9")); $("#ba9").classList.remove("wiped"); }
     },
     /* 4.4 manifesto */
     txtSlide("s10", { tw: { id: "tw-10", spec: TXT.tw10 }, step: 300, hold: 4200 }),
@@ -383,8 +473,8 @@
     txtSlide("s12", { step: 520, hold: 3800 }),
     /* 5.3 connections */
     txtSlide("s13", { step: 360, hold: 3800 }),
-    /* 6.1 typology principles */
-    txtSlide("s14", { tw: { id: "tw-14", spec: TXT.tw14 }, step: 440, hold: 3400 }),
+    /* 6.1 typology — hub system (interactive plans) */
+    txtSlide("s14", { step: 460, hold: 3800 }),
     /* 6.2 S-hub */
     txtSlide("s15", { step: 420, hold: 3400 }),
     /* 6.3 M-hub */
@@ -462,16 +552,30 @@
     document.body.classList.toggle("discover", !present);
   }
   function setTrack(i) { track.style.setProperty("--i", i); }
+  /* section index shown top-right (X.Y scheme, DOM order s1 … s24) */
+  var SLIDE_INDEX = ["1.1", "1.2", "1.3", "2.1", "3.1", "3.2", "4.1", "4.2", "4.3", "4.4",
+    "5.1", "5.2", "5.3", "6.1", "6.2", "6.3", "6.4", "7.1", "7.2", "7.3", "7.4", "8.1", "8.2", "8.3"];
+  var slideIndexEl = document.getElementById("slide-index");
   function updateChrome(i) {
     counter.textContent = pad(i + 1) + " / " + pad(N);
+    if (slideIndexEl) slideIndexEl.textContent = SLIDE_INDEX[i] || "";
     $all("#dots b").forEach(function (b, k) { b.classList.toggle("on", k === i); });
     document.body.classList.toggle("on-dark", !!SLIDES[i].dark);
   }
+
+  /* ── hook (h2) typewriter — types a slide's .s-hook question in ── */
+  function hookTw(i) { var el = SLIDES[i] && SLIDES[i].el; return el ? el.querySelector(".s-hook .tw") : null; }
+  function hookSpec(el) { return { ops: [{ t: el.getAttribute("data-hook") || "" }], speed: 0.85 }; }
+  function resetHook(i) { var el = hookTw(i); if (el) TW.reset(el); }
+  function typeHook(i, ctx) { var el = hookTw(i); if (el) TW.run(el, hookSpec(el), ctx); }
+  function finalizeHook(i) { var el = hookTw(i); if (el) TW.finalize(el, hookSpec(el)); }
+
   function place(i) {
     idx = i; setTrack(i); updateChrome(i);
     if (i === HUB_I) { hubSend("hub-resume"); } else { hubSend("hub-pause"); hubClear(); }
     if (i === BRAIN_I) { brainSend("brain-resume"); } else { brainSend("brain-pause"); brainClear(); }
     if (i === MAP_I) armMap(); else if (gallery) gallery.classList.remove("activated");
+    hubScenesReset();
   }
 
   /* ══════════════════════════════════════════════════════
@@ -484,8 +588,10 @@
       clearAmbients();
       place(i);
       SLIDES[i].reset();
+      resetHook(i);
       await sleep(i === startIdx ? 350 : PAGE_MS, ctx);
       if (ctx.cancelled) return;
+      typeHook(i, ctx);
       await SLIDES[i].play(ctx);
       if (ctx.cancelled) return;
     }
@@ -497,7 +603,7 @@
     hubSend("hub-kiosk-stop"); hubClear();
     brainSend("brain-kiosk-stop"); brainClear();
     clearAmbients();
-    SLIDES.forEach(function (s) { s.reset(); });
+    SLIDES.forEach(function (s, i) { s.reset(); resetHook(i); });
     framesReset();
     setModeUI(true);
     place(0);
@@ -507,7 +613,7 @@
   /* ══════════════════════════════════════════════════════
      DISCOVER + NAV
   ══════════════════════════════════════════════════════ */
-  function completeCurrent() { clearAmbients(); SLIDES[idx].reset(); SLIDES[idx].complete(); }
+  function completeCurrent() { clearAmbients(); SLIDES[idx].reset(); SLIDES[idx].complete(); finalizeHook(idx); }
   function onInput() {
     lastInput = now();
     if (MODE === "present") { MODE = "discover"; gen++; setModeUI(false); completeCurrent(); }
@@ -516,7 +622,7 @@
     if (n < 0 || n >= N || n === idx || wheelLock) return;
     wheelLock = true; setTimeout(function () { wheelLock = false; }, WHEEL_COOLDOWN);
     place(n);
-    clearAmbients(); SLIDES[n].reset(); SLIDES[n].complete();
+    clearAmbients(); SLIDES[n].reset(); SLIDES[n].complete(); finalizeHook(n);
   }
   function navGesture(dir) {
     var target = idx + dir;
