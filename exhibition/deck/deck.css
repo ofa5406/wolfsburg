@@ -269,6 +269,50 @@ body.on-dark .deck-nav:hover svg { stroke: var(--ink); }
 /* per-frame theme icon (top-right) + caption title + condensed list (s5/s6/s7) */
 .t2 .frame-icon { position: absolute; top: 11px; right: 12px; z-index: 4; width: 30px; height: 30px; color: var(--ink); }
 .t2 .frame-icon svg { width: 100%; height: 100%; stroke: currentColor; stroke-width: 1.5; fill: none; }
+
+/* 7.4 — crossfade image sequence */
+.xf-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease; }
+.xf-img.active { opacity: 1; }
+
+/* 4.3 / 4.4 — concept body (sub-heading + description) */
+.concept-body { max-width: 32em; }
+.concept-label { font-size: var(--t-h3); font-weight: 700; letter-spacing: -0.005em; margin-bottom: clamp(12px, 1.8vh, 22px); }
+.concept-desc { font-size: clamp(1.05rem, 1.8vw, 1.5rem); font-weight: 300; line-height: 1.6; color: var(--ink-70); }
+
+/* 4.1 Vision — content cards, no photo area */
+#s7 .frame {
+  aspect-ratio: auto;
+  height: 100%;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: clamp(22px, 3.2vh, 40px) clamp(20px, 2.2vw, 32px);
+  gap: clamp(12px, 1.8vh, 20px);
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+}
+#s7 .frame-icon {
+  position: relative; top: auto; right: auto;
+  width: 60px; height: 60px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+#s7 .frame-cap {
+  border-top: none;
+  padding: 0;
+  background: transparent;
+  width: 100%;
+  gap: clamp(8px, 1.2vh, 14px);
+}
+#s7 .cap-title {
+  font-size: var(--t-h3);
+}
+#s7 .cap-desc {
+  font-size: clamp(1rem, 1.4vw, 1.22rem);
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--ink-70);
+  min-height: 0;
+}
 .t2 .cap-title { font-size: var(--t-h3); font-weight: 700; letter-spacing: -0.005em; }
 .t2 .cap-list { list-style: none; margin-top: 5px; display: flex; flex-direction: column; gap: 2px; }
 .t2 .cap-list li { position: relative; padding-left: 0.95em; font-size: var(--t-body); font-weight: 300; line-height: 1.34; color: var(--ink-70); }
@@ -427,6 +471,7 @@ body.on-dark .blist li b { color: var(--on-dark); }
 ═══════════════════════════════════════════════════════════ */
 .tstat .stage { flex-direction: column; justify-content: center; gap: clamp(26px, 5vh, 64px); }
 .tstat-head { max-width: 26em; }
+.tstat-sub { margin-top: 10px; font-size: clamp(1.1rem, 1.7vw, 1.5rem); font-weight: 300; letter-spacing: 0.01em; color: var(--ink-70); line-height: 1.2; }
 .tstat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 4vw, 78px); }
 .tstat-block .n { font-size: clamp(2.8rem, 6.5vw, 5.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums; }
 .tstat-block .l { margin-top: 12px; font-size: var(--t-lead); font-weight: 600; line-height: 1.15; }
