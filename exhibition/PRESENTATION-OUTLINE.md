@@ -1,7 +1,8 @@
 # `<stadt.hub>` — Exhibition Presentation Outline
 
-*Self-running Summaery presentation ("kiosk") built as a pitch-talk on the deck template system.*
+*Page-by-page spec for **`exhibition/deck/`** — the self-running 24-slide Summaery presentation (the exhibit). Section ids below map to `deck/index.html` (`#s1 … #s24`).*
 *Refined + completed 2026-07-07. Working source is this file; `exhibition/draft/Exhibition presentation outline.docx` is the original editable copy.*
+*Note: earlier drafts called the exhibit "kiosk"; that name now refers to the superseded `exhibition/kiosk/` folder. The live exhibit is `deck/`.*
 
 ---
 

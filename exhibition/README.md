@@ -4,19 +4,30 @@
 **Venue:** Computer pool (equipment shared with 4 other class projects)
 **Constraint:** Visitors browse **without narration** — the exhibit must explain itself.
 
-> ## ⚠️ PIVOT — 2026-07-06: one screen only
-> The pool granted the team **a single screen**. The two multi-station alternatives below
-> (Alt 1 / Alt 2) are **superseded** — kept for reference and for the shared copy they
-> contain. The exhibit is now **[`kiosk/`](kiosk/)**: a self-running browser presentation
-> that auto-scrolls through the project story (typed headlines, question-led beats,
-> locked numbers), ends inside the live 3D hub-viewer scene tour, then loops — any
-> mouse/keyboard touch pauses it and gives the visitor full control; it resumes when idle.
-> Open `kiosk/index.html` full-screen (F11 or Chrome `--kiosk`) on the exhibition PC.
+> ## ▶ THE EXHIBIT IS `deck/`
+> **What runs on the exhibition PC is [`deck/`](deck/)** — a self-running 24-slide
+> vertical presentation (one slide per screen, auto-plays and loops). Typed headlines
+> and hooks, question-led sections, live embedded maps, the 3D hub viewer and the
+> project-brain knowledge graph; any input hands control to the visitor (Discover mode)
+> and it resumes presenting when idle. **It is the site homepage**, deployed at
+> [ofa5406.github.io/wolfsburg](https://ofa5406.github.io/wolfsburg/).
+>
+> **To run it on the exhibition PC:** open `deck/index.html` full-screen (F11, or launch
+> Chrome with `--kiosk`), and turn screen-sleep off.
+>
+> The page-by-page spec is **[`PRESENTATION-OUTLINE.md`](PRESENTATION-OUTLINE.md)**.
+>
+> ### Superseded, kept on disk
+> - **`kiosk/`** — an earlier 11-beat take that `deck/` replaced. Do not run it. It stays
+>   only because `deck/` slide 1.3 still borrows two images from `kiosk/assets/`; deleting
+>   the folder would break the deck.
+> - **`alt-1-stations/` · `alt-2-parking-space/`** — the pre-2026-07-06 multi-station
+>   concepts, from before the pool granted only a single screen. Reference only.
 
-Two worked-out alternatives, sharing one foundation (the dot-matrix graphic system, the
-60-second loop, the card series, the locked numbers). Decide as a team, or combine them.
-This folder changes **nothing** about the live presentation at
-[ofa5406.github.io/wolfsburg](https://ofa5406.github.io/wolfsburg/).
+### History — 2026-07-06 pivot to one screen
+The pool granted the team **a single screen**, superseding the two multi-station
+alternatives (Alt 1 / Alt 2) below. Those docs are kept for reference and for the shared
+copy they contain.
 
 ## The two alternatives
 
@@ -35,7 +46,9 @@ field for the Summaery evenings — the maximal version if the pool grants every
 
 | Path | What it is |
 |------|-----------|
-| `alt-1-stations/concept.md` · `draft-content.md` · `production-checklist.md` | The multi-station concept, all copy, build plan |
+| [`deck/`](deck/) | **The exhibit.** Self-running 24-slide deck (`index.html` + `deck.js` + `deck.css`), with embedded map/hub/brain modules under `deck/*embed/`. Page spec in `PRESENTATION-OUTLINE.md`. |
+| `kiosk/` | Superseded 11-beat predecessor. Do not run. Keep — 1.3 borrows two of its images. |
+| `alt-1-stations/concept.md` · `draft-content.md` · `production-checklist.md` | Superseded multi-station concept, all copy, build plan |
 | `alt-2-parking-space/concept.md` · `draft-content.md` · `production-checklist.md` | The purified single-space concept, its manifest/menu/label copy, build plan |
 | [`diagrams/`](diagrams/) | Shared SVGs: 01 layout (Alt 1) · 02 legibility ladder · 03 equipment tiers (Alt 1) · 04 loop storyboard · 05 dot-matrix cards · 06 projection setup (Alt 1) · **07 furnishing plan (Alt 2)** · **08 fit manifest (Alt 2)** |
 | [`index.html`](index.html) | Visual concept page presenting both alternatives (auto-deploys at `/wolfsburg/exhibition/` after merge to `main`; root presentation untouched) |
