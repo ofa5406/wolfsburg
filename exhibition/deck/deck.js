@@ -163,12 +163,16 @@
      SLIDE 1 — hero video
   ══════════════════════════════════════════════════════ */
   (function heroVideos() {
-    var a = document.getElementById("hero-a"), b = document.getElementById("hero-b");
-    if (!a || !b) return;
-    function swap(from, to) { to.currentTime = 0; var p = to.play(); if (p && p.catch) p.catch(function () {}); to.classList.add("active"); from.classList.remove("active"); }
-    a.addEventListener("ended", function () { swap(a, b); });
-    b.addEventListener("ended", function () { swap(b, a); });
-    var p = a.play(); if (p && p.catch) p.catch(function () {});
+    var vids = $all("#s1 .hero-vid");
+    if (!vids.length) return;
+    function play(v) { v.currentTime = 0; var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    vids.forEach(function (v, i) {
+      v.addEventListener("ended", function () {
+        var next = vids[(i + 1) % vids.length];
+        play(next); next.classList.add("active"); v.classList.remove("active");
+      });
+    });
+    play(vids[0]);
   })();
 
   /* ══════════════════════════════════════════════════════

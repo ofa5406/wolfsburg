@@ -274,6 +274,27 @@ body.on-dark .deck-nav:hover svg { stroke: var(--ink); }
 .t1 .t1-head { font-size: clamp(2rem, 4vw, 3.4rem); font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; }
 .t1 .t1-sub { margin-top: 22px; font-size: var(--t-lead); font-weight: 300; line-height: 1.4; color: var(--on-dark); max-width: 27em; }
 
+/* ── 8.3 close: credits + three scan-me QR codes ── */
+.tclose .stage { display: flex; align-items: center; }
+.tclose-inner {
+  position: absolute; left: var(--pad); right: var(--pad);
+  top: 50%; transform: translateY(-50%);
+  display: flex; justify-content: space-between; align-items: center;
+  gap: clamp(30px, 5vw, 90px); flex-wrap: wrap;
+}
+.tclose-lead { color: var(--on-dark); max-width: 24em; }
+.tclose-links { display: flex; gap: clamp(18px, 2vw, 34px); }
+.tclose-qr {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  text-decoration: none; width: clamp(120px, 12vw, 158px);
+}
+.tclose-qr img {
+  width: 100%; aspect-ratio: 1; background: var(--paper);
+  padding: 9px; border: 1px solid rgba(243,242,236,0.25);
+}
+.tclose-qr .qr-k { font-size: var(--t-kicker); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--on-dark); }
+.tclose-qr .qr-u { font-size: 0.66rem; letter-spacing: 0.02em; color: var(--accent); font-weight: 700; text-align: center; line-height: 1.3; word-break: break-word; }
+
 /* ═══════════════════════════════════════════════════════════
    TEMPLATE 2 — three-across square gallery, text above
 ═══════════════════════════════════════════════════════════ */
