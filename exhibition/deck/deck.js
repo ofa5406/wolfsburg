@@ -254,8 +254,8 @@
   var PROBLEM_COUNT = $all("#s5 .tprob-word").length;
   var problemCur = 0;
 
-  /* a spline that redraws each time the active category changes: from the active
-     word's left-middle, sweeping round to the active bullet list's right-middle */
+  /* On each category change, fan ONE arrow per bullet from the active word's
+     right edge to each bullet's left edge (staggered draw-in). */
   var probArrow = (function () {
     var canvas = document.getElementById("tprob-arrow");
     if (!canvas) return { draw: function () {}, clear: function () {} };
@@ -270,58 +270,48 @@
       g.setTransform(dpr, 0, 0, dpr, 0, 0);
       return { W: W, H: H };
     }
-    function anchors(i) {
+    function geom(i) {
       var hr = host.getBoundingClientRect();
       var word = $("#s5 .tprob-word[data-i='" + i + "']");
-      var list = $("#s5 .tprob-list[data-i='" + i + "']");
-      if (!word || !list) return null;
-      var wr = word.getBoundingClientRect(), lr = list.getBoundingClientRect();
-      /* the list box spans the whole panel; anchor to the widest actual line so the
-         arrow lands on the bullets, not out by the nav dots */
-      var rightEdge = lr.left;
+      if (!word) return null;
+      var wr = word.getBoundingClientRect();
+      var start = { x: wr.right - hr.left + 8, y: wr.top - hr.top + wr.height / 2 };
+      var ends = [];
       $all("#s5 .tprob-list[data-i='" + i + "'] li").forEach(function (li) {
-        rightEdge = Math.max(rightEdge, li.getBoundingClientRect().right);
+        var r = li.getBoundingClientRect();
+        ends.push({ x: r.left - hr.left - 10, y: r.top - hr.top + r.height / 2 });
       });
-      return {
-        a: { x: wr.left - hr.left, y: wr.top - hr.top + wr.height / 2 },
-        b: { x: rightEdge - hr.left + 14, y: lr.top - hr.top + lr.height / 2 }
-      };
+      return { start: start, ends: ends };
     }
     function clear() { if (raf) { cancelAnimationFrame(raf); raf = 0; } if (canvas.width) g.clearRect(0, 0, canvas.width, canvas.height); }
+    /* quadratic bezier; control at mid-x on the word's line so each arrow leaves
+       the word horizontally, then bends into its bullet */
+    function bez(a, c, b, t) { var u = 1 - t; return { x: u*u*a.x + 2*u*t*c.x + t*t*b.x, y: u*u*a.y + 2*u*t*c.y + t*t*b.y }; }
 
     function draw(i) {
       clear();
-      var L = size(), pk = anchors(i);
-      if (!pk) return;
-      var a = pk.a, b = pk.b;
-      /* two control points → an S-curve that bows up and out of the word,
-         then back down into the list's right edge */
-      var c1 = { x: a.x - 40, y: a.y - Math.min(150, L.H * 0.32) };
-      var c2 = { x: b.x + 40, y: b.y - Math.min(150, L.H * 0.32) };
-      function pt(t) {
-        var u = 1 - t;
-        return {
-          x: u*u*u*a.x + 3*u*u*t*c1.x + 3*u*t*t*c2.x + t*t*t*b.x,
-          y: u*u*u*a.y + 3*u*u*t*c1.y + 3*u*t*t*c2.y + t*t*t*b.y
-        };
-      }
-      var t0 = now(), DUR = 620;
+      var L = size(), gm = geom(i);
+      if (!gm || !gm.ends.length) return;
+      var t0 = now(), DUR = 460, STAG = 95;
       (function tick() {
-        var p = Math.min(1, (now() - t0) / DUR), e = 1 - Math.pow(1 - p, 3);
+        var elapsed = now() - t0, allDone = true;
         g.clearRect(0, 0, L.W, L.H);
-        g.beginPath();
-        for (var k = 0, q; k <= 48; k++) {
-          q = pt((k / 48) * e);
-          if (k === 0) g.moveTo(q.x, q.y); else g.lineTo(q.x, q.y);
-        }
-        g.strokeStyle = "rgba(232,80,10,0.55)"; g.lineWidth = 2; g.stroke();
-        var head = pt(e), back = pt(Math.max(0, e - 0.03));
-        g.save(); g.translate(head.x, head.y);
-        g.rotate(Math.atan2(head.y - back.y, head.x - back.x));
-        g.fillStyle = "rgba(232,80,10,0.85)";
-        g.beginPath(); g.moveTo(0, 0); g.lineTo(-11, -5); g.lineTo(-11, 5); g.closePath(); g.fill();
-        g.restore();
-        if (p < 1) raf = requestAnimationFrame(tick); else raf = 0;
+        gm.ends.forEach(function (b, k) {
+          var local = elapsed - k * STAG;
+          if (local < 0) { allDone = false; return; }
+          var p = Math.min(1, local / DUR), e = 1 - Math.pow(1 - p, 3);
+          if (p < 1) allDone = false;
+          var a = gm.start, c = { x: (a.x + b.x) / 2, y: a.y };
+          g.beginPath();
+          for (var j = 0, q; j <= 32; j++) { q = bez(a, c, b, (j / 32) * e); if (j === 0) g.moveTo(q.x, q.y); else g.lineTo(q.x, q.y); }
+          g.strokeStyle = "rgba(232,80,10,0.5)"; g.lineWidth = 1.6; g.stroke();
+          var head = bez(a, c, b, e), back = bez(a, c, b, Math.max(0, e - 0.05));
+          g.save(); g.translate(head.x, head.y); g.rotate(Math.atan2(head.y - back.y, head.x - back.x));
+          g.fillStyle = "rgba(232,80,10,0.85)";
+          g.beginPath(); g.moveTo(0, 0); g.lineTo(-10, -4.5); g.lineTo(-10, 4.5); g.closePath(); g.fill();
+          g.restore();
+        });
+        if (!allDone) raf = requestAnimationFrame(tick); else raf = 0;
       })();
     }
     return { draw: draw, clear: clear };
