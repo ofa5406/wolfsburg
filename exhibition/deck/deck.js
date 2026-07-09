@@ -178,9 +178,11 @@
   /* ══════════════════════════════════════════════════════
      SLIDE 2 — per-image history frames (each image its own text)
   ══════════════════════════════════════════════════════ */
-  var frameCtrls = [];
+  /* frame galleries keyed by the slide they live on (1.2 history + 1.3 today) */
+  var frameCtrls = {};
   (function buildFrames() {
-    $all("#s2 [data-frame]").forEach(function (frame) {
+    $all("[data-frame]").forEach(function (frame) {
+      var slide = frame.closest(".slide"); var sid = slide ? slide.id : "?";
       var imgs = Array.prototype.slice.call(frame.querySelectorAll(".frame-imgs img"));
       var dotsHost = frame.querySelector(".fr-dots");
       imgs.forEach(function (_, k) { var d = document.createElement("b"); if (k === 0) d.classList.add("on"); dotsHost.appendChild(d); });
@@ -196,16 +198,17 @@
       frame.querySelector(".fr-arrow.prev").addEventListener("click", function (e) { e.stopPropagation(); onInput(); show(cur - 1); });
       frame.querySelector(".fr-arrow.next").addEventListener("click", function (e) { e.stopPropagation(); onInput(); show(cur + 1); });
       dots.forEach(function (b, k) { b.addEventListener("click", function (e) { e.stopPropagation(); onInput(); show(k); }); });
-      frameCtrls.push({
+      (frameCtrls[sid] = frameCtrls[sid] || []).push({
         auto: function (ms) { ambient(function () { show(cur + 1); }, ms); },
         reset: function () { cur = 0; show(0); },
         finalizeFirst: function () { show(0); }
       });
     });
   })();
-  /* history galleries auto-loop, ~1.5 s per image (slight offset so they don't flip in sync) */
-  function framesAuto() { frameCtrls.forEach(function (c, i) { c.auto(1500 + i * 180); }); }
-  function framesReset() { frameCtrls.forEach(function (c) { c.reset(); }); }
+  /* galleries auto-loop, ~1.5 s per image (slight offset so they don't flip in sync) */
+  function framesAuto(sid) { (frameCtrls[sid] || []).forEach(function (c, i) { c.auto(1500 + i * 180); }); }
+  function framesReset(sid) { (frameCtrls[sid] || []).forEach(function (c) { c.reset(); }); }
+  function framesResetAll() { Object.keys(frameCtrls).forEach(framesReset); }
 
   /* ══════════════════════════════════════════════════════
      URBAN STRUCTURE — analysis gallery over the embedded maps
@@ -741,14 +744,23 @@
     { el: $("#s2"), dark: false,
       play: async function (ctx) {
         await revealSeq("#s2", ctx, 460);
-        framesAuto();
+        framesAuto("s2");
         await sleep(5000, ctx);
       },
-      complete: function () { reveals("#s2", true); framesReset(); framesAuto(); },
-      reset: function () { reveals("#s2", false); framesReset(); }
+      complete: function () { reveals("#s2", true); framesReset("s2"); framesAuto("s2"); },
+      reset: function () { reveals("#s2", false); framesReset("s2"); }
     },
-    /* 1.3 today */
-    txtSlide("s3", { step: 300, hold: 3400 }),
+    /* 1.3 today — same gallery template as 1.2 */
+    { el: $("#s3"), dark: false,
+      play: async function (ctx) {
+        var t0 = now();
+        await revealSeq("#s3", ctx, 380);
+        framesAuto("s3");
+        await sleep(restHold("s3", 5000, t0), ctx);
+      },
+      complete: function () { reveals("#s3", true); framesReset("s3"); framesAuto("s3"); },
+      reset: function () { reveals("#s3", false); framesReset("s3"); }
+    },
     /* 2.1 urban structure — live maps */
     { el: $("#s4"), dark: false, kind: "map",
       play: async function (ctx) {
@@ -1067,7 +1079,7 @@
     clearAmbients();
     SLIDES.forEach(function (s, i) { s.reset(); resetHook(i); });
     baSliders.forEach(baReset);
-    framesReset();
+    framesResetAll();
     setModeUI(true);
     place(0);
     present(0);

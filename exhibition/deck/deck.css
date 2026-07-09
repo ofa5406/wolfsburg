@@ -383,6 +383,9 @@ body.on-dark .deck-nav:hover svg { stroke: var(--ink); }
 .t2 .cap-head .yr { font-size: var(--t-kicker); font-weight: 700; letter-spacing: 0.08em; font-variant-numeric: tabular-nums; }
 .t2 .cap-head .lbl { font-size: var(--t-cap); color: var(--ink-70); text-align: right; }
 .t2 .cap-desc { font-size: var(--t-cap); color: var(--ink-70); line-height: 1.35; min-height: 2.7em; }
+/* 1.3 today: third line under the concept — the photo caption */
+.t2 .cap-note { font-size: var(--t-kicker); color: var(--ink-45); line-height: 1.3; font-style: italic; }
+#s3 .cap-desc { min-height: 0; }
 .t2 .frame-idx { position: absolute; top: 10px; left: 12px; z-index: 3; font-size: var(--t-kicker); font-weight: 700; color: var(--white); mix-blend-mode: difference; letter-spacing: 0.1em; }
 
 /* per-frame nav arrows (multi-content frames) */
