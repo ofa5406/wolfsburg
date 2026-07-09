@@ -30,6 +30,16 @@
   var BA_WIPE_MS   = 2400;   // the wipe itself (was 1600; 1.5x slower)
   var BA_AFTER_MS  = 4000;   // dwell on the AFTER state before the deck moves on
 
+  /* Reading pace. A slide must never leave before a visitor has had time to read
+     it and then look around. Counting animations as reading time (they reveal the
+     text progressively), a slide's floor is: words * MS_PER_WORD (capped) + a
+     fixed look-around dwell. This only ever LENGTHENS an authored hold. */
+  var MS_PER_WORD  = 170;    // ~350 wpm; visitors skim a kiosk, they don't study it
+  var READ_CAP_MS  = 6000;   // text-heavy slides don't scale forever
+  var READ_DWELL   = 2000;   // eyes-wander time once everything has landed
+  var PROBLEM_CYCLE_MS = 3800; // 3.1: per-category dwell (was 2000, too fast to read 4 bullets)
+  var FLEET_CYCLE_MS   = 2600; // 6.5: per-tier dwell
+
   var MODE = "present";
   var idx = 0, gen = 0;
   var lastInput = performance.now();
@@ -242,7 +252,7 @@
     $all("#s5 .tprob-list").forEach(function (el) { el.classList.toggle("active", +el.dataset.i === i); });
   }
   function problemsAuto() {
-    ambient(function () { problemsSet((problemCur + 1) % PROBLEM_COUNT); }, 2000);
+    ambient(function () { problemsSet((problemCur + 1) % PROBLEM_COUNT); }, PROBLEM_CYCLE_MS);
   }
   $all("#s5 .tprob-word").forEach(function (el) {
     el.addEventListener("click", function () { onInput(); problemsSet(+el.dataset.i); });
@@ -341,7 +351,7 @@
       fleetShow(fleetCur);
       TW.finalize($("#tw-17f"), fleetSpec(FLEET_TIERS[fleetCur]));
       TW.finalize($("#tw-17fdesc"), bodySpec(FLEET_TIERS[fleetCur].desc));
-    }, 2000);
+    }, FLEET_CYCLE_MS);
   }
   async function fleetText(i, typeIt, ctx) {
     var t = FLEET_TIERS[i]; fleetCur = i; fleetShow(i);
@@ -391,6 +401,25 @@
     else if (d.type === "brain-cycle-complete") { if (brainCycleResolve) { brainCycleResolve(); brainCycleResolve = null; } }
   });
 
+  /* Time a visitor needs on this slide, start to finish. Cached per element:
+     the copy never changes at runtime. */
+  var readCache = {};
+  function readFloor(id) {
+    if (readCache[id] != null) return readCache[id];
+    var el = $("#" + id), words = 0;
+    if (el) {
+      var txt = (el.textContent || "").replace(/\s+/g, " ").trim();
+      words = txt ? txt.split(" ").length : 0;
+    }
+    return (readCache[id] = Math.min(words * MS_PER_WORD, READ_CAP_MS) + READ_DWELL);
+  }
+  /* Hold long enough that (animation + hold) clears the reading floor, but never
+     shorter than the hold the slide asked for. */
+  function restHold(id, authored, startedAt) {
+    var elapsed = now() - startedAt;
+    return Math.max(authored, readFloor(id) - elapsed);
+  }
+
   /* ══════════════════════════════════════════════════════
      generic text slide (type + reveal, optional counters)
   ══════════════════════════════════════════════════════ */
@@ -400,6 +429,7 @@
     return {
       el: $(sel), dark: !!opts.dark, kind: opts.kind || null,
       play: async function (ctx) {
+        var t0 = now();
         if (opts.revealFirst) {
           await revealSeq(sel, ctx, opts.step || 380);
           if (opts.tw) { await sleep(140, ctx); await TW.run($("#" + opts.tw.id), opts.tw.spec, ctx); }
@@ -408,7 +438,7 @@
           await revealSeq(sel, ctx, opts.step || 380);
         }
         if (opts.count) countAll(sel, ctx);
-        await sleep(opts.hold || 3200, ctx);
+        await sleep(restHold(id, opts.hold || 3200, t0), ctx);
       },
       complete: function () {
         if (opts.tw) TW.finalize($("#" + opts.tw.id), opts.tw.spec);
@@ -558,7 +588,8 @@
       play: async function (ctx) {
         problemsSet(0);
         problemsAuto();
-        await sleep(PROBLEM_COUNT * 2000 + 200, ctx);
+        /* one full pass through Ecological / Social / Urban, then a beat */
+        await sleep(PROBLEM_COUNT * PROBLEM_CYCLE_MS + 400, ctx);
       },
       complete: function () { problemsSet(0); problemsAuto(); },
       reset: function () { problemsSet(0); }
@@ -566,10 +597,12 @@
     /* 3.2 potential — typed title, then words in shuffled 0.1s cascade */
     { el: $("#s6"), dark: false,
       play: async function (ctx) {
+        var t0 = now();
         await TW.run($("#tw-6title"), HL.s6title, ctx);
         await sleep(220, ctx);
-        await revealShuffled("#s6 .twords-cloud", ctx, 100);
-        await sleep(3400, ctx);
+        /* each phrase needs to be readable as it lands, not just flash past */
+        await revealShuffled("#s6 .twords-cloud", ctx, 240);
+        await sleep(restHold("s6", 3400, t0), ctx);
       },
       complete: function () { TW.finalize($("#tw-6title"), HL.s6title); reveals("#s6 .twords-cloud", true); },
       reset: function () { TW.reset($("#tw-6title")); reveals("#s6 .twords-cloud", false); }
@@ -579,10 +612,13 @@
     /* 4.2 accessible — numbers + full-bleed dot-matrix */
     { el: $("#s8"), dark: false,
       play: async function (ctx) {
+        var t0 = now();
         await revealSeq("#s8", ctx, 360);
+        /* both of these run unawaited: the count-up (1150ms) and the dot sweep
+           (1700ms) finish well after this line, so the hold has to cover them */
         countAll("#s8", ctx);
         dm.play(ctx);
-        await sleep(4400, ctx);
+        await sleep(restHold("s8", 4400, t0), ctx);
       },
       complete: function () { reveals("#s8", true); countInstant("#s8"); dm.complete(); },
       reset: function () { reveals("#s8", false); countReset("#s8"); dm.reset(); }
@@ -637,7 +673,7 @@
         armFleetMap();
         await fleetText(0, true, ctx);
         fleetAuto();
-        await sleep(FLEET_TIERS.length * 2000 + 200, ctx);
+        await sleep(FLEET_TIERS.length * FLEET_CYCLE_MS + 400, ctx);
       },
       complete: function () { fleetText(0, false); fleetAuto(); armFleetMap(); },
       reset: function () { fleetShow(0); }
