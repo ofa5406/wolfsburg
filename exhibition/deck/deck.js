@@ -945,7 +945,7 @@
   var SLIDE_NAMES = ["", "HISTORY", "TODAY", "URBAN STRUCTURE", "PROBLEMS", "POTENTIALS",
     "VISION", "OUTCOMES", "GOAL", "IDEA", "STRATEGY", "HUB SYSTEM", "HUB CONNECTIONS",
     "HUB NETWORK", "HUB TYPOLOGIES", "S-HUB", "M-HUB", "L-HUB", "HUB FLEET",
-    "PLACEMENT", "CONNECTION", "MASTERPLAN", "DISCOVER", "DATA", "PRESENTING"];
+    "PLACEMENT", "CONNECTION", "MASTERPLAN", "DISCOVER", "DATA", ""];
   function titleHTML(name) { return name ? '<span class="bk">&lt;</span>' + name + '<span class="bk">&gt;</span>' : ""; }
   /* label each nav dot so hovering it names the page it jumps to.
      Done here, not at dot-creation, because the two arrays above are declared later. */
