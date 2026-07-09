@@ -117,7 +117,7 @@
   /* typed body lines for the new pages */
   var TXT = {
     tw7:  bodySpec("Future of mobility as a service."),
-    tw10: { ops: [{ t: "Stadt.hub replaces what the car was hiding, " }, { pause: 320 }, { t: "space, access, a city for people first." }],
+    tw10: { ops: [{ t: "<stadt.hub> replaces what the car was hiding, " }, { pause: 320 }, { t: "space, access, a city for people first." }],
             emphasize: [{ phrase: "space, access", kind: "bold" }], speed: BODY_SPEED },
     tw11: bodySpec("Replace the private car without breaking the city."),
     tw14: { ops: [{ t: "A hub is " }, { typo: { wrong: "nto", fix: "not" } }, { t: " a bus shelter." }],
@@ -249,13 +249,13 @@
   ══════════════════════════════════════════════════════ */
   var HUBPLACE = [
     { chip: "01 · Hub Network", title: "Hub network",
-      desc: "A three-tier shared mobility network enabling seamless mode-chaining across the city — e-bike, autonomous shuttle, and shared pod — without a private vehicle." },
+      desc: "A three-tier shared mobility network enabling seamless mode-chaining across the city: e-bike, autonomous shuttle, and shared pod, all without a private vehicle." },
     { chip: "02 · Network Hubs", title: "Network hubs",
-      desc: "By introducing the hub network, the city gains the opportunity to become progressively more connected — beginning with districts closest to the centre, and gradually extending mobility coverage to more remote settlements as the network expands." },
+      desc: "By introducing the hub network, the city gains the opportunity to become progressively more connected, beginning with districts closest to the centre and gradually extending mobility coverage to more remote settlements as the network expands." },
     { chip: "03 · Facility Network", title: "Facility network",
-      desc: "The facility network analysis shows that proposed hub locations substantially improve non-motorised access to urban amenities across all districts. Areas where current walking and cycling accessibility scores are lowest — peripheral residential districts — benefit most from hub-mediated connectivity. Hub placement transforms mobility gaps into connected catchments, enabling residents to reach everyday destinations without a private vehicle." },
+      desc: "The facility network analysis shows that proposed hub locations substantially improve non-motorised access to urban amenities across all districts. Areas where current walking and cycling accessibility scores are lowest, chiefly the peripheral residential districts, benefit most from hub-mediated connectivity. Hub placement transforms mobility gaps into connected catchments, enabling residents to reach everyday destinations without a private vehicle." },
     { chip: "04 · External Flows", title: "External flows",
-      desc: "Integrating external commuter flows into the hub network is critical for reducing the volume of private vehicles entering the city. By positioning Hub L nodes at the main entry points, the system creates a seamless transition from regional transport to the internal shared mobility network — making it practical for Einpendler to leave their cars outside the city boundary and complete their journey by shared mobility means." }
+      desc: "Integrating external commuter flows into the hub network is critical for reducing the volume of private vehicles entering the city. By positioning Hub L nodes at the main entry points, the system creates a seamless transition from regional transport to the internal shared mobility network, making it practical for Einpendler to leave their cars outside the city boundary and complete their journey by shared mobility means." }
   ];
   var HP_INDEX = ["01", "02", "03", "04"];
   var hpPos = 0;
@@ -485,8 +485,8 @@
       var frontX = L.padX + frac * (L.W - L.padX * 2);
       var i, p;
       g.fillStyle = CAR_COLOR;
-      for (i = 0; i < carN; i++) { p = xy(L.carsTop, i); if (p.x > frontX) break; g.beginPath(); g.arc(p.x, p.y, L.r, 0, 6.2832); g.fill(); }
-      for (i = 0; i < fleetColors.length; i++) { p = xy(L.fleetTop, i); if (p.x > frontX) break; g.fillStyle = fleetColors[i]; g.beginPath(); g.arc(p.x, p.y, L.r, 0, 6.2832); g.fill(); }
+      for (i = 0; i < carN; i++) { p = xy(L.carsTop, i); if (p.x > frontX) continue; g.beginPath(); g.arc(p.x, p.y, L.r, 0, 6.2832); g.fill(); }
+      for (i = 0; i < fleetColors.length; i++) { p = xy(L.fleetTop, i); if (p.x > frontX) continue; g.fillStyle = fleetColors[i]; g.beginPath(); g.arc(p.x, p.y, L.r, 0, 6.2832); g.fill(); }
     }
     function stop() { if (raf) { cancelAnimationFrame(raf); raf = 0; } }
     window.addEventListener("resize", function () { if (band.classList.contains("on")) { layout(); draw(1); } });
@@ -715,7 +715,7 @@
     "VISION", "OUTCOMES", "GOAL", "IDEA", "STRATEGY", "HUB SYSTEM", "HUB CONNECTIONS",
     "HUB NETWORK", "HUB TYPOLOGIES", "S-HUB", "M-HUB", "L-HUB", "HUB FLEET",
     "PLACEMENT", "CONNECTION", "MASTERPLAN", "DISCOVER", "DATA", "PRESENTING"];
-  function titleHTML(name) { return name ? '<span class="bk">‹</span>' + name + '<span class="bk">›</span>' : ""; }
+  function titleHTML(name) { return name ? '<span class="bk">&lt;</span>' + name + '<span class="bk">&gt;</span>' : ""; }
   var slideIndexEl = document.getElementById("slide-index");
   var slideTitleEl = document.getElementById("slide-title");
   function updateChrome(i) {
