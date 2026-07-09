@@ -183,10 +183,14 @@ body.on-dark .slide-dots b::after { color: var(--ink); background: var(--on-dark
 
 /* Present / Stop button (bottom-left inside frame) */
 .present-btn {
-  /* flush to the bottom-left L, so its left edge lines up with the title above */
-  bottom: var(--frame-inset); left: var(--frame-inset);
+  /* nested inside the bottom-left L: vertical centre on the L's vertical arm,
+     with the gap to the L's bottom arm equal to the gap to its left arm.
+     Both offsets = (arm - button height) / 2, so a fixed 36px height is needed. */
+  height: 36px; box-sizing: border-box;
+  bottom: calc(var(--frame-inset) + (var(--frame-arm) - 36px) / 2);
+  left:   calc(var(--frame-inset) + (var(--frame-arm) - 36px) / 2);
   display: flex; align-items: center; gap: 10px;
-  padding: 9px 16px; border: 1.5px solid var(--line);
+  padding: 0 15px; border: 1.5px solid var(--line);
   background: rgba(245,244,239,0.7); backdrop-filter: blur(4px);
   font-size: var(--t-kicker); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--ink); transition: background 0.2s, border-color 0.2s, color 0.6s var(--ease);
