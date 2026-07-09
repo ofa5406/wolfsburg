@@ -1,0 +1,15 @@
+diff --git a/src/data/hubElements.jsx b/src/data/hubElements.jsx
+index e270559..26f8480 100644
+--- a/src/data/hubElements.jsx
++++ b/src/data/hubElements.jsx
+@@ -49,8 +49,8 @@ export const ELEMENTS = [
+   { id: 'hub-marker',      name: 'Hub identity marker',           cat: 'wayfinding',   type: 'core',     s: 'Mandatory', m: 'Mandatory', l: 'Mandatory', def: 'Hub name, tier level (S/M/L), map of nearby hubs.' },
+   // SHELTER — core
+   { id: 'canopy',          name: 'Canopy / structural element',   cat: 'shelter',      type: 'core',     s: 'Mandatory', m: 'Mandatory', l: 'Optional',  def: 'The vertical beacon. Overhead structure at Zone 2. Readable from 50m.' },
+-  { id: 'bench',           name: 'Seating — bench',               cat: 'shelter',      type: 'core',     s: 'Mandatory', m: 'Mandatory', l: 'Mandatory', def: 'Linear bench for individual users. Zone 3.' },
+-  { id: 'group-seating',   name: 'Seating — group',               cat: 'shelter',      type: 'core',     s: '—',         m: 'Mandatory', l: 'Mandatory', def: 'Larger seating configuration for social groups. Zone 3.' },
++  { id: 'bench',           name: 'Bench seating',                 cat: 'shelter',      type: 'core',     s: 'Mandatory', m: 'Mandatory', l: 'Mandatory', def: 'Linear bench for individual users. Zone 3.' },
++  { id: 'group-seating',   name: 'Group seating',                 cat: 'shelter',      type: 'core',     s: '—',         m: 'Mandatory', l: 'Mandatory', def: 'Larger seating configuration for social groups. Zone 3.' },
+   { id: 'water-point',     name: 'Drinking water point',          cat: 'shelter',      type: 'core',     s: '—',         m: 'Mandatory', l: 'Mandatory', def: 'Public water access. Zone 3.' },
+   { id: 'bike-repair',     name: 'Bike repair station',           cat: 'shelter',      type: 'core',     s: '—',         m: 'Mandatory', l: 'Mandatory', def: 'Self-service tools and pump. Integrated at Zone 3 edge.' },
+   // ENVIRONMENT — core
