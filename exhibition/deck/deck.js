@@ -246,10 +246,86 @@
   ══════════════════════════════════════════════════════ */
   var PROBLEM_COUNT = $all("#s5 .tprob-word").length;
   var problemCur = 0;
+
+  /* a spline that redraws each time the active category changes: from the active
+     word's left-middle, sweeping round to the active bullet list's right-middle */
+  var probArrow = (function () {
+    var canvas = document.getElementById("tprob-arrow");
+    if (!canvas) return { draw: function () {}, clear: function () {} };
+    var g = canvas.getContext("2d");
+    var host = canvas.parentNode;              /* .tprob-body */
+    var raf = 0;
+
+    function size() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var W = host.clientWidth, H = host.clientHeight;
+      canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+      g.setTransform(dpr, 0, 0, dpr, 0, 0);
+      return { W: W, H: H };
+    }
+    function anchors(i) {
+      var hr = host.getBoundingClientRect();
+      var word = $("#s5 .tprob-word[data-i='" + i + "']");
+      var list = $("#s5 .tprob-list[data-i='" + i + "']");
+      if (!word || !list) return null;
+      var wr = word.getBoundingClientRect(), lr = list.getBoundingClientRect();
+      /* the list box spans the whole panel; anchor to the widest actual line so the
+         arrow lands on the bullets, not out by the nav dots */
+      var rightEdge = lr.left;
+      $all("#s5 .tprob-list[data-i='" + i + "'] li").forEach(function (li) {
+        rightEdge = Math.max(rightEdge, li.getBoundingClientRect().right);
+      });
+      return {
+        a: { x: wr.left - hr.left, y: wr.top - hr.top + wr.height / 2 },
+        b: { x: rightEdge - hr.left + 14, y: lr.top - hr.top + lr.height / 2 }
+      };
+    }
+    function clear() { if (raf) { cancelAnimationFrame(raf); raf = 0; } if (canvas.width) g.clearRect(0, 0, canvas.width, canvas.height); }
+
+    function draw(i) {
+      clear();
+      var L = size(), pk = anchors(i);
+      if (!pk) return;
+      var a = pk.a, b = pk.b;
+      /* two control points → an S-curve that bows up and out of the word,
+         then back down into the list's right edge */
+      var c1 = { x: a.x - 40, y: a.y - Math.min(150, L.H * 0.32) };
+      var c2 = { x: b.x + 40, y: b.y - Math.min(150, L.H * 0.32) };
+      function pt(t) {
+        var u = 1 - t;
+        return {
+          x: u*u*u*a.x + 3*u*u*t*c1.x + 3*u*t*t*c2.x + t*t*t*b.x,
+          y: u*u*u*a.y + 3*u*u*t*c1.y + 3*u*t*t*c2.y + t*t*t*b.y
+        };
+      }
+      var t0 = now(), DUR = 620;
+      (function tick() {
+        var p = Math.min(1, (now() - t0) / DUR), e = 1 - Math.pow(1 - p, 3);
+        g.clearRect(0, 0, L.W, L.H);
+        g.beginPath();
+        for (var k = 0, q; k <= 48; k++) {
+          q = pt((k / 48) * e);
+          if (k === 0) g.moveTo(q.x, q.y); else g.lineTo(q.x, q.y);
+        }
+        g.strokeStyle = "rgba(232,80,10,0.55)"; g.lineWidth = 2; g.stroke();
+        var head = pt(e), back = pt(Math.max(0, e - 0.03));
+        g.save(); g.translate(head.x, head.y);
+        g.rotate(Math.atan2(head.y - back.y, head.x - back.x));
+        g.fillStyle = "rgba(232,80,10,0.85)";
+        g.beginPath(); g.moveTo(0, 0); g.lineTo(-11, -5); g.lineTo(-11, 5); g.closePath(); g.fill();
+        g.restore();
+        if (p < 1) raf = requestAnimationFrame(tick); else raf = 0;
+      })();
+    }
+    return { draw: draw, clear: clear };
+  })();
+
   function problemsSet(i) {
     problemCur = i;
     $all("#s5 .tprob-word").forEach(function (el) { el.classList.toggle("active", +el.dataset.i === i); });
     $all("#s5 .tprob-list").forEach(function (el) { el.classList.toggle("active", +el.dataset.i === i); });
+    /* let the list's opacity transition begin, then draw to its settled rect */
+    setTimeout(function () { if (problemCur === i) probArrow.draw(i); }, 60);
   }
   function problemsAuto() {
     ambient(function () { problemsSet((problemCur + 1) % PROBLEM_COUNT); }, PROBLEM_CYCLE_MS);
@@ -946,6 +1022,7 @@
     if (i === HP_I) armHpMap(); else if (hpGallery) hpGallery.classList.remove("activated");
     if (i === FLEET_I) armFleetMap(); else if (fleetGallery) fleetGallery.classList.remove("activated");
     if (SLIDES[i].el && SLIDES[i].el.id !== "s12") smlArcs.stop();
+    if (SLIDES[i].el && SLIDES[i].el.id !== "s5") probArrow.clear();
     hubScenesReset();
   }
 
