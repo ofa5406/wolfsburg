@@ -166,6 +166,19 @@ body.on-dark .slide-counter { color: var(--on-dark-dim); }
 body.on-dark .slide-dots b { background: rgba(243,242,236,0.3); }
 body.on-dark .slide-dots b.on { background: var(--on-dark); }
 
+/* hover a dot to see which page it jumps to (index + section title) */
+.slide-dots b::after {
+  content: attr(data-label);
+  position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+  white-space: pre; pointer-events: none;
+  font-size: var(--t-kicker); font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--paper); background: var(--ink);
+  padding: 5px 9px; opacity: 0; transition: opacity 0.22s var(--ease);
+}
+.slide-dots b { position: relative; }
+.slide-dots b:hover::after { opacity: 1; }
+body.on-dark .slide-dots b::after { color: var(--ink); background: var(--on-dark); }
+
 /* Present / Stop button (bottom-left inside frame) */
 .present-btn {
   bottom: calc(var(--frame-inset) + 4px); left: calc(var(--frame-inset) + var(--frame-arm) + 22px);
@@ -640,7 +653,7 @@ body.on-dark .sae-3 .d { color: var(--on-dark-dim); }
 ═══════════════════════════════════════════════════════════ */
 .tba .ba-stage { position: absolute; inset: 0; }
 .tba .ba-before, .tba .ba-after { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.tba .ba-after { clip-path: inset(0 100% 0 0); transition: clip-path 1.6s cubic-bezier(.65,0,.25,1); }
+.tba .ba-after { clip-path: inset(0 100% 0 0); transition: clip-path 2.4s cubic-bezier(.65,0,.25,1); }
 .tba .ba-stage.wiped .ba-after { clip-path: inset(0 0 0 0); }
 .tba .ba-tag { position: absolute; bottom: calc(var(--frame-inset) + var(--content-gap)); z-index: 4; font-size: var(--t-kicker); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; background: rgba(14,14,14,0.6); color: var(--on-dark); padding: 6px 12px; transition: opacity 0.6s; }
 .tba .ba-tag--before { left: calc(var(--frame-inset) + var(--content-gap)); }

@@ -25,6 +25,10 @@
   var WHEEL_COOLDOWN = 950;
   var SWIPE_MIN = 45;
   var BODY_SPEED = 0.42;
+  /* before/after wipe on the hub typology pages (6.2 / 6.3 / 6.4) */
+  var BA_BEFORE_MS = 1000;   // hold the BEFORE state once both images have decoded
+  var BA_WIPE_MS   = 2400;   // the wipe itself (was 1600; 1.5x slower)
+  var BA_AFTER_MS  = 4000;   // dwell on the AFTER state before the deck moves on
 
   var MODE = "present";
   var idx = 0, gen = 0;
@@ -587,11 +591,13 @@
     { el: $("#s9"), dark: true,
       play: async function (ctx) {
         var st = $("#ba9"); st.classList.remove("wiped");
+        await baDecoded(st);                 /* don't wipe an image that isn't there yet */
+        if (ctx.cancelled) return;
         await sleep(500, ctx);
         await TW.run($("#tw-9"), HL9, ctx);
-        await sleep(700, ctx);
+        await sleep(BA_BEFORE_MS, ctx);      /* the BEFORE state has to register */
         st.classList.add("wiped");
-        await sleep(3400, ctx);
+        await sleep(BA_WIPE_MS + BA_AFTER_MS, ctx);
       },
       complete: function () { TW.finalize($("#tw-9"), HL9); $("#ba9").classList.add("wiped"); },
       reset: function () { TW.reset($("#tw-9")); $("#ba9").classList.remove("wiped"); }
@@ -716,6 +722,12 @@
     "HUB NETWORK", "HUB TYPOLOGIES", "S-HUB", "M-HUB", "L-HUB", "HUB FLEET",
     "PLACEMENT", "CONNECTION", "MASTERPLAN", "DISCOVER", "DATA", "PRESENTING"];
   function titleHTML(name) { return name ? '<span class="bk">&lt;</span>' + name + '<span class="bk">&gt;</span>' : ""; }
+  /* label each nav dot so hovering it names the page it jumps to.
+     Done here, not at dot-creation, because the two arrays above are declared later. */
+  $all("#dots b").forEach(function (b, i) {
+    var n = SLIDE_NAMES[i];
+    b.setAttribute("data-label", (SLIDE_INDEX[i] || "") + (n ? "  " + n : ""));
+  });
   var slideIndexEl = document.getElementById("slide-index");
   var slideTitleEl = document.getElementById("slide-title");
   function updateChrome(i) {
@@ -738,15 +750,38 @@
   function baSplit(el, pct) { el.style.setProperty("--split", Math.max(0, Math.min(100, pct)) + "%"); }
   function baReset(el) { if (el) baSplit(el, 0); }
   function baFinalize(el) { if (el) baSplit(el, 100); }
-  function baPlay(el, ctx) {
+  /* The before/after images are multi-megabyte. Starting the wipe on slide entry
+     meant it ran while they were still decoding, so a visitor only ever caught the
+     tail of it. Gate the wipe on both images being decoded, hold the BEFORE state
+     long enough to register, then wipe slowly. */
+  function baImages(el) {
+    return [el.querySelector(".ba-before"), el.querySelector(".ba-after")].filter(Boolean);
+  }
+  function baDecoded(el) {
+    return Promise.all(baImages(el).map(function (im) {
+      if (im.complete && im.naturalWidth) return Promise.resolve();
+      return new Promise(function (res) {
+        im.addEventListener("load", res, { once: true });
+        im.addEventListener("error", res, { once: true });
+      });
+    }));
+  }
+  async function baPlay(el, ctx) {
     if (!el) return;
-    var t0 = now(), dur = 1600;
-    (function tick() {
-      if (ctx && ctx.cancelled) { baSplit(el, 100); return; }
-      var p = Math.min(1, (now() - t0) / dur), e = 1 - Math.pow(1 - p, 3);
-      baSplit(el, e * 100);
-      if (p < 1) requestAnimationFrame(tick);
-    })();
+    baSplit(el, 0);
+    await baDecoded(el);
+    if (ctx && ctx.cancelled) { baSplit(el, 100); return; }
+    await sleep(BA_BEFORE_MS, ctx);          /* let the BEFORE state land */
+    if (ctx && ctx.cancelled) { baSplit(el, 100); return; }
+    await new Promise(function (done) {
+      var t0 = now();
+      (function tick() {
+        if (ctx && ctx.cancelled) { baSplit(el, 100); return done(); }
+        var p = Math.min(1, (now() - t0) / BA_WIPE_MS), e = 1 - Math.pow(1 - p, 3);
+        baSplit(el, e * 100);
+        if (p < 1) requestAnimationFrame(tick); else done();
+      })();
+    });
   }
   function slideBA(i) { return SLIDES[i] && SLIDES[i].el ? SLIDES[i].el.querySelector(".hp-ba") : null; }
   baSliders.forEach(function (el) {
@@ -781,9 +816,19 @@
       resetHook(i); baReset(slideBA(i));
       await sleep(i === startIdx ? 350 : PAGE_MS, ctx);
       if (ctx.cancelled) return;
-      typeHook(i, ctx); baPlay(slideBA(i), ctx);
+      typeHook(i, ctx);
+      /* the wipe runs alongside the slide's own reveals, but the deck must not
+         leave until it has finished AND the after state has been on screen a while */
+      var ba = slideBA(i);
+      var baDone = ba ? baPlay(ba, ctx) : null;
       await SLIDES[i].play(ctx);
       if (ctx.cancelled) return;
+      if (baDone) {
+        await baDone;
+        if (ctx.cancelled) return;
+        await sleep(BA_AFTER_MS, ctx);
+        if (ctx.cancelled) return;
+      }
     }
     if (ctx.cancelled) return;
     loopRestart();
