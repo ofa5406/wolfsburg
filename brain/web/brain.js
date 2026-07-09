@@ -13,6 +13,7 @@
 
   var ACCENT = "#E8500A";
   var ONDARK = "#F3F2EC";
+  var DIMMED = "rgba(120,119,113,0.18)";
 
   /* Monochrome steps by category — paper to deep gray, no rainbow. */
   var CAT_SHADE = {
@@ -44,6 +45,7 @@
   var selected = null;          // node object
   var selNeighbors = new Set(); // ids incl. selected
   var hiddenCats = new Set();
+  var litCats = new Set();      // categories highlighted via the chips
   var labelExtra = new Set();   // neighborhood labels of selection
 
   function lid(l) { // link endpoints as ids (force-graph mutates source/target into objects)
@@ -59,12 +61,14 @@
     .showNavInfo(false)
     .nodeId("id")
     .nodeVal(function (n) { return Math.max(1, n.degree * 0.45); })
+    .nodeResolution(24)   /* library default is 8, which reads as faceted up close */
     .nodeColor(function (n) {
       if (selected) {
         if (n.id === selected.id) return ACCENT;
         if (selNeighbors.has(n.id)) return shade(n);
         return "rgba(120,119,113,0.18)";
       }
+      if (litCats.size) return litCats.has(n.category) ? ACCENT : DIMMED;
       return shade(n);
     })
     .nodeLabel(function (n) {
@@ -88,6 +92,11 @@
       if (selected && (selNeighbors.has(ab[0]) && selNeighbors.has(ab[1])) &&
           (ab[0] === selected.id || ab[1] === selected.id)) return "rgba(232,80,10,0.75)";
       if (selected) return "rgba(243,242,236,0.05)";
+      if (litCats.size) {
+        var a = byId[ab[0]], b = byId[ab[1]];
+        if (a && b && litCats.has(a.category) && litCats.has(b.category)) return "rgba(232,80,10,0.45)";
+        return "rgba(243,242,236,0.04)";
+      }
       return "rgba(243,242,236,0.14)";
     })
     .linkWidth(function (l) {
@@ -109,6 +118,13 @@
   Graph.d3Force("charge").strength(-42);
 
   /* ---------- selection ---------- */
+  function clearLit() {
+    if (!litCats.size) return;
+    litCats.clear();
+    document.querySelectorAll("#chips .chip.lit").forEach(function (c) { c.classList.remove("lit"); });
+    restyle();
+  }
+
   function restyle() {
     Graph.nodeColor(Graph.nodeColor());
     Graph.linkColor(Graph.linkColor());
@@ -256,17 +272,18 @@
   var cats = Object.keys(DATA.meta.categories).sort(function (a, b) {
     return DATA.meta.categories[b] - DATA.meta.categories[a];
   });
+  /* Chips highlight rather than filter: clicking one lights its nodes in accent
+     and dims the rest. Nothing is ever hidden, so the graph never loses its shape. */
   chipsEl.innerHTML = cats.map(function (c) {
-    return '<span class="chip on" data-cat="' + c + '">' + c + " " + DATA.meta.categories[c] + "</span>";
+    return '<span class="chip" data-cat="' + c + '">' + c + " " + DATA.meta.categories[c] + "</span>";
   }).join("");
   chipsEl.addEventListener("click", function (e) {
     var chip = e.target.closest(".chip");
     if (!chip) return;
     var c = chip.dataset.cat;
-    if (hiddenCats.has(c)) { hiddenCats.delete(c); chip.classList.add("on"); }
-    else { hiddenCats.delete(c); hiddenCats.add(c); chip.classList.remove("on"); }
-    Graph.nodeVisibility(Graph.nodeVisibility());
-    Graph.linkVisibility(Graph.linkVisibility());
+    if (litCats.has(c)) { litCats.delete(c); chip.classList.remove("lit"); }
+    else { litCats.add(c); chip.classList.add("lit"); }
+    restyle();
   });
 
   /* ---------- stats ---------- */
@@ -307,6 +324,8 @@
   }
 
   if (KIOSK) {
+    /* Embedded in the deck, which draws its own 4-corner L-frame around us. */
+    document.body.classList.add("kiosk");
     document.getElementById("hint").textContent = "touch to explore the brain";
 
     var TOUR = [
@@ -378,7 +397,7 @@
 
     window.addEventListener("message", function (e) {
       var t = e.data && e.data.type;
-      if (t === "brain-kiosk-start") { interacted = false; deselect(); startTour(); }
+      if (t === "brain-kiosk-start") { interacted = false; clearLit(); deselect(); startTour(); }
       else if (t === "brain-kiosk-stop") { stopTour(); deselect(); }
       else if (t === "brain-pause") { paused = true; Graph.pauseAnimation(); }
       else if (t === "brain-resume") {
