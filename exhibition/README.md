@@ -12,8 +12,16 @@
 > and it resumes presenting when idle. **It is the site homepage**, deployed at
 > [ofa5406.github.io/wolfsburg](https://ofa5406.github.io/wolfsburg/).
 >
-> **To run it on the exhibition PC:** open `deck/index.html` full-screen (F11, or launch
-> Chrome with `--kiosk`), and turn screen-sleep off.
+> **To run it on the exhibition PC:** double-click **`deck/start-exhibition.cmd`**. It
+> starts a tiny local web server and opens the deck fullscreen in Chrome kiosk mode,
+> fully offline. To quit: `Alt+F4`, then close the small server window it leaves behind.
+> **Turn screen-sleep off** first (Settings → Power, or `powercfg`), or the loop will
+> sleep during the show.
+>
+> ⚠ **Do not just double-click `deck/index.html`.** Opening it as a file (`file://`) leaves
+> the map/hub embeds (2.1, 5.4, 6.x) blank — browsers refuse to load their ES-module
+> bundles over `file://`. The deck must be *served over http://*, which the `.cmd` (or the
+> deployed URL) does. Needs Python 3 installed (for the built-in `http.server`).
 >
 > The page-by-page spec is **[`PRESENTATION-OUTLINE.md`](PRESENTATION-OUTLINE.md)**.
 >
