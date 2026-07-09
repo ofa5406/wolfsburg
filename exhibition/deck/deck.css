@@ -336,8 +336,13 @@ body.on-dark .deck-nav:hover svg { stroke: var(--ink); }
   width: 100%;
   gap: clamp(8px, 1.2vh, 14px);
 }
+/* 4.1 — Integrated / Accessible / Social carry the slide; give them display weight */
 #s7 .cap-title {
-  font-size: var(--t-h3);
+  font-size: clamp(1.5rem, 2.4vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin-bottom: 2px;
 }
 #s7 .cap-desc {
   font-size: clamp(1rem, 1.4vw, 1.22rem);
@@ -381,6 +386,9 @@ body.on-dark .deck-nav:hover svg { stroke: var(--ink); }
 .t3 .t3-left { flex: 1 1 40%; min-width: 0; display: flex; flex-direction: column; justify-content: center; max-width: 30em; padding: clamp(8px,2vh,30px) 0; }
 .t3 .t3-kicker { font-size: var(--t-kicker); font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-45); margin-bottom: 18px; min-height: 1em; }
 .t3 .t3-index { font-size: var(--t-index); font-weight: 700; line-height: 0.9; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; margin-bottom: 8px; }
+/* 5.4 and 6.5 drop the oversized 01/02/03 numeral. The elements stay in the DOM
+   because deck.js writes the current section number into them on every change. */
+#s13h .t3-index, #s17f .t3-index { display: none; }
 .t3 .t3-title { font-size: var(--t-h-sm); font-weight: 700; line-height: 1.05; letter-spacing: -0.015em; margin-bottom: 22px; }
 .t3 .t3-desc { font-size: var(--t-body); font-weight: 300; line-height: 1.5; color: var(--ink-70); min-height: 4.5em; }
 .t3 .t3-meta { margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--line); display: flex; gap: 30px; }
@@ -635,6 +643,31 @@ body.on-dark .blist li b { color: var(--on-dark); }
 .tstate-list .p { position: relative; padding-left: 26px; font-size: var(--t-cap); color: var(--ink-70); line-height: 1.4; }
 .tstate-list .p b { color: var(--ink); font-weight: 700; }
 .tstate-list .p .num { position: absolute; left: 0; top: 0; font-weight: 800; color: var(--accent); font-size: var(--t-cap); }
+
+/* 4.4 — the six principles read as one horizontal band along the foot of the
+   page, so the statement above them stays the only centred thing. */
+#s10 .tstate-inner { max-width: none; }
+#s10 .tstate-list {
+  position: absolute; left: 0; right: 0;
+  /* clear the discover-mode up/down buttons, which reach ~38px into the stage */
+  bottom: 54px;
+  margin: 0;
+  grid-template-columns: repeat(6, 1fr);
+  gap: clamp(14px, 1.8vw, 34px);
+  max-width: none;
+}
+#s10 .tstate-list .p {
+  padding-left: 0;
+  font-size: clamp(0.86rem, 1.02vw, 1.08rem);
+  line-height: 1.45;
+  border-top: 2px solid var(--ink);
+  padding-top: 12px;
+}
+#s10 .tstate-list .p .num {
+  position: static; display: block;
+  font-size: clamp(1rem, 1.25vw, 1.35rem);
+  margin-bottom: 6px;
+}
 
 /* ═══════════════════════════════════════════════════════════
    T-STAGE-COLUMN — vertical centred content (strategy / SAE reuse)
