@@ -541,6 +541,106 @@
   })();
 
   /* ══════════════════════════════════════════════════════
+     5.2 — traffic arcs between the S / M / L hub dots.
+     All six ordered pairs (3! ) fire on a staggered loop, so two or three
+     arcs are in flight at once. A forward pair arcs over the axis, its
+     reverse arcs under it. Faint accent, painted beneath the text.
+  ══════════════════════════════════════════════════════ */
+  var smlArcs = (function () {
+    var canvas = document.getElementById("sml-arcs");
+    if (!canvas) return { start: function () {}, stop: function () {} };
+    var g = canvas.getContext("2d");
+    var host = canvas.parentNode;              /* .sml */
+    var raf = 0, t0 = 0, pts = null, L = null;
+
+    /* interleaved so a pair and its reverse are never adjacent in time */
+    var PAIRS = [[0, 1], [1, 2], [0, 2], [1, 0], [2, 1], [2, 0]];
+    var STAGGER = 750;                          /* ms between launches */
+    var TRAVEL  = 1900;                         /* ms for one arc to cross */
+    var CYCLE   = PAIRS.length * STAGGER + TRAVEL;
+
+    function layout() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var W = host.clientWidth, H = host.clientHeight;
+      if (!W || !H) return false;
+      canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+      g.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var hr = host.getBoundingClientRect();
+      /* the dots are .sml-node::before — 13px, left:0, top:30% of the node,
+         pulled up by half its height. Pseudo-elements have no rect, so derive it. */
+      pts = $all("#s12 .sml-node").map(function (n) {
+        var r = n.getBoundingClientRect();
+        return { x: r.left - hr.left + 6.5, y: r.top - hr.top + r.height * 0.30 };
+      });
+      L = { W: W, H: H };
+      return pts.length === 3;
+    }
+
+    function bez(p0, c, p1, t) {
+      var u = 1 - t;
+      return { x: u * u * p0.x + 2 * u * t * c.x + t * t * p1.x,
+               y: u * u * p0.y + 2 * u * t * c.y + t * t * p1.y };
+    }
+
+    function drawArc(a, b, over, prog) {
+      var mid = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+      /* apex scales with span but is capped so the widest pair (S..L) still
+         stays on canvas; near pairs get a taller-feeling curve, far pairs flatter */
+      var span = Math.abs(b.x - a.x);
+      var apex = Math.min(Math.max(40, span * 0.22), (over ? mid.y - 30 : L.H - mid.y - 30)) * (over ? -1 : 1);
+      /* a quadratic reaches only half its control offset at t=0.5 */
+      var c = { x: mid.x, y: mid.y + apex * 2 };
+
+      g.beginPath();
+      for (var i = 0, p; i <= 40; i++) {
+        p = bez(a, c, b, (i / 40) * prog);
+        if (i === 0) g.moveTo(p.x, p.y); else g.lineTo(p.x, p.y);
+      }
+      g.strokeStyle = "rgba(232,80,10,0.28)";
+      g.lineWidth = 1.6;
+      g.stroke();
+
+      var head = bez(a, c, b, prog);
+      var back = bez(a, c, b, Math.max(0, prog - 0.02));
+      g.save();
+      g.translate(head.x, head.y);
+      g.rotate(Math.atan2(head.y - back.y, head.x - back.x));
+      g.fillStyle = "rgba(232,80,10,0.60)";
+      g.beginPath(); g.moveTo(0, 0); g.lineTo(-9, -4.2); g.lineTo(-9, 4.2); g.closePath(); g.fill();
+      g.restore();
+    }
+
+    function frame() {
+      if (!pts || !L) { raf = 0; return; }
+      var tc = (now() - t0) % CYCLE;
+      g.clearRect(0, 0, L.W, L.H);
+      PAIRS.forEach(function (pr, k) {
+        var local = tc - k * STAGGER;
+        if (local < 0 || local > TRAVEL) return;
+        var t = local / TRAVEL;
+        var e = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+        drawArc(pts[pr[0]], pts[pr[1]], pr[0] < pr[1], Math.max(0.001, e));
+      });
+      raf = requestAnimationFrame(frame);
+    }
+
+    window.addEventListener("resize", function () { if (raf) layout(); });
+
+    return {
+      start: function () {
+        this.stop();
+        if (!layout()) return;
+        t0 = now();
+        raf = requestAnimationFrame(frame);
+      },
+      stop: function () {
+        if (raf) { cancelAnimationFrame(raf); raf = 0; }
+        if (L) g.clearRect(0, 0, L.W, L.H);
+      }
+    };
+  })();
+
+  /* ══════════════════════════════════════════════════════
      THE SLIDES  (DOM order s1 … s24)
   ══════════════════════════════════════════════════════ */
   var SLIDES = [
@@ -643,7 +743,16 @@
     /* 5.1 strategy */
     txtSlide("s11", { tw: { id: "tw-11", spec: TXT.tw11 }, step: 440, hold: 3600 }),
     /* 5.2 hub system — S/M/L */
-    txtSlide("s12", { step: 520, hold: 3800 }),
+    { el: $("#s12"), dark: false,
+      play: async function (ctx) {
+        var t0 = now();
+        await revealSeq("#s12", ctx, 520);
+        smlArcs.start();                       /* runs until the slide is left */
+        await sleep(restHold("s12", 3800, t0), ctx);
+      },
+      complete: function () { reveals("#s12", true); smlArcs.start(); },
+      reset: function () { reveals("#s12", false); smlArcs.stop(); }
+    },
     /* 5.3 connections */
     txtSlide("s13", { step: 360, hold: 3800 }),
     /* 5.4 hub placement — live map, real tool component */
@@ -836,6 +945,7 @@
     if (i === MAP_I) armMap(); else if (gallery) gallery.classList.remove("activated");
     if (i === HP_I) armHpMap(); else if (hpGallery) hpGallery.classList.remove("activated");
     if (i === FLEET_I) armFleetMap(); else if (fleetGallery) fleetGallery.classList.remove("activated");
+    if (SLIDES[i].el && SLIDES[i].el.id !== "s12") smlArcs.stop();
     hubScenesReset();
   }
 
