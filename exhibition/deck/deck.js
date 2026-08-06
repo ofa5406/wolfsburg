@@ -2,11 +2,11 @@
    deck.js — <stadt.hub> exhibition engine.
 
    Vertical fullpage deck (one slide / 100vh; one wheel/key/swipe =
-   one page, eased + snapped). Auto-plays on load and loops; the
-   Present button toggles the auto-run and RESUMES FROM THE CURRENT
-   slide. Any input hands control to the visitor (Discover); idle
-   resumes Presenting from the same slide; on the live tool slides a
-   longer idle restarts the whole loop fresh.
+   one page, eased + snapped). MANUAL: it opens paused on the title
+   and never advances on its own. The Present button starts/resumes
+   the auto-run FROM THE CURRENT slide and, clicked again, pauses
+   there; the run stops on the last slide. Any input hands control to
+   the visitor (Discover) but never triggers an auto-resume.
 
    All prose is typed live. Interactive embeds (the maps, the hub
    viewer, the brain graph) are CLICK-TO-ACTIVATE: until clicked they
@@ -19,8 +19,6 @@
 (function () {
   "use strict";
 
-  var IDLE_RESUME_MS = 15000;
-  var HUB_RESTART_MS = 30000;
   var PAGE_MS = 900;
   var WHEEL_COOLDOWN = 950;
   var SWIPE_MIN = 45;
@@ -1060,19 +1058,7 @@
       }
     }
     if (ctx.cancelled) return;
-    loopRestart();
-  }
-  function loopRestart() {
-    gen++;
-    hubSend("hub-kiosk-stop"); hubClear();
-    brainSend("brain-kiosk-stop"); brainClear();
-    clearAmbients();
-    SLIDES.forEach(function (s, i) { s.reset(); resetHook(i); });
-    baSliders.forEach(baReset);
-    framesResetAll();
-    setModeUI(true);
-    place(0);
-    present(0);
+    MODE = "discover"; gen++; setModeUI(false);   // reached the end — stop, stay on last slide
   }
 
   /* ══════════════════════════════════════════════════════
@@ -1106,9 +1092,15 @@
     else if (e.key === "ArrowUp" || e.key === "PageUp") { e.preventDefault(); navGesture(-1); }
     else { onInput(); }
   });
-  window.addEventListener("pointerdown", function () { onInput(); }, { passive: true });
+  window.addEventListener("pointerdown", function (e) {
+    if (e.target.closest && e.target.closest("#present-btn")) return;   // let the button run its own toggle
+    onInput();
+  }, { passive: true });
   var touchY = null;
-  window.addEventListener("touchstart", function (e) { touchY = e.touches[0].clientY; onInput(); }, { passive: true });
+  window.addEventListener("touchstart", function (e) {
+    if (e.target.closest && e.target.closest("#present-btn")) return;
+    touchY = e.touches[0].clientY; onInput();
+  }, { passive: true });
   window.addEventListener("touchend", function (e) {
     if (touchY === null) return;
     var dy = touchY - (e.changedTouches[0] ? e.changedTouches[0].clientY : touchY);
@@ -1126,23 +1118,13 @@
     else { setModeUI(true); present(idx); }          // resume from CURRENT slide
   });
 
-  setInterval(function () {
-    if (MODE !== "discover") return;
-    var onLiveTool = (idx === HUB_I || idx === BRAIN_I);
-    var limit = onLiveTool ? HUB_RESTART_MS : IDLE_RESUME_MS;
-    if (now() - lastInput < limit) return;
-    if (onLiveTool) loopRestart();
-    else { setModeUI(true); present(idx); }
-  }, 1000);
-
   /* ══════════════════════════════════════════════════════
      BOOT
   ══════════════════════════════════════════════════════ */
   function boot() {
-    place(0); setModeUI(true);
+    place(0); setModeUI(false); completeCurrent();   // sit paused on the title, fully shown
     var b = document.getElementById("boot");
     setTimeout(function () { b.classList.add("gone"); }, 650);
-    setTimeout(function () { present(0); }, 950);
   }
   boot();
 })();
