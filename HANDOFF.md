@@ -63,18 +63,25 @@ None of the seven proof deliverables are produced yet. In rough priority:
     package is built and verified at `final submission/`; the hand-in is
     uploading that folder to Nextcloud `02_StadtHub/`
     (https://nextcloud.uni-weimar.de/s/FWbp8dKzAFt4AZ8, password `xAqeqpSzPt`).
-    **What is blocked on the team, not on the build:**
-    - `final submission/materials/` — printed posters, boards, plans as PDF
-      (300 dpi here, web-resolution copies in `site/materials/`)
-    - `final submission/exhibition/` — photographs of the Summaery installation
+    **Structure:** `site/index.html` is the deck; `map/`, `brain/` and
+    `hub-viewer/` each stand alone (the studio requires the last two to be
+    reachable without the slideshow); `site/embeds/` holds the deck-internal
+    embeds. **`open-offline.cmd` / `.sh` at the top of `site/` and `site/map/`** —
+    double-clicking `index.html` leaves every Vite-built embed blank, because
+    browsers refuse ES modules over `file://`; the launchers serve the folder.
+    **What is still blocked on the team:**
+    - `final submission/exhibition/` — photographs of the Summaery installation,
+      and of the physical model if one was built
     - `final submission/raw/` — `wolfsburg_masterplan.3dm` and `toolpalette.3dm`
-      (**not in the repo at all**), plus photographs of the physical model
-    - `final submission/README.md` — a contact email that outlives graduation,
-      and the **sources/licences of the historical photographs** in
-      `assets/history/`
+      (**not in the repo at all**)
+    - `final submission/README.md` — the **sources/licences of the historical
+      photographs** in `assets/history/`, the one remaining Credits gap
+    Done: printed material placed (`prepare-materials.py` → `materials/` at print
+    resolution, `site/materials/` at 150 dpi), `raw/` filled from the repo,
+    contact email set.
     After adding files, re-run in order: `build-site.mjs` → `downsize-media.mjs`
-    → `verify-offline.mjs`. Do **not** hand-edit `site/`; it is rebuilt from
-    scratch each time.
+    → `build-submission.mjs` → `verify-offline.mjs`. Do **not** hand-edit
+    `site/`; it is rebuilt from scratch each time.
     Also open: the activity-map snapshots are committed on branch
     `offline-archive-2026-08-13` but **not pushed** — 65 MB to a teammate's
     repo, needs a decision. And `exhibition copy/` is a 196 MB stale duplicate,

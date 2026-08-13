@@ -100,15 +100,62 @@ Also passing: all 21 referenced snapshots present with data; 75 local references
 match real files case-included; no absolute asset paths; `.nojekyll` present; no
 Git LFS; `site/` **248 MB** (limit 1 GB), largest file 14 MB (limit 100 MB).
 
+## Second pass, same day — the double-click bug, restructure, prints
+
+**İrem reported the maps and embeds not working. He was right, and my first
+verification had measured the wrong thing** — it only ever tested the *served*
+case. Measured properly:
+
+| Opened as `file://` | Result |
+|---|---|
+| Deck | Prose and images fine, **all 11 embeds blank** |
+| Activity map | **Completely blank page** |
+| Brain, hub-viewer | Work (classic scripts, not ES modules) |
+
+Chrome refuses ES modules and stylesheets over `file://`, so everything Vite
+builds dies. `exhibition/deck/start-exhibition.cmd` existed for exactly this and
+**was never copied into `site/`**.
+
+- **Launchers.** `launchers/open-offline.{cmd,sh}` serve the folder they sit in;
+  copied into `site/` (8777) and `site/map/` (8778) so both can run at once. The
+  README now opens with how to open the folder and why double-clicking will not
+  do. All six served paths return 200.
+- **`site/embeds/`** now holds `mapembed`, `hpmapembed`, `fleetembed`,
+  `hubembed` — 9 iframe sources rewritten. **`brain/` and `hub-viewer/` stayed at
+  top level**: the studio requires those two reachable on their own. Re-probed —
+  all 11 embeds still render from the new location.
+- **The activity map stands alone** — its own `README.md` (sections, data
+  provenance, the OSM snapshots, rebuilding, and how the live version deployed
+  vs this relative-base build) and its own launcher.
+- **`verify-offline.mjs` gained a `file://` pass**, so the gap between served and
+  double-clicked is reported rather than rediscovered; and it now waits for video
+  `readyState` instead of a fixed sleep (`hero2.mp4` was intermittently
+  misreported — the file is byte-identical to the original and fine).
+- **The exhibition prints are in** (`prepare-materials.py`, sources in
+  `D:\ıudd\prompt city\exhibition`): `graphic-and-content.pdf` (9 boards at A2)
+  and `before-after.pdf` (8 sheets at A3) at print resolution in `materials/`,
+  150 dpi copies in `site/materials/` (12.4 → 7.1 MB; the A3 set was already
+  web-sized). The web version recompresses the images *inside* the PDF rather
+  than rasterising it — `graphic-and-content.pdf` has 16 font objects, and
+  flattening would lose all 4,354 characters of selectable text. Verified pages,
+  dimensions and text all survive. The 14 source images went to
+  `raw/exhibition-prints/`.
+- **`raw/` filled** from the repo: full-resolution charts, source videos,
+  exhibition photographs, cycling survey material.
+- **`_guidelines/` untracked** — the studio's document, not ours to redistribute.
+  Files remain on disk.
+
+**Package now:** `site/` 261 MB · `source/` 364 MB · `raw/` 241 MB ·
+`materials/` 19 MB — **898 MB total**. Served run clean on all four pieces.
+
 ## Open threads / unfinished
 
-- **`materials/` and `exhibition/` are empty.** They need the printed
-  posters/boards, photographs of the Summaery installation, and photographs of
-  the physical model. *"If it was in the exhibition and is not in your folder,
-  it is gone."*
-- **README has two gaps**, both deliberately marked rather than hidden: a
-  contact email that outlives graduation, and the **sources/licences of the
-  historical photographs** in `assets/history/`.
+- **`exhibition/` is still empty** — photographs of the Summaery installation,
+  and of the physical model if one was built. *"If it was in the exhibition and
+  is not in your folder, it is gone."* (`materials/` is now filled.)
+- **README has one gap left**, deliberately marked rather than hidden: the
+  **sources/licences of the historical photographs** in `assets/history/`.
+  (Contact email resolved: om.fa.aslan@gmail.com.)
 - **`raw/` needs the Rhino files** — `wolfsburg_masterplan.3dm` and
   `toolpalette.3dm` are not in the repo at all.
 - **The activity-map snapshots are committed locally but not pushed** — 65 MB to
