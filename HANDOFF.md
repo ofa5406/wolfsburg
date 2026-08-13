@@ -63,6 +63,11 @@ None of the seven proof deliverables are produced yet. In rough priority:
     package is built and verified at `final submission/`; the hand-in is
     uploading that folder to Nextcloud `02_StadtHub/`
     (https://nextcloud.uni-weimar.de/s/FWbp8dKzAFt4AZ8, password `xAqeqpSzPt`).
+    **`final submission/` is pure output** — it holds exactly the six entries
+    Nextcloud expects (`site source materials exhibition raw README.md`), so
+    "upload everything in it" is correct. The tooling lives in
+    **`submission-tools/`** at the repo root (see its README) and is copied into
+    `source/build/`. **Never hand-edit `site/`** — it is rebuilt from scratch.
     **Structure:** `site/index.html` is the deck; `map/`, `brain/` and
     `hub-viewer/` each stand alone (the studio requires the last two to be
     reachable without the slideshow); `site/embeds/` holds the deck-internal
@@ -74,14 +79,20 @@ None of the seven proof deliverables are produced yet. In rough priority:
       and of the physical model if one was built
     - `final submission/raw/` — `wolfsburg_masterplan.3dm` and `toolpalette.3dm`
       (**not in the repo at all**)
-    - `final submission/README.md` — the **sources/licences of the historical
-      photographs** in `assets/history/`, the one remaining Credits gap
-    Done: printed material placed (`prepare-materials.py` → `materials/` at print
-    resolution, `site/materials/` at 150 dpi), `raw/` filled from the repo,
-    contact email set.
+    Done: printed material placed (`graphic-and-content.pdf` 9×A2 and
+    `before-after.pdf` 8×A3 — print resolution in `materials/`, 150 dpi in
+    `site/materials/`), `raw/` filled, contact email set, and **every one of the
+    15 sourced photographs credited** with its licence status stated openly
+    (permission is *not* cleared for the archive/press images or anything from
+    Google Earth — flagged for InfAU in the README).
     After adding files, re-run in order: `build-site.mjs` → `downsize-media.mjs`
-    → `build-submission.mjs` → `verify-offline.mjs`. Do **not** hand-edit
-    `site/`; it is rebuilt from scratch each time.
+    → `build-submission.mjs` → `check-upload-shape.mjs` → `check-credits.mjs` →
+    `verify-offline.mjs`.
+    ⚠ **The activity-map offline work is unpushed.** Branch
+    `offline-archive-2026-08-13` (Overpass→snapshots, local basemap/glyphs, 65 MB
+    of data) exists **only on this laptop** — the copy in `source/` is
+    gitignored. Left local by decision, since it is a large addition to a
+    teammate's repo. Revisit.
     Also open: the activity-map snapshots are committed on branch
     `offline-archive-2026-08-13` but **not pushed** — 65 MB to a teammate's
     repo, needs a decision. And `exhibition copy/` is a 196 MB stale duplicate,

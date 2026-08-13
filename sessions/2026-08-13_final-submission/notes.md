@@ -148,14 +148,81 @@ builds dies. `exhibition/deck/start-exhibition.cmd` existed for exactly this and
 **Package now:** `site/` 261 MB · `source/` 364 MB · `raw/` 241 MB ·
 `materials/` 19 MB — **898 MB total**. Served run clean on all four pieces.
 
+## Third pass — credits, and separating the tooling from the upload
+
+**Image credits.** `image-credits.xlsx` (supplied by İrem, revised once during the
+session) maps exactly onto the files: all 9 in `assets/history/`, all 6 in
+`assets/today/`, no misses. The README's `TO FILL IN` placeholder is gone,
+replaced by per-image tables in three groups:
+
+- **Historical** — Wikipedia (castle, Aller ×2), postautomation.de (the 1938
+  construction set ×3), automotivehistory.org, NDR, visual-history.de.
+- **Contemporary** — Heidersberger archive, Braunschweiger Zeitung, three Google
+  Earth views, and `storage-2` credited to Ömer Faruk Aslan.
+- **Team-produced** — the hub visualisations and diagrammatic aerials, credited
+  as the team's own work made by **AI manipulation and Photoshop editing of
+  Google Earth base aerials**. Stated rather than omitted: the method is the
+  studio's subject.
+
+Licence position written plainly — **permission is not cleared** for the archive
+and press photographs or for anything derived from Google Earth, with a sentence
+naming what InfAU would have to clear or replace first. This is a real exposure,
+not a formality, since the university becomes the publisher. The brief's own
+line covers it: *"an honest gap is workable, a silent one is not."*
+
+**The upload shape — İrem caught this.** The brief says the Nextcloud folder is
+fixed: *"Do not create new ones — upload into the existing structure."*
+`final submission/` was also carrying nine scripts, `launchers/`,
+`materials-web/`, `map-README.md`, the credits spreadsheet and the studio's own
+brief. Uploading the folder would have scattered all of it across the top of
+`02_StadtHub/`.
+
+The package is now **pure output** — exactly `site/ source/ materials/
+exhibition/ raw/ README.md` — and the tooling lives in **`submission-tools/`**
+at the repo root. `build-submission.mjs` copies it to `source/build/`, since the
+brief asks `source/` to include the scripts; keeping the canonical copy outside
+the package means regenerating `source/` cannot destroy the scripts that build
+it, which nearly happened earlier when I deleted that folder by hand.
+`paths.mjs` is now the single place that knows where anything is — that is what
+made moving nine scripts safe, since each had derived its own paths differently.
+
+Two new guards so neither point can regress quietly:
+- `check-upload-shape.mjs` — the root must hold only those six entries.
+- `check-credits.mjs` — every sourced photograph named in the README, and no
+  `TO FILL IN` / `TODO` left behind.
+
+The studio's brief moved to `briefs/infau-final-submission/` — alongside the
+other briefs, and not uploaded back to them. `visuals/` added to `source/`,
+since `image-prompts.md` records how the AI imagery was made.
+
+**Final state of the checks:**
+
+```
+upload shape    exactly six entries
+credits         15 photographs credited, no placeholders
+snapshots       every referenced snapshot present with data
+filename case   75 references match, case included
+offline         PASS — nothing reaches the network, nothing 404s
+embeds          all 11 rendering inside the deck
+README          identical in site/ and at the folder root
+```
+
+`site/` 261 MB · `source/` 379 MB · `raw/` 241 MB · `materials/` 19 MB —
+**899 MB total.**
+
 ## Open threads / unfinished
 
 - **`exhibition/` is still empty** — photographs of the Summaery installation,
   and of the physical model if one was built. *"If it was in the exhibition and
   is not in your folder, it is gone."* (`materials/` is now filled.)
-- **README has one gap left**, deliberately marked rather than hidden: the
-  **sources/licences of the historical photographs** in `assets/history/`.
-  (Contact email resolved: om.fa.aslan@gmail.com.)
+- **`raw/` still needs the two Rhino files** — `wolfsburg_masterplan.3dm` and
+  `toolpalette.3dm` are not in the repository at all.
+- ⚠ **The activity-map offline work is on this laptop only.** Branch
+  `offline-archive-2026-08-13` holds four commits — the Overpass→snapshot
+  conversion, the local basemap/glyphs, and the 65 MB of captured data — and is
+  **not pushed**, by decision (it is a large addition to a teammate's repo). The
+  copy inside `final submission/source/` is gitignored, so **there is no backup
+  of this work off this machine.** Worth revisiting once the team agrees.
 - **`raw/` needs the Rhino files** — `wolfsburg_masterplan.3dm` and
   `toolpalette.3dm` are not in the repo at all.
 - **The activity-map snapshots are committed locally but not pushed** — 65 MB to
@@ -167,9 +234,16 @@ builds dies. `exhibition/deck/start-exhibition.cmd` existed for exactly this and
 
 ## Next session — start here
 
-1. Drop the photographs and printed materials into `final submission/materials/`
-   and `final submission/exhibition/`, then re-run `build-site.mjs` →
-   `downsize-media.mjs` → `verify-offline.mjs`.
-2. Fill the two README gaps (contact email, historic photo credits).
-3. Upload to Nextcloud `02_StadtHub/` — the folder is the hand-in.
-4. Then the competition sheets, if they are still being attempted.
+1. **Upload `final submission/` to Nextcloud `02_StadtHub/`** — that upload *is*
+   the hand-in, and it is due **14 August**. The folder now contains exactly the
+   six entries expected, so "upload everything in it" is correct.
+2. Add the **exhibition photographs** to `exhibition/` and the two **Rhino
+   `.3dm` files** to `raw/` if they can be found before uploading. Neither
+   blocks the rest.
+3. After adding anything, re-run in order — never hand-edit `site/`:
+   `build-site.mjs` → `downsize-media.mjs` → `build-submission.mjs` →
+   `check-upload-shape.mjs` → `check-credits.mjs` → `verify-offline.mjs`.
+   See `submission-tools/README.md`.
+4. Decide whether to push branch `offline-archive-2026-08-13` to the activity-map
+   repo — currently the only copy of that work is on this laptop.
+5. Then the Wolfsburg Award sheets (Aug 16), which do not exist yet.

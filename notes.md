@@ -5,6 +5,29 @@ Newest entries at the top. Add freely — this is a scratchpad, not a formal doc
 
 ---
 
+## 2026-08-13 — things worth remembering from the submission build
+
+- **"Works offline" and "works when double-clicked" are different tests.** The
+  package passed every served check while every embed was blank on a
+  double-click. Browsers refuse ES modules over `file://`, so anything Vite
+  builds needs an actual server. The launchers exist for this; the deck's old
+  `start-exhibition.cmd` had solved it once already and the lesson was lost when
+  the file was not carried over.
+- **The permissions question is real, not paperwork.** The university becomes the
+  publisher, so the archive/press photographs and the Google Earth views are an
+  actual exposure. They are credited with permission marked *not cleared*, and
+  the README names them as what to clear or replace first. If anyone follows up,
+  the cheapest fix is replacing the two press images and re-shooting the Google
+  Earth views from an openly licensed source.
+- **Three deliverables, three different things.** InfAU final submission (Aug 14,
+  graded, Nextcloud folder) · Wolfsburg Award (Aug 16, A1/A0 sheets, **still does
+  not exist**) · the live site. Easy to conflate; they have almost nothing in
+  common except the content.
+- The activity map's data is now a **captured snapshot**, not a live query. That
+  makes it reproducible and immune to Overpass changing — but it also means the
+  numbers are frozen at 13 Aug 2026. Re-run `capture_osm_snapshots.mjs` to
+  refresh.
+
 ## 2026-07-07 — Full 24-page exhibition presentation built + deployed
 
 Refined + completed the outline (`exhibition/PRESENTATION-OUTLINE.md`), then grew
