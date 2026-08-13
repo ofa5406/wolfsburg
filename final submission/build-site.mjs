@@ -29,7 +29,12 @@ const VIDEOS = ['hero1.mp4', 'hero2.mp4', 'hero3.mp4']
 
 // Deck files that make up the presentation itself.
 const DECK_FILES = ['index.html', 'deck.css', 'deck.js', 'typewriter.js']
-const DECK_DIRS = ['assets', 'hubembed']
+const DECK_DIRS = ['assets']
+
+// Everything that is only ever opened inside the deck lives under embeds/.
+// brain/ and hub-viewer/ deliberately do NOT: the studio requires those two to
+// be reachable as their own pages, for someone who never opens the slideshow.
+const EMBEDS_DIR = 'embeds'
 
 // The three map embeds are rebuilt from the activity-map source rather than
 // copied: the versions committed in exhibition/deck/ predate the offline work
@@ -41,14 +46,22 @@ const EMBED_BUILDS = [
   { config: 'vite.fleetview.config.js',    out: 'fleetembed', entry: 'fleetview.html' },
 ]
 
-// index.html rewrites: the deck reaches out of its folder with ../../ and
-// links to three github.io/github.com URLs. Inside site/ everything it needs
-// is a sibling, and the rules forbid hard-coded hostnames in our own links.
+// hubembed is copied rather than built — its source is the snapshot kept in
+// exhibition/deck/hubembed/_source/, not a config in the activity map.
+const EMBED_COPY = ['hubembed']
+
+// index.html rewrites: the deck reaches out of its folder with ../../, points
+// its iframes at embed folders that have moved, and links to three
+// github.io/github.com URLs. Inside site/ everything it needs is local, and the
+// rules forbid hard-coded hostnames in our own links.
 const REWRITES = [
   [/\.\.\/\.\.\/charts\//g, 'assets/charts/'],
   [/\.\.\/\.\.\/videos\//g, 'assets/videos/'],
   [/\.\.\/\.\.\/brain\/web\//g, 'brain/'],
   [/\.\.\/\.\.\/hub-viewer\//g, 'hub-viewer/'],
+  // Deck-internal embeds moved into embeds/. Anchored to src=" so it cannot
+  // touch brain/ or hub-viewer/, which stay where they are.
+  [/src="(mapembed|hpmapembed|fleetembed|hubembed)\//g, `src="${EMBEDS_DIR}/$1/`],
 ]
 
 // The closing slide's three QR tiles pointed at two GitHub accounts and a
@@ -119,8 +132,9 @@ for (const f of VIDEOS) {
 // GeoJSON and a 7.5 MB video — into every embed. Three embeds of that is over
 // 300 MB of data none of them fully uses, so each is pruned to the files its
 // own bundle actually names.
-console.log('\nmap embeds ->  site/  (rebuilt from source, then pruned)')
+console.log(`\nmap embeds ->  site/${EMBEDS_DIR}/  (rebuilt from source, then pruned)`)
 const MAP_SRC = join(ROOT, 'wolfsburg-activity-map')
+await mkdir(join(SITE, EMBEDS_DIR), { recursive: true })
 
 async function pruneEmbed(dir) {
   const bundles = (await readdir(join(dir, 'assets')))
@@ -162,14 +176,17 @@ async function pruneEmbed(dir) {
 }
 
 for (const { config, out, entry } of EMBED_BUILDS) {
-  const target = join(SITE, out)
+  const target = join(SITE, EMBEDS_DIR, out)
   // shell:true re-splits the argument list, and this path contains a space
   // ("final submission"), so the target has to be quoted explicitly.
   execFileSync('npx', ['vite', 'build', '--config', config, '--outDir', `"${target}"`, '--emptyOutDir'],
     { cwd: MAP_SRC, stdio: 'pipe', shell: true })
   if (entry !== 'index.html') await rename(join(target, entry), join(target, 'index.html'))
   const { removed, freed } = await pruneEmbed(target)
-  console.log(`  ${out}/  (from ${config}; pruned ${removed} unused files, ${(freed / 1024 / 1024).toFixed(0)} MB)`)
+  console.log(`  ${EMBEDS_DIR}/${out}/  (from ${config}; pruned ${removed} unused files, ${(freed / 1024 / 1024).toFixed(0)} MB)`)
+}
+for (const d of EMBED_COPY) {
+  await copyInto(join(ROOT, 'exhibition/deck', d), join(SITE, EMBEDS_DIR, d), `${EMBEDS_DIR}/${d}/`)
 }
 
 // ── 3. The other three pieces, each standing on its own ─────────────────────
@@ -234,6 +251,28 @@ console.log('wrote presentation/index.html  (redirects to the deck)')
 
 await mkdir(join(SITE, 'materials'), { recursive: true })
 console.log('created materials/  (posters and boards go here)')
+
+// ── 6b. Launchers, so the folder opens without a terminal ───────────────────
+// Opening index.html directly leaves every Vite-built embed blank — browsers
+// refuse ES modules over file://. These serve the folder they sit in. The map
+// gets its own pair so it can be opened without going through the deck; the
+// ports differ so both can run at once.
+console.log('\nlaunchers')
+const LAUNCHERS = join(ROOT, 'final submission', 'launchers')
+for (const [dest, port] of [[SITE, 8777], [join(SITE, 'map'), 8778]]) {
+  for (const name of ['open-offline.cmd', 'open-offline.sh']) {
+    const template = await readFile(join(LAUNCHERS, name), 'utf8')
+    await writeFile(join(dest, name), template.replaceAll('__PORT__', String(port)))
+  }
+  console.log(`  ${dest === SITE ? 'site/' : 'site/map/'}  (port ${port})`)
+}
+
+// ── 6c. The activity map explains itself as its own piece ───────────────────
+const MAP_README = join(ROOT, 'final submission', 'map-README.md')
+if (await exists(MAP_README)) {
+  await cp(MAP_README, join(SITE, 'map', 'README.md'))
+  console.log('copied README.md into site/map/')
+}
 
 // ── 7. The README lives beside this script so a rebuild cannot lose it ──────
 const README = join(ROOT, 'final submission', 'README.md')

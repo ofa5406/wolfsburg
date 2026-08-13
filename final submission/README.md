@@ -4,7 +4,27 @@ Prompt City. Urban Vision Wolfsburg 2026 — Design studio SoSe 2026
 Bauhaus-Universität Weimar, InfAU
 
 **Team:** Ömer Faruk Aslan · Anastasiia Mulyndina · Başak Pınar
-**Contact:** <one email that will still work after graduation — TO FILL IN>
+**Contact:** om.fa.aslan@gmail.com
+
+---
+
+## Open this folder
+
+Double-click **`open-offline.cmd`** (Windows) or run **`./open-offline.sh`**
+(macOS/Linux). It serves this folder and opens it in your browser. No internet
+required.
+
+> **Do not open `index.html` by double-clicking.** The presentation's text will
+> appear but every map and 3D view will be blank, and the Activity Map will not
+> load at all. They are ES-module bundles, and browsers refuse to load those from
+> a `file://` page. This is a browser restriction, not a fault in the files —
+> serving the folder over `http://` is what makes them work.
+
+Any static server does the job:
+
+```
+python -m http.server 8777      # then open http://localhost:8777
+```
 
 ## Abstract
 
@@ -75,25 +95,22 @@ with the site is already geocoded and unaffected.
 ## Contents
 
 - `index.html` — the exhibition presentation (the project itself)
+- `open-offline.cmd` · `open-offline.sh` — serve and open this folder
+- `map/` — **Wolfsburg Activity Map**, the spatial analysis platform. Stands on
+  its own, with its own README and launcher.
+- `brain/` — **Project Brain**, the 3D knowledge graph. Own page.
+- `hub-viewer/` — **Hub Viewer**, the 3D hub element configurator. Own page.
+- `embeds/` — the map, hub-placement, fleet and hub-typology views the
+  presentation embeds. Only ever opened inside it; not meant to be browsed
+  directly.
 - `presentation/` — points at the presentation
-- `map/` — Wolfsburg Activity Map, the spatial analysis platform
-- `brain/` — Project Brain, the 3D knowledge graph
-- `hub-viewer/` — Hub Viewer, the 3D hub element configurator
 - `materials/` — posters, boards and plans as web-resolution PDF
 - `assets/` — images, video and data, all local
 
 ## How to run it
 
-Static — serve the folder and open it. It must be *served*, not opened as a file:
-the embedded map, hub and brain modules are ES modules, which browsers refuse to
-load over `file://`.
-
-```
-cd site
-python -m http.server 8000      # then open http://localhost:8000
-```
-
-`start-exhibition.cmd` does the same on Windows and opens Chrome in kiosk mode.
+Static — see **Open this folder** at the top. Nothing to install, no build step
+to run, no server software beyond a plain static file server.
 
 **Rebuilding.** The presentation, brain and hub-viewer are plain HTML/CSS/JS with
 no build step — edit and reload. The Activity Map is a Vite app; from its source

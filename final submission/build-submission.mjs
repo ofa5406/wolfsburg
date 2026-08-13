@@ -54,6 +54,21 @@ for (const f of ['build-site.mjs', 'downsize-media.mjs', 'build-submission.mjs']
 }
 console.log('  build-site.mjs, downsize-media.mjs, build-submission.mjs')
 
+// ── raw/ — the originals that the site only carries downsized ──────────────
+// site/ ships 2000 px / q80 images; these are what they were made from, plus
+// the source photographs and survey material too large to belong in a website.
+console.log('\nraw/  (originals — site/ carries downsized versions)')
+const RAW = join(HERE, 'raw')
+await mkdir(RAW, { recursive: true })
+
+const RAW_SOURCES = [
+  [join(ROOT, 'charts'), join(RAW, 'charts'), 'charts/  (full-resolution charts + masterplans)'],
+  [join(ROOT, 'videos'), join(RAW, 'videos'), 'videos/  (source hero videos)'],
+  [join(ROOT, 'exhibition/visual content'), join(RAW, 'exhibition-photographs'), 'exhibition-photographs/  (source photographs)'],
+  [join(ROOT, 'wolfsburg-activity-map/cycle paths'), join(RAW, 'cycle-paths'), 'cycle-paths/  (cycling survey material)'],
+]
+for (const [from, to, label] of RAW_SOURCES) await copyInto(from, to, label)
+
 // ── The folders that need files from outside this repo ─────────────────────
 const NOTES = {
   materials: `# materials/
@@ -80,20 +95,19 @@ Nothing is here yet. What belongs:
 `,
   raw: `# raw/
 
-Originals too large or too high-resolution for the site.
+Originals too large or too high-resolution for the site. \`site/\` carries
+2000 px / quality-80 versions of these.
 
-Already available in the repo but NOT yet copied here (they are large):
-- \`charts/\` — full-resolution chart and masterplan images; \`site/\` carries
-  2000 px / q80 versions of the five it uses
+Copied here by \`build-submission.mjs\`:
+- \`charts/\` — full-resolution charts and masterplan images
 - \`videos/\` — the three hero videos at source resolution
-- \`exhibition/visual content/\` — the source photographs
-- \`wolfsburg-activity-map/cycle paths/\` — 8.8 MB of cycling survey material
+- \`exhibition-photographs/\` — the source photographs used across the deck
+- \`cycle-paths/\` — cycling survey material
 
-Still to add from outside the repo:
+Still to add from outside the repository:
 - \`wolfsburg_masterplan.3dm\` and \`toolpalette.3dm\` — the Rhino models. Neither
-  is in the repository; they are the source of the hub viewer and the masterplan
-  drawings and should be archived here.
-- master video files, if any exist above the versions in \`site/\`
+  is in the repository; they are the source of the hub viewer and of the
+  masterplan drawings, and should be archived here.
 - photographs of the physical competition model
 `,
 }

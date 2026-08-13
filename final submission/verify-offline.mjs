@@ -14,7 +14,7 @@
 import { createServer } from 'node:http'
 import { readFile, stat } from 'node:fs/promises'
 import { join, extname, dirname, normalize, sep } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 import { createRequire } from 'node:module'
 
 const HERE = dirname(fileURLToPath(import.meta.url))
@@ -189,12 +189,20 @@ for (const page of PAGES) {
       .map(i => i.getAttribute('src'))
   ).catch(() => [])
 
-  // Videos that never got far enough to have any decoded data.
-  const deadVideos = await tab.evaluate(() =>
-    [...document.querySelectorAll('video')]
-      .filter(v => v.readyState < 2 || !isFinite(v.duration) || v.duration === 0)
-      .map(v => v.currentSrc || v.getAttribute('src') || '(no src)')
-  ).catch(() => [])
+  // Videos that never got far enough to have any decoded data. Several 8 MB
+  // files load at once, so give them a bounded chance to buffer rather than
+  // judging them on a fixed sleep — otherwise whichever one finishes last is
+  // intermittently reported as broken.
+  const deadVideos = await tab.evaluate(async () => {
+    const vids = [...document.querySelectorAll('video')]
+    if (!vids.length) return []
+    const ready = (v) => v.readyState >= 2 && isFinite(v.duration) && v.duration > 0
+    const deadline = Date.now() + 15000
+    while (Date.now() < deadline && !vids.every(ready)) {
+      await new Promise(r => setTimeout(r, 500))
+    }
+    return vids.filter(v => !ready(v)).map(v => v.currentSrc || v.getAttribute('src') || '(no src)')
+  }).catch(() => [])
 
   const problems = errors.length + external.length + failed.length + brokenImages.length + deadVideos.length
   totalProblems += problems
@@ -216,8 +224,54 @@ for (const page of PAGES) {
   await ctx.close()
 }
 
+console.log(`\n${totalProblems === 0 ? 'PASS — nothing reaches the network, nothing 404s.' : `${totalProblems} problem(s) to fix.`}`)
+
+// ── Second pass: what a double-click actually gives you ─────────────────────
+// Browsers refuse ES modules and stylesheets over file://, so the Vite-built
+// pieces cannot work that way. This is a browser restriction, not a defect —
+// the guidelines say as much ("serving it locally is the check that counts").
+// It is measured and printed so nobody has to rediscover it, and so a
+// regression in the *served* case is never mistaken for this known limit.
+console.log('\n── double-click (file://) — expected to be worse; launchers exist for this ──')
+
+const SITE_DIR = join(HERE, 'site')
+const FILE_TARGETS = [
+  ['deck', join(SITE_DIR, 'index.html')],
+  ['activity map', join(SITE_DIR, 'map', 'index.html')],
+  ['brain', join(SITE_DIR, 'brain', 'index.html')],
+  ['hub-viewer', join(SITE_DIR, 'hub-viewer', 'index.html')],
+]
+
+for (const [name, path] of FILE_TARGETS) {
+  const ctx = await browser.newContext({ viewport: { width: 1400, height: 900 } })
+  const tab = await ctx.newPage()
+  await tab.goto(pathToFileURL(path).href, { waitUntil: 'domcontentloaded' }).catch(() => {})
+  await tab.waitForTimeout(6000)
+
+  const state = await tab.evaluate(() => {
+    const frames = [...document.querySelectorAll('iframe')]
+    const blank = frames.filter(f => {
+      const d = f.contentDocument
+      return !d || (!d.querySelector('canvas') && !d.querySelector('svg') && (d.body?.children.length ?? 0) < 2)
+    }).length
+    return {
+      alive: document.querySelectorAll('canvas').length > 0
+        || document.querySelectorAll('svg').length > 0
+        || (document.body.innerText || '').trim().length > 200,
+      frames: frames.length,
+      blank,
+    }
+  }).catch(() => ({ alive: false, frames: 0, blank: 0 }))
+
+  const note = state.frames
+    ? `${state.blank}/${state.frames} embeds blank`
+    : (state.alive ? 'renders' : 'BLANK PAGE')
+  console.log(`  ${name.padEnd(14)} ${state.alive ? 'page loads' : 'does not load'} — ${note}`)
+  await ctx.close()
+}
+console.log('  (use open-offline.cmd / .sh, or serve the folder — see README)')
+
 await browser.close()
 server.close()
 
-console.log(`\n${totalProblems === 0 ? 'PASS — nothing reaches the network, nothing 404s.' : `${totalProblems} problem(s) to fix.`}`)
 process.exit(totalProblems === 0 ? 0 : 1)
