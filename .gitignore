@@ -20,6 +20,9 @@ final submission/materials/*
 final submission/exhibition/*
 !final submission/exhibition/README.md
 
+# The studio's own brief — their document, not ours to redistribute.
+final submission/_guidelines/
+
 # Python
 __pycache__/
 *.pyc

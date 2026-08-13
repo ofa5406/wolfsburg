@@ -104,7 +104,9 @@ with the site is already geocoded and unaffected.
   presentation embeds. Only ever opened inside it; not meant to be browsed
   directly.
 - `presentation/` — points at the presentation
-- `materials/` — posters, boards and plans as web-resolution PDF
+- `materials/` — the printed exhibition work, at web resolution:
+  - `graphic-and-content.pdf` — 9 boards at A2, the exhibition graphics and text
+  - `before-after.pdf` — 8 sheets at A3, before/after views of the hub sites
 - `assets/` — images, video and data, all local
 
 ## How to run it

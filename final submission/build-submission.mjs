@@ -73,15 +73,18 @@ for (const [from, to, label] of RAW_SOURCES) await copyInto(from, to, label)
 const NOTES = {
   materials: `# materials/
 
-Print-resolution (300 dpi or better) posters, boards, brochures, plans and
-drawings. The web-resolution copies of the same files go in \`site/materials/\`.
+The printed exhibition work, at print resolution. The 150 dpi copies of the same
+files are in \`site/materials/\`; both are produced by \`prepare-materials.py\`.
 
-Nothing is here yet. What belongs:
-- any printed sheets or boards shown at the Summaery exhibition
-- the plan drawings and hub typology sheets, exported to PDF
-- anything that exists only on paper, scanned at 300 dpi, straight-on, evenly lit
+- \`graphic-and-content.pdf\` — 9 boards at A2 (594 x 420 mm), the exhibition
+  graphics and text. 12.4 MB; the web copy is 7.1 MB.
+- \`before-after.pdf\` — 8 sheets at A3 (420 x 297 mm), before/after views of the
+  hub sites. 6.0 MB; already web-sized, so the web copy is identical.
 
-If it was in the exhibition and is not in this folder, it is gone.
+The source images behind the before/after sheets are in
+\`raw/exhibition-prints/before-after-images/\`.
+
+Still missing: photographs of the physical competition model, if one was built.
 `,
   exhibition: `# exhibition/
 

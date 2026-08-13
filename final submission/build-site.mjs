@@ -249,8 +249,18 @@ await writeFile(join(SITE, 'presentation', 'index.html'), `<!doctype html>
 `)
 console.log('wrote presentation/index.html  (redirects to the deck)')
 
+// ── 6a. Printed material, at web resolution ─────────────────────────────────
+// The print-resolution originals live in final submission/materials/ and go to
+// Nextcloud; these are the 150 dpi versions made by prepare-materials.py.
 await mkdir(join(SITE, 'materials'), { recursive: true })
-console.log('created materials/  (posters and boards go here)')
+const MATERIALS_WEB = join(ROOT, 'final submission', 'materials-web')
+if (await exists(MATERIALS_WEB)) {
+  const files = (await readdir(MATERIALS_WEB)).filter(f => !f.startsWith('.'))
+  for (const f of files) await cp(join(MATERIALS_WEB, f), join(SITE, 'materials', f))
+  console.log(`materials/  (${files.length} web-resolution file(s): ${files.join(', ')})`)
+} else {
+  console.log('created materials/  (empty — run prepare-materials.py to fill it)')
+}
 
 // ── 6b. Launchers, so the folder opens without a terminal ───────────────────
 // Opening index.html directly leaves every Vite-built embed blank — browsers
