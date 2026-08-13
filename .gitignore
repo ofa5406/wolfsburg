@@ -7,6 +7,19 @@ dist/
 build/
 .vite/
 
+# The InfAU submission package is assembled by its scripts, not tracked:
+# site/ and source/ are ~850 MB of copied and built output. The scripts that
+# produce them, and the notes for the folders needing files from elsewhere,
+# are tracked.
+final submission/site/
+final submission/source/
+final submission/raw/*
+!final submission/raw/README.md
+final submission/materials/*
+!final submission/materials/README.md
+final submission/exhibition/*
+!final submission/exhibition/README.md
+
 # Python
 __pycache__/
 *.pyc
