@@ -7,7 +7,7 @@
 //
 // Run from the project root:  node "final submission/build-site.mjs"
 
-import { cp, mkdir, rm, writeFile, readFile, stat, rename } from 'node:fs/promises'
+import { cp, mkdir, rm, writeFile, readFile, stat, rename, readdir } from 'node:fs/promises'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { execFileSync } from 'node:child_process'
@@ -115,14 +115,61 @@ for (const f of VIDEOS) {
 }
 
 // ── 2b. Rebuild the map embeds from the offline-capable source ──────────────
-console.log('\nmap embeds ->  site/  (rebuilt from source)')
+// Each build copies the whole of public/ — 65 MB of OSM snapshots, 38 MB of
+// GeoJSON and a 7.5 MB video — into every embed. Three embeds of that is over
+// 300 MB of data none of them fully uses, so each is pruned to the files its
+// own bundle actually names.
+console.log('\nmap embeds ->  site/  (rebuilt from source, then pruned)')
 const MAP_SRC = join(ROOT, 'wolfsburg-activity-map')
+
+async function pruneEmbed(dir) {
+  const bundles = (await readdir(join(dir, 'assets')))
+    .filter(f => f.endsWith('.js'))
+  let code = ''
+  for (const b of bundles) code += await readFile(join(dir, 'assets', b), 'utf8')
+
+  let removed = 0
+  let freed = 0
+
+  // Snapshot names are assembled at runtime (`${BASE}osm/${name}.json`), so
+  // keep a snapshot only if its bare name appears as a literal in the bundle.
+  const osmDir = join(dir, 'osm')
+  for (const f of await readdir(osmDir).catch(() => [])) {
+    const name = f.replace(/\.json$/, '')
+    if (code.includes(`"${name}"`) || code.includes(`'${name}'`)) continue
+    freed += (await stat(join(osmDir, f))).size
+    await rm(join(osmDir, f))
+    removed++
+  }
+
+  // Same test for the GeoJSON layers, which are fetched by full filename.
+  for (const f of await readdir(dir)) {
+    if (!f.endsWith('.geojson')) continue
+    if (code.includes(f)) continue
+    freed += (await stat(join(dir, f))).size
+    await rm(join(dir, f))
+    removed++
+  }
+
+  // The presentation video belongs to the standalone map, not to an embed.
+  const video = join(dir, 'Video')
+  if (await exists(video)) {
+    await rm(video, { recursive: true })
+    removed++
+  }
+
+  return { removed, freed }
+}
+
 for (const { config, out, entry } of EMBED_BUILDS) {
   const target = join(SITE, out)
-  execFileSync('npx', ['vite', 'build', '--config', config, '--outDir', target, '--emptyOutDir'],
+  // shell:true re-splits the argument list, and this path contains a space
+  // ("final submission"), so the target has to be quoted explicitly.
+  execFileSync('npx', ['vite', 'build', '--config', config, '--outDir', `"${target}"`, '--emptyOutDir'],
     { cwd: MAP_SRC, stdio: 'pipe', shell: true })
   if (entry !== 'index.html') await rename(join(target, entry), join(target, 'index.html'))
-  console.log(`  ${out}/  (from ${config})`)
+  const { removed, freed } = await pruneEmbed(target)
+  console.log(`  ${out}/  (from ${config}; pruned ${removed} unused files, ${(freed / 1024 / 1024).toFixed(0)} MB)`)
 }
 
 // ── 3. The other three pieces, each standing on its own ─────────────────────
@@ -187,5 +234,14 @@ console.log('wrote presentation/index.html  (redirects to the deck)')
 
 await mkdir(join(SITE, 'materials'), { recursive: true })
 console.log('created materials/  (posters and boards go here)')
+
+// ── 7. The README lives beside this script so a rebuild cannot lose it ──────
+const README = join(ROOT, 'final submission', 'README.md')
+if (await exists(README)) {
+  await cp(README, join(SITE, 'README.md'))
+  console.log('copied README.md into site/')
+} else {
+  console.log('!! final submission/README.md missing — site/ has no README')
+}
 
 console.log('\nDone.')
