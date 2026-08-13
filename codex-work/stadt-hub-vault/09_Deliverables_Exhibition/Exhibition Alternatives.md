@@ -4,8 +4,6 @@ type: "deliverable-history"
 status: "generated"
 confidence: "high"
 source_path:
-  - "D:\vibe_lab\wolfsburg\exhibition\alt-1-stations\concept.md"
-  - "D:\vibe_lab\wolfsburg\exhibition\alt-2-parking-space\concept.md"
   - "D:\vibe_lab\wolfsburg\exhibition\README.md"
 tags:
   - "exhibition"

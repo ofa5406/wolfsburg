@@ -93,7 +93,6 @@ This note indexes non-note assets and code-adjacent materials. It does not copy 
 
 - `exhibition/deck/index.html` (8.5 KB)
 - `exhibition/deck/mapembed/index.html` (0.5 KB)
-- `exhibition/index.html` (12.3 KB)
 - `exhibition/kiosk/index.html` (13.8 KB)
 - `final-presentation/index.html` (56.4 KB)
 - `hub-viewer/index.html` (38.0 KB)

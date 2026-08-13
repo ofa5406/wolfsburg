@@ -29,26 +29,10 @@
 > - **`kiosk/`** — an earlier 11-beat take that `deck/` replaced. Do not run it. It stays
 >   only because `deck/` slide 1.3 still borrows two images from `kiosk/assets/`; deleting
 >   the folder would break the deck.
-> - **`alt-1-stations/` · `alt-2-parking-space/`** — the pre-2026-07-06 multi-station
->   concepts, from before the pool granted only a single screen. Reference only.
 
 ### History — 2026-07-06 pivot to one screen
-The pool granted the team **a single screen**, superseding the two multi-station
-alternatives (Alt 1 / Alt 2) below. Those docs are kept for reference and for the shared
-copy they contain.
-
-## The two alternatives
-
-| | **Alt 1 — Station constellation** | **Alt 2 — One Parking Space (purified)** |
-|---|---|---|
-| Idea | Stations (loop screen, 3D hub, personas, projection) orbit a taped, projected-on parking space | The taped 5.0 × 2.5 m space is **the entire exhibit** — furnished as reclaimed street: café table + chairs, pots, bike, chalk drawings, one screen. Everything fits inside |
-| Equipment | 2 PCs + TV + tablet + projector | 1 screen + 1 PC + 1 tablet (no projector) |
-| Effort risk | Tech (projector grant, kiosk babysitting) | Logistics (furniture sourcing, chalk management) |
-| Visitor role | Watch → explore → act | **Sit inside the argument** from second one |
-| Folder | [`alt-1-stations/`](alt-1-stations/) | [`alt-2-parking-space/`](alt-2-parking-space/) |
-
-**Combo option:** Alt 2's furnished space + Alt 1's projector cycle aimed at the chalk
-field for the Summaery evenings — the maximal version if the pool grants everything.
+The pool granted the team **a single screen**, superseding two earlier multi-station
+exhibition concepts. `deck/` is the concept that replaced them.
 
 ## Contents
 
@@ -56,16 +40,10 @@ field for the Summaery evenings — the maximal version if the pool grants every
 |------|-----------|
 | [`deck/`](deck/) | **The exhibit.** Self-running 24-slide deck (`index.html` + `deck.js` + `deck.css`), with embedded map/hub/brain modules under `deck/*embed/`. Page spec in `PRESENTATION-OUTLINE.md`. |
 | `kiosk/` | Superseded 11-beat predecessor. Do not run. Keep — 1.3 borrows two of its images. |
-| `alt-1-stations/concept.md` · `draft-content.md` · `production-checklist.md` | Superseded multi-station concept, all copy, build plan |
-| `alt-2-parking-space/concept.md` · `draft-content.md` · `production-checklist.md` | The purified single-space concept, its manifest/menu/label copy, build plan |
-| [`diagrams/`](diagrams/) | Shared SVGs: 01 layout (Alt 1) · 02 legibility ladder · 03 equipment tiers (Alt 1) · 04 loop storyboard · 05 dot-matrix cards · 06 projection setup (Alt 1) · **07 furnishing plan (Alt 2)** · **08 fit manifest (Alt 2)** |
-| [`index.html`](index.html) | Visual concept page presenting both alternatives (auto-deploys at `/wolfsburg/exhibition/` after merge to `main`; root presentation untouched) |
+| [`diagrams/`](diagrams/) | Shared SVGs: 01 layout · 02 legibility ladder · 03 equipment tiers · 04 loop storyboard · 05 dot-matrix cards · 06 projection setup · 07 furnishing plan · 08 fit manifest |
 
-## Shared foundation (used by both alternatives)
+## Shared design foundation
 
-- **60-Second City loop** — storyboard in `alt-1-stations/draft-content.md` §2
-- **Dot-matrix card series + persona tickets** — copy in `alt-1-stations/draft-content.md` §4–5
-- **Title wall** — §1 (Alt 2 adds one line)
 - **Accent colour `#E8500A`** — validated (contrast + CVD) on the deck's light and dark surfaces
 
 ## ⚠️ Before printing anything

@@ -79,6 +79,7 @@
   <button id="btn-people">People: Off</button>
   <button id="btn-trees">Trees: Solid</button>
   <button id="reset">Reset view</button>
+  <button id="btn-export" title="Save the current view as a transparent PNG">⤓ PNG</button>
 </div>
 <div id="loading">Loading model…</div>
 
@@ -103,7 +104,7 @@
 
   var W=window.innerWidth, H=window.innerHeight;
   var app=document.getElementById('app');
-  var renderer=new THREE.WebGLRenderer({antialias:true});
+  var renderer=new THREE.WebGLRenderer({antialias:true, alpha:true, preserveDrawingBuffer:true});
   renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
   renderer.setSize(W,H);
   renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
@@ -432,6 +433,23 @@
 
   // ----- reset -----
   document.getElementById('reset').addEventListener('click', function(){ activate(activeTabIdx); });
+
+  // ----- export current view as a transparent PNG -----
+  document.getElementById('btn-export').addEventListener('click', function(){
+    var prevBg=scene.background;
+    scene.background=null;                 // drop the solid backdrop
+    renderer.setClearColor(0x000000, 0);   // clear to fully transparent
+    renderer.render(scene, activeCam);     // one render straight into the buffer we capture
+    renderer.domElement.toBlob(function(blob){
+      scene.background=prevBg;             // restore the on-screen look
+      if(!blob){ return; }
+      var url=URL.createObjectURL(blob);
+      var a=document.createElement('a');
+      a.href=url; a.download='wolfsburg-hub.png';
+      document.body.appendChild(a); a.click(); a.remove();
+      URL.revokeObjectURL(url);
+    }, 'image/png');
+  });
 
   // ----- hover -----
   var raycaster=new THREE.Raycaster(), mouse=new THREE.Vector2();
