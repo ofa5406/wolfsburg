@@ -8,16 +8,14 @@
 // Run:  node "final submission/check-snapshots.mjs"
 
 import { readdir, readFile, stat } from 'node:fs/promises'
-import { join, dirname, extname } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { join, extname } from 'node:path'
+import { PROJECT as ROOT, SITE } from './paths.mjs'
 
-const HERE = dirname(fileURLToPath(import.meta.url))
-const ROOT = join(HERE, '..')
 const SRC = join(ROOT, 'wolfsburg-activity-map', 'src')
 
 const LOCATIONS = [
   { label: 'source  public/osm', dir: join(ROOT, 'wolfsburg-activity-map', 'public', 'osm') },
-  { label: 'built   site/map/osm', dir: join(HERE, 'site', 'map', 'osm') },
+  { label: 'built   site/map/osm', dir: join(SITE, 'map', 'osm') },
 ]
 
 async function* walk(dir) {

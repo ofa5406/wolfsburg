@@ -10,9 +10,8 @@
 
 import { readdir, readFile, stat } from 'node:fs/promises'
 import { join, dirname, resolve, sep } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { SITE } from './paths.mjs'
 
-const SITE = join(dirname(fileURLToPath(import.meta.url)), 'site')
 
 async function* walk(dir) {
   for (const entry of await readdir(dir, { withFileTypes: true })) {

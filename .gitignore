@@ -7,21 +7,12 @@ dist/
 build/
 .vite/
 
-# The InfAU submission package is assembled by its scripts, not tracked:
-# site/ and source/ are ~850 MB of copied and built output. The scripts that
-# produce them, and the notes for the folders needing files from elsewhere,
-# are tracked.
-final submission/site/
-final submission/source/
-final submission/raw/*
-!final submission/raw/README.md
-final submission/materials/*
-!final submission/materials/README.md
-final submission/exhibition/*
-!final submission/exhibition/README.md
-
-# The studio's own brief — their document, not ours to redistribute.
-final submission/_guidelines/
+# The InfAU submission package is pure build output — ~900 MB of copied,
+# built and downsized files, and exactly what gets uploaded to Nextcloud.
+# The tooling that produces it lives in submission-tools/ and IS tracked,
+# including materials-web/ so site/materials/ can be rebuilt from this repo
+# alone. The studio's brief is in briefs/infau-final-submission/.
+final submission/
 
 # Python
 __pycache__/

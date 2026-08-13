@@ -8,11 +8,9 @@
 // Run after build-site.mjs:  node "final submission/build-submission.mjs"
 
 import { cp, mkdir, writeFile, readFile, stat } from 'node:fs/promises'
-import { join, dirname } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { join } from 'node:path'
+import { PROJECT as ROOT, SUBMISSION as HERE, SOURCE, RAW, TOOLS, SUBMISSION_README } from './paths.mjs'
 
-const HERE = dirname(fileURLToPath(import.meta.url))
-const ROOT = join(HERE, '..')
 
 // Everything the site was built from. Excludes build output and dependencies —
 // those are regenerated, not archived.
@@ -31,7 +29,7 @@ async function copyInto(from, to, label) {
 
 // ── source/ — what the site was built from ─────────────────────────────────
 console.log('source/')
-const SOURCE = join(HERE, 'source')
+
 await mkdir(SOURCE, { recursive: true })
 
 await copyInto(join(ROOT, 'wolfsburg-activity-map'), join(SOURCE, 'wolfsburg-activity-map'),
@@ -46,19 +44,19 @@ await copyInto(join(ROOT, 'rhino'), join(SOURCE, 'rhino'),
   'rhino/  (Rhino bridge + kit-of-parts build script)')
 await copyInto(join(ROOT, 'final-presentation'), join(SOURCE, 'final-presentation'),
   'final-presentation/  (earlier scroll presentation)')
+await copyInto(join(ROOT, 'visuals'), join(SOURCE, 'visuals'),
+  'visuals/  (image prompt playbook — how the AI imagery was made)')
 
-// The two scripts that assemble the site belong with the source, since the
-// README tells a future reader to run them.
-for (const f of ['build-site.mjs', 'downsize-media.mjs', 'build-submission.mjs']) {
-  await cp(join(HERE, f), join(SOURCE, f))
-}
-console.log('  build-site.mjs, downsize-media.mjs, build-submission.mjs')
+// The build tooling belongs with the source: the brief asks for "anything that
+// never made it into the site: backend services, notebooks, scripts". The
+// canonical copy stays in submission-tools/, outside the package, so
+// regenerating source/ can never destroy the scripts that build it.
+await copyInto(TOOLS, join(SOURCE, 'build'), 'build/  (the scripts that assemble and check this package)')
 
 // ── raw/ — the originals that the site only carries downsized ──────────────
 // site/ ships 2000 px / q80 images; these are what they were made from, plus
 // the source photographs and survey material too large to belong in a website.
 console.log('\nraw/  (originals — site/ carries downsized versions)')
-const RAW = join(HERE, 'raw')
 await mkdir(RAW, { recursive: true })
 
 const RAW_SOURCES = [
@@ -124,12 +122,12 @@ for (const [name, note] of Object.entries(NOTES)) {
 }
 
 // ── README.md at the top of the folder, same file as site/README.md ────────
-const readme = join(HERE, 'site', 'README.md')
-if (await exists(readme)) {
-  await cp(readme, join(HERE, 'README.md'))
-  console.log('\nREADME.md  (copy of site/README.md, as required)')
+// Both come from the one canonical file, so they cannot drift apart.
+if (await exists(SUBMISSION_README)) {
+  await cp(SUBMISSION_README, join(HERE, 'README.md'))
+  console.log('\nREADME.md  (same file as site/README.md, as required)')
 } else {
-  console.log('\n!! site/README.md not found — run build-site.mjs first')
+  console.log('\n!! submission-tools/README-submission.md not found')
 }
 
 console.log('\nDone.')

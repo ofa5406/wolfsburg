@@ -23,12 +23,16 @@ try:
 except ImportError:
     sys.exit("PyMuPDF is required:  python -m pip install pymupdf")
 
-HERE = Path(__file__).parent
+TOOLS = Path(__file__).parent            # submission-tools/
+PROJECT = TOOLS.parent                   # the wolfsburg project
+SUBMISSION = PROJECT / "final submission"
+
+# Where the printed work was produced — outside this repo, in the studio folder.
 SRC = Path(r"D:\ıudd\prompt city\exhibition")
 
-MATERIALS = HERE / "materials"
-MATERIALS_WEB = HERE / "materials-web"
-RAW = HERE / "raw" / "exhibition-prints"
+MATERIALS = SUBMISSION / "materials"     # print resolution, uploaded to Nextcloud
+MATERIALS_WEB = TOOLS / "materials-web"  # 150 dpi, copied into site/ by build-site
+RAW = SUBMISSION / "raw" / "exhibition-prints"
 
 # Print PDFs: (source, destination name, one-line description for the README)
 PRINTS = [

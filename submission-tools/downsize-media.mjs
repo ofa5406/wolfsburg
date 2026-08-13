@@ -11,11 +11,10 @@
 // NODE_PATH at it, or run this from a folder that has it.
 
 import { readdir, stat, rename, unlink } from 'node:fs/promises'
-import { join, extname, dirname } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { join, extname } from 'node:path'
+import { SITE } from './paths.mjs'
 import sharp from 'sharp'
 
-const SITE = join(dirname(fileURLToPath(import.meta.url)), 'site')
 
 const MAX_EDGE = 2000
 const QUALITY = 80

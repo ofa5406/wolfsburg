@@ -5,15 +5,15 @@
 // works with no internet, from any address, and leaves the originals alone —
 // `exhibition/deck/` is still the live exhibition deck.
 //
-// Run from the project root:  node "final submission/build-site.mjs"
+// Run:  node submission-tools/build-site.mjs
 
 import { cp, mkdir, rm, writeFile, readFile, stat, rename, readdir } from 'node:fs/promises'
-import { join, dirname } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { join } from 'node:path'
 import { execFileSync } from 'node:child_process'
-
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
-const SITE = join(ROOT, 'final submission', 'site')
+import {
+  PROJECT as ROOT, SITE,
+  LAUNCHERS, MATERIALS_WEB, MAP_README, SUBMISSION_README,
+} from './paths.mjs'
 
 // The five chart images the deck actually references. The rest of charts/
 // (~120 MB) is working material and is not part of the site.
@@ -253,7 +253,6 @@ console.log('wrote presentation/index.html  (redirects to the deck)')
 // The print-resolution originals live in final submission/materials/ and go to
 // Nextcloud; these are the 150 dpi versions made by prepare-materials.py.
 await mkdir(join(SITE, 'materials'), { recursive: true })
-const MATERIALS_WEB = join(ROOT, 'final submission', 'materials-web')
 if (await exists(MATERIALS_WEB)) {
   const files = (await readdir(MATERIALS_WEB)).filter(f => !f.startsWith('.'))
   for (const f of files) await cp(join(MATERIALS_WEB, f), join(SITE, 'materials', f))
@@ -268,7 +267,6 @@ if (await exists(MATERIALS_WEB)) {
 // gets its own pair so it can be opened without going through the deck; the
 // ports differ so both can run at once.
 console.log('\nlaunchers')
-const LAUNCHERS = join(ROOT, 'final submission', 'launchers')
 for (const [dest, port] of [[SITE, 8777], [join(SITE, 'map'), 8778]]) {
   for (const name of ['open-offline.cmd', 'open-offline.sh']) {
     const template = await readFile(join(LAUNCHERS, name), 'utf8')
@@ -278,19 +276,18 @@ for (const [dest, port] of [[SITE, 8777], [join(SITE, 'map'), 8778]]) {
 }
 
 // ── 6c. The activity map explains itself as its own piece ───────────────────
-const MAP_README = join(ROOT, 'final submission', 'map-README.md')
 if (await exists(MAP_README)) {
   await cp(MAP_README, join(SITE, 'map', 'README.md'))
   console.log('copied README.md into site/map/')
 }
 
 // ── 7. The README lives beside this script so a rebuild cannot lose it ──────
-const README = join(ROOT, 'final submission', 'README.md')
+const README = SUBMISSION_README
 if (await exists(README)) {
   await cp(README, join(SITE, 'README.md'))
   console.log('copied README.md into site/')
 } else {
-  console.log('!! final submission/README.md missing — site/ has no README')
+  console.log('!! submission-tools/README-submission.md missing — site/ has no README')
 }
 
 console.log('\nDone.')

@@ -14,14 +14,14 @@
 import { createServer } from 'node:http'
 import { readFile, stat } from 'node:fs/promises'
 import { join, extname, dirname, normalize, sep } from 'node:path'
-import { fileURLToPath, pathToFileURL } from 'node:url'
+import { pathToFileURL } from 'node:url'
 import { createRequire } from 'node:module'
 
-const HERE = dirname(fileURLToPath(import.meta.url))
+import { PROJECT, SUBMISSION as HERE, SITE as SITE_DIR } from './paths.mjs'
 
 // playwright is a dependency of the activity map, not of this folder, so
 // resolve it from there rather than requiring an install alongside this script.
-const require = createRequire(join(HERE, '..', 'wolfsburg-activity-map', 'package.json'))
+const require = createRequire(join(PROJECT, 'wolfsburg-activity-map', 'package.json'))
 const { chromium } = require('playwright')
 const PORT = 8347
 const BASE = `http://127.0.0.1:${PORT}/site/`
@@ -234,7 +234,6 @@ console.log(`\n${totalProblems === 0 ? 'PASS — nothing reaches the network, no
 // regression in the *served* case is never mistaken for this known limit.
 console.log('\n── double-click (file://) — expected to be worse; launchers exist for this ──')
 
-const SITE_DIR = join(HERE, 'site')
 const FILE_TARGETS = [
   ['deck', join(SITE_DIR, 'index.html')],
   ['activity map', join(SITE_DIR, 'map', 'index.html')],
